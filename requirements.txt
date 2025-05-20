@@ -1,0 +1,23 @@
+azure-ai-inference~=1.0.0b8
+azure-ai-projects
+azure-search-documents>=11.5.2
+chainlit
+chromadb ~= 0.6.3
+ipykernel~=6.29.5
+mcp[cli]
+mistralai~=0.4.2
+openai
+pillow==11.0.0
+pydantic
+python-dotenv~=1.0.1
+semantic-kernel>=1.27.2
+semantic-kernel[azure]>=1.27.2
+semantic-kernel[mcp]>=1.27.2
+Flask==3.0.3
+Flask-SocketIO==5.4.1
+azure-cosmos==4.7.0
+azure-identity==1.19.0
+gunicorn==23.0.0
+eventlet==0.37.0
+python-dotenv==1.0.1
+azure-cognitiveservices-speech==1.34.0
