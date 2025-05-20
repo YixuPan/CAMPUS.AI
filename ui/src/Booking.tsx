@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '../src/components/VerticalMarquee.css';
 import './Booking.css';
@@ -242,6 +242,7 @@ const Booking: React.FC = () => {
   const [bookingType, setBookingType] = useState<'equipment' | 'room' | null>(null);
   const [searchQuery, setSearchQuery] = useState({ equipment: '', room: '' });
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const shouldUpdateRoomsRef = useRef(false);
   
   // Initialize with fake data
   useEffect(() => {
@@ -249,16 +250,19 @@ const Booking: React.FC = () => {
     setRooms(generateRooms());
   }, []);
   
-  // Simulate real-time updates by changing availability every 15 seconds
+  // Simulate real-time updates by changing availability every 15 seconds but with optimizations
   useEffect(() => {
     const simulateRealTimeUpdates = () => {
-      // Update some equipment items
+      // Use batch updates to prevent cascading renders
       setEquipment(prevEquipment => {
-        // Select a random item to toggle
-        const randomIndex = Math.floor(Math.random() * prevEquipment.length);
+        // Select a maximum of 2 random items to toggle
+        const updateCount = Math.min(2, Math.floor(prevEquipment.length / 10));
+        const indicesToUpdate = Array.from({length: updateCount}, () => 
+          Math.floor(Math.random() * prevEquipment.length)
+        );
         
         return prevEquipment.map((item, index) => {
-          if (index === randomIndex) {
+          if (indicesToUpdate.includes(index)) {
             // Toggle availability
             return { ...item, isAvailable: !item.isAvailable };
           }
@@ -266,23 +270,28 @@ const Booking: React.FC = () => {
         });
       });
       
-      // Update some room items
-      setRooms(prevRooms => {
-        // Select a random item to toggle
-        const randomIndex = Math.floor(Math.random() * prevRooms.length);
-        
-        return prevRooms.map((item, index) => {
-          if (index === randomIndex) {
-            // Toggle availability
-            return { ...item, isAvailable: !item.isAvailable };
-          }
-          return item;
+      // Toggle the boolean flag to control less frequent updates for rooms
+      shouldUpdateRoomsRef.current = !shouldUpdateRoomsRef.current;
+      
+      // Only update rooms when the flag is true (every other call)
+      if (shouldUpdateRoomsRef.current) {
+        setRooms(prevRooms => {
+          // Select only 1 random item to toggle
+          const randomIndex = Math.floor(Math.random() * prevRooms.length);
+          
+          return prevRooms.map((item, index) => {
+            if (index === randomIndex) {
+              // Toggle availability
+              return { ...item, isAvailable: !item.isAvailable };
+            }
+            return item;
+          });
         });
-      });
+      }
     };
     
-    // Run update every 15 seconds
-    const intervalId = setInterval(simulateRealTimeUpdates, 15000);
+    // Run update less frequently - every 30 seconds instead of 15
+    const intervalId = setInterval(simulateRealTimeUpdates, 30000);
     
     // Clean up interval on component unmount
     return () => clearInterval(intervalId);

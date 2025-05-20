@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo, useCallback } from 'react';
 import './magicui/marquee.css';
 
 // Item interfaces
@@ -83,10 +83,16 @@ const ResourceCard: React.FC<{
   columnIndex: number;
 }> = ({ item, onClick, isPaused, isSelected, columnIndex }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const lastMoveTime = useRef(0);
 
-  // Handle mouse move events to create the radial gradient effect
+  // Handle mouse move events to create the radial gradient effect - with throttling
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current || isSelected) return;
+    
+    // Throttle mouse move events to every 50ms
+    const now = Date.now();
+    if (now - lastMoveTime.current < 50) return;
+    lastMoveTime.current = now;
     
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -104,8 +110,8 @@ const ResourceCard: React.FC<{
     onClick(rect);
   };
 
-  // Determine icon based on type
-  const getIcon = () => {
+  // Determine icon based on type (memoize by caching the result)
+  const icon = useMemo(() => {
     if (item.type === 'equipment') {
       if (item.name.toLowerCase().includes('camera')) return '📷';
       if (item.name.toLowerCase().includes('ipad')) return '📱';
@@ -122,7 +128,7 @@ const ResourceCard: React.FC<{
     } else {
       return '🏢';
     }
-  };
+  }, [item.type, item.name]);
 
   // Determine gradient based on item type
   const gradientClass = item.type === 'equipment' 
@@ -155,6 +161,21 @@ const ResourceCard: React.FC<{
     zIndex: 2,
     transform: 'translateZ(1px)',
   };
+  
+  // Performance optimization: don't create new functions on each render
+  const handleMouseEnter = useCallback(() => {
+    if (cardRef.current && !isSelected) {
+      cardRef.current.style.transform = 'perspective(800px) rotateX(22deg) scale(1.08) translateZ(20px)';
+      cardRef.current.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.7), inset 0 3px 0 rgba(255, 255, 255, 0.3), inset 0 -15px 25px rgba(0, 0, 0, 0.6)';
+    }
+  }, [isSelected]);
+  
+  const handleMouseLeave = useCallback(() => {
+    if (cardRef.current && !isSelected) {
+      cardRef.current.style.transform = 'perspective(800px) rotateX(18deg)';
+      cardRef.current.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.3), inset 0 -12px 20px rgba(0, 0, 0, 0.5)';
+    }
+  }, [isSelected]);
 
   return (
     <div 
@@ -163,18 +184,8 @@ const ResourceCard: React.FC<{
       onClick={handleClick}
       onMouseMove={handleMouseMove}
       style={cardStyle}
-      onMouseEnter={() => {
-        if (cardRef.current && !isSelected) {
-          cardRef.current.style.transform = 'perspective(800px) rotateX(22deg) scale(1.08) translateZ(20px)';
-          cardRef.current.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.7), inset 0 3px 0 rgba(255, 255, 255, 0.3), inset 0 -15px 25px rgba(0, 0, 0, 0.6)';
-        }
-      }}
-      onMouseLeave={() => {
-        if (cardRef.current && !isSelected) {
-          cardRef.current.style.transform = 'perspective(800px) rotateX(18deg)';
-          cardRef.current.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.3), inset 0 -12px 20px rgba(0, 0, 0, 0.5)';
-        }
-      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {/* Front of card */}
       <div style={frontStyle}>
@@ -190,7 +201,7 @@ const ResourceCard: React.FC<{
             transform: 'translateZ(15px)',
             boxShadow: '0 8px 15px rgba(0, 0, 0, 0.4)'
           }}>
-            {getIcon()}
+            {icon}
           </div>
           <div className="flex flex-col" style={{ transform: 'translateZ(15px)' }}>
             <h3 className="text-base font-medium text-white">{item.name}</h3>
@@ -271,16 +282,25 @@ const VerticalMarquee = ({ children, duration, reverse = false, isPaused = false
   reverse?: boolean,
   isPaused?: boolean
 }) => {
-  const animationStyle = {
+  // Memoize the animation style to prevent recreation on every render
+  const animationStyle = useMemo(() => ({
     animation: isPaused 
       ? 'none' 
       : `scrollY ${duration} linear infinite ${reverse ? 'reverse' : ''}`,
     willChange: isPaused ? 'auto' : "transform",
     transition: "all 400ms ease",
-  };
+  }), [duration, isPaused, reverse]);
 
+  // Memoize the style setup
+  const containerStyle = useMemo(() => ({ 
+    height: "100%", 
+    overflow: "hidden", 
+    willChange: "contents" 
+  }), []);
+
+  // Use a static style tag instead of creating it on every render
   return (
-    <div className="marquee-vertical" style={{ height: "100%", overflow: "hidden", willChange: "contents" }}>
+    <div className="marquee-vertical" style={containerStyle}>
       <div style={animationStyle}>
         {children}
         {children}
@@ -311,72 +331,141 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
   const mainContainerRef = useRef<HTMLDivElement>(null);
   
   // If no items are provided, use mock data for testing
-  const displayItems = items && items.length > 0 ? items : createMockData();
+  const displayItems = useMemo(
+    () => items && items.length > 0 ? items : createMockData(),
+    [items]
+  );
   
-  // Split items for diversity
-  const equipmentItems = displayItems.filter(item => item.type === 'equipment');
-  const roomItems = displayItems.filter(item => item.type === 'room');
+  // Split items for diversity - only recompute when displayItems changes
+  const equipmentItems = useMemo(
+    () => displayItems.filter(item => item.type === 'equipment'),
+    [displayItems]
+  );
   
-  // Mix equipment and room items for visual interest
-  const mixedItems = [...displayItems].sort(() => Math.random() - 0.5);
+  const roomItems = useMemo(
+    () => displayItems.filter(item => item.type === 'room'),
+    [displayItems]
+  );
+  
+  // Mix equipment and room items for visual interest - memoize
+  const mixedItems = useMemo(
+    () => [...displayItems].sort(() => Math.random() - 0.5),
+    [displayItems]
+  );
   
   // Ensure we have enough items by repeating them if necessary
-  const ensureItems = (arr: MarqueeItem[], count: number): MarqueeItem[] => {
+  const ensureItems = useCallback((arr: MarqueeItem[], count: number): MarqueeItem[] => {
     if (arr.length >= count) return arr.slice(0, count);
     return [...arr, ...arr, ...arr].slice(0, count);
-  };
+  }, []);
   
   // Create 4 columns with good distribution of items
-  const column1 = ensureItems([...equipmentItems].sort(() => 0.5 - Math.random()), 8);
-  const column2 = ensureItems([...roomItems].sort(() => 0.5 - Math.random()), 8);
-  const column3 = ensureItems([...mixedItems].slice(0, 10).sort(() => 0.5 - Math.random()), 8);
-  const column4 = ensureItems([...mixedItems].slice(10, 20).sort(() => 0.5 - Math.random()), 8);
+  const column1 = useMemo(
+    () => ensureItems([...equipmentItems].sort(() => 0.5 - Math.random()), 8),
+    [equipmentItems, ensureItems]
+  );
+  
+  const column2 = useMemo(
+    () => ensureItems([...roomItems].sort(() => 0.5 - Math.random()), 8),
+    [roomItems, ensureItems]
+  );
+  
+  const column3 = useMemo(
+    () => ensureItems([...mixedItems].slice(0, 10).sort(() => 0.5 - Math.random()), 8),
+    [mixedItems, ensureItems]
+  );
+  
+  const column4 = useMemo(
+    () => ensureItems([...mixedItems].slice(10, 20).sort(() => 0.5 - Math.random()), 8),
+    [mixedItems, ensureItems]
+  );
 
   // Handle card click - pass position info to parent
-  const handleCardClick = (type: 'equipment' | 'room', item: Equipment | Room) => {
+  const handleCardClick = useCallback((type: 'equipment' | 'room', item: Equipment | Room) => {
     // Directly call onItemClick with the card's information
     onItemClick(type, item);
-  };
+  }, [onItemClick]);
+
+  // Memoize styles to prevent recreation on each render
+  const containerStyle = useMemo(() => ({
+    width: "100%",
+  }), []);
+
+  const perspectiveStyle = useMemo(() => ({
+    perspective: "600px",
+    height: "5200px",
+    width: "100%", 
+    maxWidth: "1300px",
+    margin: "0 auto",
+    position: "relative" as const,
+    transformStyle: "preserve-3d" as const,
+    willChange: isPaused ? "transform" : "auto",
+  }), [isPaused]);
+
+  const rotatedContainerStyle = useMemo(() => ({
+    position: "absolute" as const,
+    top: "0",
+    left: "0",
+    right: "0",
+    bottom: "0",
+    transform: "rotateX(42deg) translateY(-180px)",
+    transformStyle: "preserve-3d" as const,
+    transformOrigin: "center center"
+  }), []);
+
+  const columnLayoutStyle = useMemo(() => ({
+    display: "flex",
+    justifyContent: "center",
+    gap: "3rem",
+    height: "200%",
+    width: "100%"
+  }), []);
+
+  // Individual column styles
+  const column1Style = useMemo(() => ({ 
+    width: "220px", 
+    height: "100%", 
+    transform: "translateZ(20px)",
+    position: "relative" as const
+  }), []);
+
+  const column2Style = useMemo(() => ({ 
+    width: "220px", 
+    height: "100%", 
+    transform: "translateZ(10px)",
+    position: "relative" as const
+  }), []);
+
+  const column3Style = useMemo(() => ({ 
+    width: "220px", 
+    height: "100%", 
+    transform: "translateZ(0px)",
+    position: "relative" as const
+  }), []);
+
+  const column4Style = useMemo(() => ({ 
+    width: "220px", 
+    height: "100%", 
+    transform: "translateZ(-10px)",
+    position: "relative" as const
+  }), []);
+
+  // Slower animations for better performance
+  const duration1 = "90s";
+  const duration2 = "100s";
+  const duration3 = "110s";
+  const duration4 = "120s";
 
   // Simpler and more reliable approach to the 3D transform
   return (
-    <div className="marquee-3d-section" style={{ width: "100%" }} ref={mainContainerRef}>
-      <div style={{
-        perspective: "600px",
-        height: "5200px",
-        width: "100%", 
-        maxWidth: "1300px",
-        margin: "0 auto",
-        position: "relative",
-        transformStyle: "preserve-3d",
-        willChange: isPaused ? "transform" : "auto",
-      }}>
+    <div className="marquee-3d-section" style={containerStyle} ref={mainContainerRef}>
+      <div style={perspectiveStyle}>
         {/* Completely simplified approach to render columns */}
-        <div style={{
-          position: "absolute",
-          top: "0",
-          left: "0",
-          right: "0",
-          bottom: "0",
-          transform: "rotateX(42deg) translateY(-180px)",
-          transformStyle: "preserve-3d",
-          transformOrigin: "center center"
-        }}>
-          <div style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "3rem",
-            height: "200%",
-            width: "100%"
-          }}>
+        <div style={rotatedContainerStyle}>
+          <div style={columnLayoutStyle}>
             {/* Column 1 */}
-            <div className="column" style={{ 
-              width: "220px", 
-              height: "100%", 
-              transform: "translateZ(20px)",
-              position: "relative"
-            }}>
-              <VerticalMarquee duration="60s" isPaused={isPaused}>
+            <div className="column" style={column1Style}>
+              <VerticalMarquee duration={duration1} isPaused={isPaused}>
                 {column1.map((item, idx) => (
                   <ResourceCard 
                     key={`col1-${item.id}-${idx}`} 
@@ -391,13 +480,8 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
             </div>
             
             {/* Column 2 */}
-            <div className="column" style={{ 
-              width: "220px", 
-              height: "100%", 
-              transform: "translateZ(10px)",
-              position: "relative"
-            }}>
-              <VerticalMarquee duration="60s" reverse={true} isPaused={isPaused}>
+            <div className="column" style={column2Style}>
+              <VerticalMarquee duration={duration2} reverse={true} isPaused={isPaused}>
                 {column2.map((item, idx) => (
                   <ResourceCard 
                     key={`col2-${item.id}-${idx}`} 
@@ -412,13 +496,8 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
             </div>
             
             {/* Column 3 */}
-            <div className="column" style={{ 
-              width: "220px", 
-              height: "100%", 
-              transform: "translateZ(0px)",
-              position: "relative"
-            }}>
-              <VerticalMarquee duration="60s" isPaused={isPaused}>
+            <div className="column" style={column3Style}>
+              <VerticalMarquee duration={duration3} isPaused={isPaused}>
                 {column3.map((item, idx) => (
                   <ResourceCard 
                     key={`col3-${item.id}-${idx}`} 
@@ -433,13 +512,8 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
             </div>
             
             {/* Column 4 */}
-            <div className="column" style={{ 
-              width: "220px", 
-              height: "100%", 
-              transform: "translateZ(-10px)",
-              position: "relative"
-            }}>
-              <VerticalMarquee duration="60s" reverse={true} isPaused={isPaused}>
+            <div className="column" style={column4Style}>
+              <VerticalMarquee duration={duration4} reverse={true} isPaused={isPaused}>
                 {column4.map((item, idx) => (
                   <ResourceCard 
                     key={`col4-${item.id}-${idx}`} 
