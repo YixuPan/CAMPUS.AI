@@ -2,11 +2,10 @@ import os
 import asyncio
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv() # Load the environment before calling the agents
 
-from triage_agent import create_triage_agent
+from agents import CalendarAgent, IoTAgent, SpeechAgent, AttendanceAgent, TriageAgent
 
-# --- Configuration ---
 SHOW_THOUGHTS = "true"
 
 async def main():
@@ -14,7 +13,8 @@ async def main():
     print("This agent will formulate plans and delegate to available specialized agents.")
     print("Type 'exit' or 'quit' to stop.")
 
-    triage_agent = create_triage_agent(show_thoughts=SHOW_THOUGHTS)
+    triage_agent_instance = TriageAgent(show_thoughts=SHOW_THOUGHTS, available_agents=[CalendarAgent, IoTAgent, SpeechAgent, AttendanceAgent])
+    triage_agent = triage_agent_instance.triage_agent
 
     while True:
         try:
