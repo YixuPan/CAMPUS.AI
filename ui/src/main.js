@@ -1,0 +1,10 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './index.css';
+import App from './App.tsx';
+import Calendar from './Calendar.tsx';
+import User from './User.tsx';
+import Booking from './Booking.tsx';
+createRoot(document.getElementById('root')).render(_jsx(StrictMode, { children: _jsx(BrowserRouter, { children: _jsxs(Routes, { children: [_jsx(Route, { path: "/", element: _jsx(App, {}) }), _jsx(Route, { path: "/calendar", element: _jsx(Calendar, {}) }), _jsx(Route, { path: "/user", element: _jsx(User, {}) }), _jsx(Route, { path: "/booking", element: _jsx(Booking, {}) })] }) }) }));
