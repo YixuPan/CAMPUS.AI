@@ -1,6 +1,4 @@
 import React, { useRef } from 'react';
-import type { CSSProperties } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import './magicui/marquee.css';
 
 // Item interfaces
@@ -383,7 +381,7 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
                   <ResourceCard 
                     key={`col1-${item.id}-${idx}`} 
                     item={item} 
-                    onClick={(rect) => handleCardClick(item.type, item.item)}
+                    onClick={() => handleCardClick(item.type, item.item)}
                     isPaused={isPaused}
                     isSelected={selectedPosition?.columnIndex === 1 && selectedPosition?.itemIndex === idx}
                     columnIndex={1}
@@ -404,7 +402,7 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
                   <ResourceCard 
                     key={`col2-${item.id}-${idx}`} 
                     item={item} 
-                    onClick={(rect) => handleCardClick(item.type, item.item)}
+                    onClick={() => handleCardClick(item.type, item.item)}
                     isPaused={isPaused}
                     isSelected={selectedPosition?.columnIndex === 2 && selectedPosition?.itemIndex === idx}
                     columnIndex={2}
@@ -425,7 +423,7 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
                   <ResourceCard 
                     key={`col3-${item.id}-${idx}`} 
                     item={item} 
-                    onClick={(rect) => handleCardClick(item.type, item.item)}
+                    onClick={() => handleCardClick(item.type, item.item)}
                     isPaused={isPaused}
                     isSelected={selectedPosition?.columnIndex === 3 && selectedPosition?.itemIndex === idx}
                     columnIndex={3}
@@ -446,7 +444,7 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
                   <ResourceCard 
                     key={`col4-${item.id}-${idx}`} 
                     item={item} 
-                    onClick={(rect) => handleCardClick(item.type, item.item)}
+                    onClick={() => handleCardClick(item.type, item.item)}
                     isPaused={isPaused}
                     isSelected={selectedPosition?.columnIndex === 4 && selectedPosition?.itemIndex === idx}
                     columnIndex={4}
