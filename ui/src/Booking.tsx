@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import '../src/components/VerticalMarquee.css';
 import './Booking.css';
 import Marquee3D from './components/Marquee3D';

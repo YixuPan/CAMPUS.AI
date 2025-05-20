@@ -266,17 +266,6 @@ const Calendar: React.FC = () => {
     return days;
   };
 
-  // Get events for the current week view
-  const getEventsForWeek = () => {
-    const weekDays = generateWeekDays();
-    const startDate = weekDays[0];
-    const endDate = weekDays[6];
-    
-    return events.filter(event => 
-      event.date >= startDate && event.date <= endDate
-    );
-  };
-
   // Generate hours for the week view
   const generateHours = () => {
     const hours = [];
@@ -334,11 +323,6 @@ const Calendar: React.FC = () => {
       // 2. It spans this hour (starts before and ends after)
       return eventHour === hour || (eventHour < hour && eventEndHour > hour);
     });
-  };
-
-  // Check if event starts at this hour
-  const eventStartsAtHour = (event: CalendarEvent, hour: number): boolean => {
-    return event.date.getHours() === hour;
   };
 
   // Create a map of dates with events for the carousel

@@ -2,7 +2,6 @@
 
 import { memo, useEffect, useLayoutEffect, useMemo, useState, useRef } from "react"
 import {
-  AnimatePresence,
   motion,
   useAnimation,
   useMotionValue,
@@ -96,7 +95,6 @@ const WeekCarousel = memo(
     const isScreenSizeSm = useMediaQuery("(max-width: 640px)")
     const cylinderWidth = isScreenSizeSm ? 900 : 1350
     const faceCount = days.length
-    const faceWidth = cylinderWidth / faceCount
     
     // Radius multiplier - CHANGE THIS VALUE to adjust carousel radius
     // Higher values = larger radius (cards further from center)
@@ -319,7 +317,7 @@ export function ThreeDDaysCarousel({
   onSelectDate,
   eventsMap = new Map()
 }: ThreeDDaysCarouselProps) {
-  const [isCarouselActive, setIsCarouselActive] = useState(true)
+  const [isCarouselActive] = useState(true)
   const controls = useAnimation()
   
   // CHANGE THIS VALUE to adjust the overall height of the carousel section

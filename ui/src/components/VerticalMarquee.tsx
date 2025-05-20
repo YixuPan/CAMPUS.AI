@@ -1,4 +1,5 @@
-import React, { ReactNode, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 
 interface VerticalMarqueeProps {

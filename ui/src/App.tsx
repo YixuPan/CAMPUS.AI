@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import './App.css'
 import LogoButton from './components/LogoButton'
@@ -32,19 +32,10 @@ const globalAnimationState = {
   requestAnimationFrame(animate);
 })();
 
-// Interfaces for props
-interface JellyfishProps {
-  // No need for isChatMode anymore
-}
-
-interface SceneProps {
-  // No need for isChatMode anymore
-}
-
 // 3D Siri-like jellyfish component that always stays jellyfish
 function SiriJellyfish() {
   const meshRef = useRef<THREE.Mesh>(null)
-  const { mouse, viewport, size, camera } = useThree()
+  const { viewport } = useThree()
   const [mousePos] = useState(new THREE.Vector3())
   
   // Run exactly once, immediately after mount

@@ -1,13 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import type { CSSProperties } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './magicui/marquee.css';
-
-// Type for CSS Variables
-interface CSSPropertiesWithVars extends CSSProperties {
-  '--duration'?: string;
-  '--gap'?: string;
-}
 
 // Item interfaces
 interface Equipment {
@@ -171,13 +165,13 @@ const ResourceCard: React.FC<{
       onClick={handleClick}
       onMouseMove={handleMouseMove}
       style={cardStyle}
-      onMouseEnter={(e) => {
+      onMouseEnter={() => {
         if (cardRef.current && !isSelected) {
           cardRef.current.style.transform = 'perspective(800px) rotateX(22deg) scale(1.08) translateZ(20px)';
           cardRef.current.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.7), inset 0 3px 0 rgba(255, 255, 255, 0.3), inset 0 -15px 25px rgba(0, 0, 0, 0.6)';
         }
       }}
-      onMouseLeave={(e) => {
+      onMouseLeave={() => {
         if (cardRef.current && !isSelected) {
           cardRef.current.style.transform = 'perspective(800px) rotateX(18deg)';
           cardRef.current.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.3), inset 0 -12px 20px rgba(0, 0, 0, 0.5)';
@@ -341,7 +335,7 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
   const column4 = ensureItems([...mixedItems].slice(10, 20).sort(() => 0.5 - Math.random()), 8);
 
   // Handle card click - pass position info to parent
-  const handleCardClick = (type: 'equipment' | 'room', item: Equipment | Room, columnIndex: number, itemIndex: number, rect: DOMRect) => {
+  const handleCardClick = (type: 'equipment' | 'room', item: Equipment | Room) => {
     // Directly call onItemClick with the card's information
     onItemClick(type, item);
   };
@@ -389,7 +383,7 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
                   <ResourceCard 
                     key={`col1-${item.id}-${idx}`} 
                     item={item} 
-                    onClick={(rect) => handleCardClick(item.type, item.item, 1, idx, rect)}
+                    onClick={(rect) => handleCardClick(item.type, item.item)}
                     isPaused={isPaused}
                     isSelected={selectedPosition?.columnIndex === 1 && selectedPosition?.itemIndex === idx}
                     columnIndex={1}
@@ -410,7 +404,7 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
                   <ResourceCard 
                     key={`col2-${item.id}-${idx}`} 
                     item={item} 
-                    onClick={(rect) => handleCardClick(item.type, item.item, 2, idx, rect)}
+                    onClick={(rect) => handleCardClick(item.type, item.item)}
                     isPaused={isPaused}
                     isSelected={selectedPosition?.columnIndex === 2 && selectedPosition?.itemIndex === idx}
                     columnIndex={2}
@@ -431,7 +425,7 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
                   <ResourceCard 
                     key={`col3-${item.id}-${idx}`} 
                     item={item} 
-                    onClick={(rect) => handleCardClick(item.type, item.item, 3, idx, rect)}
+                    onClick={(rect) => handleCardClick(item.type, item.item)}
                     isPaused={isPaused}
                     isSelected={selectedPosition?.columnIndex === 3 && selectedPosition?.itemIndex === idx}
                     columnIndex={3}
@@ -452,7 +446,7 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
                   <ResourceCard 
                     key={`col4-${item.id}-${idx}`} 
                     item={item} 
-                    onClick={(rect) => handleCardClick(item.type, item.item, 4, idx, rect)}
+                    onClick={(rect) => handleCardClick(item.type, item.item)}
                     isPaused={isPaused}
                     isSelected={selectedPosition?.columnIndex === 4 && selectedPosition?.itemIndex === idx}
                     columnIndex={4}

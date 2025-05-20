@@ -165,8 +165,6 @@ const User: React.FC = () => {
 
   // Generate sample attendance data
   const generateAttendanceData = () => {
-    const months = ['January', 'February', 'March', 'April', 'May', 'June'];
-    
     // Create more realistic trend data with a gradual improvement
     const attendanceData = [
       { month: 'January', meetings: 18, attended: 12, onTime: 8, late: 4, rate: 66.7 },
