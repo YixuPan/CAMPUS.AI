@@ -402,7 +402,7 @@ function App() {
       setIsSpeaking(true);
       
       // Call the speech synthesis API
-      const response = await fetch('http://localhost:9001/speech/synthesize', {
+      await fetch('http://localhost:9001/speech/synthesize', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
