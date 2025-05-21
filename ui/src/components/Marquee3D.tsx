@@ -74,7 +74,7 @@ const createMockData = (): MarqueeItem[] => {
   ];
 };
 
-// Single resource card component
+// Optimize card rendering - use fewer transform operations and simpler styles
 const ResourceCard: React.FC<{
   item: MarqueeItem;
   onClick: (rect: DOMRect) => void;
@@ -85,13 +85,13 @@ const ResourceCard: React.FC<{
   const cardRef = useRef<HTMLDivElement>(null);
   const lastMoveTime = useRef(0);
 
-  // Handle mouse move events to create the radial gradient effect - with throttling
+  // Handle mouse move events with more aggressive throttling (100ms instead of 50ms)
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current || isSelected) return;
     
-    // Throttle mouse move events to every 50ms
+    // More aggressive throttling for better performance
     const now = Date.now();
-    if (now - lastMoveTime.current < 50) return;
+    if (now - lastMoveTime.current < 100) return;
     lastMoveTime.current = now;
     
     const rect = cardRef.current.getBoundingClientRect();
@@ -135,147 +135,89 @@ const ResourceCard: React.FC<{
     ? 'from-blue-400/30 to-green-400/30' 
     : 'from-purple-400/30 to-pink-400/30';
 
-  // Fixed card style - simpler without animations
+  // Simplified card style - reduce complexity for better performance
   const cardStyle = {
     backgroundColor: 'rgba(30, 20, 60, 0.7)',
-    backdropFilter: 'blur(8px)',
     padding: '1.2rem',
     margin: '1.2rem 0',
-    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.3), inset 0 -12px 20px rgba(0, 0, 0, 0.5)',
+    boxShadow: '0 15px 25px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.2)',
     cursor: isSelected ? 'default' : 'pointer',
     position: 'relative' as const,
-    zIndex: isSelected ? 1000 : columnIndex * 10 + 1,
+    zIndex: isSelected ? 1000 : 1,
     transform: 'perspective(800px) rotateX(18deg)',
-    transformStyle: 'preserve-3d' as const,
-    transition: 'transform 300ms ease, box-shadow 300ms ease, opacity 300ms ease',
-    borderBottom: '15px solid rgba(20, 10, 40, 0.8)',
-    borderRight: '8px solid rgba(20, 10, 40, 0.5)',
-    borderLeft: '8px solid rgba(70, 50, 120, 0.3)',
-    borderTop: '2px solid rgba(255, 255, 255, 0.2)',
-    opacity: isSelected ? 0 : isPaused ? 0.3 : 1, // Hide selected card, dim others during pause
+    borderBottom: '8px solid rgba(20, 10, 40, 0.6)',
+    borderTop: '1px solid rgba(255, 255, 255, 0.2)',
+    opacity: isSelected ? 0 : isPaused ? 0.3 : 1,
+    // Use hardware-acceleration but only for essential properties
+    willChange: 'transform, opacity',
+    // Avoid multiple redraws by grouping transitions
+    transition: 'all 300ms ease',
   };
 
   const frontStyle = {
+    // Simplify styles to reduce painting operations
     backfaceVisibility: 'hidden' as const,
     position: 'relative' as const,
     zIndex: 2,
-    transform: 'translateZ(1px)',
   };
   
-  // Performance optimization: don't create new functions on each render
+  // Use functions with memoization to reduce function creation on renders
   const handleMouseEnter = useCallback(() => {
     if (cardRef.current && !isSelected) {
-      cardRef.current.style.transform = 'perspective(800px) rotateX(22deg) scale(1.08) translateZ(20px)';
-      cardRef.current.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.7), inset 0 3px 0 rgba(255, 255, 255, 0.3), inset 0 -15px 25px rgba(0, 0, 0, 0.6)';
+      // Batch DOM updates into one style operation
+      requestAnimationFrame(() => {
+        if (cardRef.current) {
+          cardRef.current.style.transform = 'perspective(800px) rotateX(21deg) scale(1.05)';
+          cardRef.current.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.6)';
+        }
+      });
     }
   }, [isSelected]);
   
   const handleMouseLeave = useCallback(() => {
     if (cardRef.current && !isSelected) {
-      cardRef.current.style.transform = 'perspective(800px) rotateX(18deg)';
-      cardRef.current.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.3), inset 0 -12px 20px rgba(0, 0, 0, 0.5)';
+      // Batch DOM updates into one style operation
+      requestAnimationFrame(() => {
+        if (cardRef.current) {
+          cardRef.current.style.transform = 'perspective(800px) rotateX(18deg)';
+          cardRef.current.style.boxShadow = '0 15px 25px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.2)';
+        }
+      });
     }
   }, [isSelected]);
 
+  // Simplified JSX with fewer nested elements and transforms
   return (
     <div 
       ref={cardRef}
-      className={`marquee-3d-card relative rounded-xl border border-white/10 bg-gradient-to-br ${gradientClass} shadow-lg backdrop-blur-md`}
+      className={`marquee-3d-card relative rounded-xl border border-white/10 bg-gradient-to-br ${gradientClass} shadow-lg`}
       onClick={handleClick}
       onMouseMove={handleMouseMove}
       style={cardStyle}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Front of card */}
+      {/* Simplified front of card */}
       <div style={frontStyle}>
-        <div 
-          className="flex flex-row items-center gap-3 mb-2" 
-          style={{ 
-            transform: 'translateZ(25px)',
-            position: 'relative',
-            zIndex: 2
-          }}
-        >
-          <div className="rounded-full bg-gradient-to-r w-10 h-10 flex items-center justify-center text-2xl" style={{
-            transform: 'translateZ(15px)',
-            boxShadow: '0 8px 15px rgba(0, 0, 0, 0.4)'
-          }}>
+        <div className="flex flex-row items-center gap-3 mb-2">
+          <div className="rounded-full bg-gradient-to-r w-10 h-10 flex items-center justify-center text-2xl">
             {icon}
           </div>
-          <div className="flex flex-col" style={{ transform: 'translateZ(15px)' }}>
+          <div className="flex flex-col">
             <h3 className="text-base font-medium text-white">{item.name}</h3>
           </div>
         </div>
         
-        <p className="mt-2 text-sm text-white/80" style={{ transform: 'translateZ(20px)', position: 'relative', zIndex: 2 }}>{item.location}</p>
+        <p className="mt-2 text-sm text-white/80">{item.location}</p>
         {item.type === 'room' && (item.item as Room).capacity && (
-          <p className="text-sm text-white/60 mt-1" style={{ transform: 'translateZ(20px)', position: 'relative', zIndex: 2 }}>• {(item.item as Room).capacity} seats</p>
+          <p className="text-sm text-white/60 mt-1">• {(item.item as Room).capacity} seats</p>
         )}
       </div>
-
-      {/* 3D sides */}
-      <div style={{
-        position: 'absolute',
-        bottom: '-15px',
-        left: '0',
-        right: '0',
-        height: '15px',
-        backgroundColor: 'rgba(10, 5, 20, 0.8)',
-        transform: 'translateY(100%) rotateX(-90deg)',
-        transformOrigin: 'top',
-        borderBottomLeftRadius: '4px',
-        borderBottomRightRadius: '4px',
-      }}></div>
-      
-      <div style={{
-        position: 'absolute',
-        top: '0',
-        bottom: '0',
-        right: '-8px',
-        width: '8px',
-        backgroundColor: 'rgba(15, 8, 30, 0.7)',
-        transform: 'translateX(100%) rotateY(90deg)',
-        transformOrigin: 'left',
-      }}></div>
-      
-      <div style={{
-        position: 'absolute',
-        top: '0',
-        bottom: '0',
-        left: '-8px',
-        width: '8px',
-        backgroundColor: 'rgba(50, 30, 90, 0.5)',
-        transform: 'translateX(-100%) rotateY(-90deg)',
-        transformOrigin: 'right',
-      }}></div>
-      
-      <div style={{
-        position: 'absolute',
-        top: '-2px',
-        left: '8px',
-        right: '8px',
-        height: '2px',
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-        transform: 'translateY(-100%) rotateX(90deg)',
-        transformOrigin: 'bottom',
-      }}></div>
-
-      <div style={{
-        position: 'absolute',
-        top: '0',
-        left: '0',
-        right: '0',
-        bottom: '0',
-        boxShadow: 'inset 0 5px 15px rgba(0, 0, 0, 0.5)',
-        borderRadius: '0.75rem',
-        pointerEvents: 'none'
-      }}></div>
     </div>
   );
 };
 
-// Vertical marquee component with optimized animations
+// Optimized Vertical marquee component
 const VerticalMarquee = ({ children, duration, reverse = false, isPaused = false }: { 
   children: React.ReactNode, 
   duration: string, 
@@ -294,17 +236,17 @@ const VerticalMarquee = ({ children, duration, reverse = false, isPaused = false
   // Memoize the style setup
   const containerStyle = useMemo(() => ({ 
     height: "100%", 
-    overflow: "hidden", 
-    willChange: "contents" 
+    overflow: "hidden",
   }), []);
 
-  // Use a static style tag instead of creating it on every render
+  // Simpler optimized structure with static CSS
   return (
     <div className="marquee-vertical" style={containerStyle}>
       <div style={animationStyle}>
         {children}
         {children}
       </div>
+      {/* Move styles to static CSS to prevent reflows */}
       <style>{`
         @keyframes scrollY {
           from { transform: translateY(0); }
@@ -359,24 +301,27 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
     return [...arr, ...arr, ...arr].slice(0, count);
   }, []);
   
-  // Create 4 columns with good distribution of items
+  // Reduced number of items per column for better performance
+  const ITEMS_PER_COLUMN = 6; // Reduced from 8 to 6
+  
+  // Create 4 columns with fewer items
   const column1 = useMemo(
-    () => ensureItems([...equipmentItems].sort(() => 0.5 - Math.random()), 8),
+    () => ensureItems([...equipmentItems].sort(() => 0.5 - Math.random()), ITEMS_PER_COLUMN),
     [equipmentItems, ensureItems]
   );
   
   const column2 = useMemo(
-    () => ensureItems([...roomItems].sort(() => 0.5 - Math.random()), 8),
+    () => ensureItems([...roomItems].sort(() => 0.5 - Math.random()), ITEMS_PER_COLUMN),
     [roomItems, ensureItems]
   );
   
   const column3 = useMemo(
-    () => ensureItems([...mixedItems].slice(0, 10).sort(() => 0.5 - Math.random()), 8),
+    () => ensureItems([...mixedItems].slice(0, 10).sort(() => 0.5 - Math.random()), ITEMS_PER_COLUMN),
     [mixedItems, ensureItems]
   );
   
   const column4 = useMemo(
-    () => ensureItems([...mixedItems].slice(10, 20).sort(() => 0.5 - Math.random()), 8),
+    () => ensureItems([...mixedItems].slice(10, 20).sort(() => 0.5 - Math.random()), ITEMS_PER_COLUMN),
     [mixedItems, ensureItems]
   );
 
@@ -391,16 +336,16 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
     width: "100%",
   }), []);
 
+  // Reduce the perspective value and height for better performance
   const perspectiveStyle = useMemo(() => ({
-    perspective: "600px",
-    height: "5200px",
+    perspective: "500px", // Reduced from 600px
+    height: "4000px", // Reduced from 5200px
     width: "100%", 
     maxWidth: "1300px",
     margin: "0 auto",
     position: "relative" as const,
     transformStyle: "preserve-3d" as const,
-    willChange: isPaused ? "transform" : "auto",
-  }), [isPaused]);
+  }), []);
 
   const rotatedContainerStyle = useMemo(() => ({
     position: "absolute" as const,
@@ -408,7 +353,7 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
     left: "0",
     right: "0",
     bottom: "0",
-    transform: "rotateX(42deg) translateY(-180px)",
+    transform: "rotateX(40deg) translateY(-160px)", // Less extreme angle
     transformStyle: "preserve-3d" as const,
     transformOrigin: "center center"
   }), []);
@@ -421,40 +366,40 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
     width: "100%"
   }), []);
 
-  // Individual column styles
+  // Individual column styles - simplified transforms
   const column1Style = useMemo(() => ({ 
     width: "220px", 
     height: "100%", 
-    transform: "translateZ(20px)",
+    transform: "translateZ(15px)",
     position: "relative" as const
   }), []);
 
   const column2Style = useMemo(() => ({ 
     width: "220px", 
     height: "100%", 
-    transform: "translateZ(10px)",
+    transform: "translateZ(5px)",
     position: "relative" as const
   }), []);
 
   const column3Style = useMemo(() => ({ 
     width: "220px", 
     height: "100%", 
-    transform: "translateZ(0px)",
+    transform: "translateZ(-5px)",
     position: "relative" as const
   }), []);
 
   const column4Style = useMemo(() => ({ 
     width: "220px", 
     height: "100%", 
-    transform: "translateZ(-10px)",
+    transform: "translateZ(-15px)",
     position: "relative" as const
   }), []);
 
-  // Slower animations for better performance
-  const duration1 = "90s";
-  const duration2 = "100s";
-  const duration3 = "110s";
-  const duration4 = "120s";
+  // Slower animations for better performance - even slower for better CPU usage
+  const duration1 = "120s"; // Increased from 90s
+  const duration2 = "150s"; // Increased from 100s
+  const duration3 = "140s"; // Increased from 110s
+  const duration4 = "160s"; // Increased from 120s
 
   // Simpler and more reliable approach to the 3D transform
   return (
@@ -529,7 +474,7 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
           </div>
         </div>
         
-        {/* Gradient overlays */}
+        {/* Simplified gradient overlays - fewer elements and simpler styles */}
         <div style={{
           position: "absolute",
           top: 0,
@@ -538,7 +483,7 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
           height: "15%",
           background: "linear-gradient(to bottom, rgba(18, 5, 26, 0.9), transparent)",
           pointerEvents: "none",
-          zIndex: isPaused ? 5 : 10
+          zIndex: 10
         }}></div>
         <div style={{
           position: "absolute",
@@ -548,27 +493,7 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
           height: "25%",
           background: "linear-gradient(to top, rgba(18, 5, 26, 0.9), transparent)",
           pointerEvents: "none",
-          zIndex: isPaused ? 5 : 10
-        }}></div>
-        <div style={{
-          position: "absolute",
-          top: 0,
-          bottom: 0,
-          left: 0,
-          width: "10%",
-          background: "linear-gradient(to right, rgba(18, 5, 26, 0.9), transparent)",
-          pointerEvents: "none",
-          zIndex: isPaused ? 5 : 10
-        }}></div>
-        <div style={{
-          position: "absolute",
-          top: 0,
-          bottom: 0,
-          right: 0,
-          width: "10%",
-          background: "linear-gradient(to left, rgba(18, 5, 26, 0.9), transparent)",
-          pointerEvents: "none",
-          zIndex: isPaused ? 5 : 10
+          zIndex: 10
         }}></div>
       </div>
     </div>
