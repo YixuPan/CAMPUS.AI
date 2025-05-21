@@ -311,6 +311,9 @@ function App() {
   const [inputValue, setInputValue] = useState('')
   const [messages, setMessages] = useState<Message[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [isListening, setIsListening] = useState(false)
+  const [useSpeechOutput, setUseSpeechOutput] = useState(true)
+  const [isSpeaking, setIsSpeaking] = useState(false)
   const messageEndRef = useRef<HTMLDivElement>(null)
   
   // Auto-scroll to latest message
@@ -320,31 +323,129 @@ function App() {
     }
   }, [messages]);
   
-  // Send message to Calendar API
-  const handleSendMessage = async () => {
-    if (inputValue.trim() === '' || isLoading) return;
-    
-    const newUserMessage: Message = {
-      content: inputValue,
-      isUser: true
-    };
-    
-    setMessages(prev => [...prev, newUserMessage]);
-    setInputValue('');
-    setIsLoading(true);
+  // Monitor changes to isSpeaking state
+  useEffect(() => {
+    console.log('isSpeaking state changed:', isSpeaking);
+  }, [isSpeaking]);
+  
+  // Handle speech recognition
+  const handleSpeechRecognition = async () => {
+    setIsListening(true);
     
     try {
-      // Call the calendar API
-      const response = await fetch('http://localhost:9000/chat', {
+      // Call the speech recognition API
+      const response = await fetch('http://localhost:9001/speech/recognize', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to get response from speech service');
+      }
+      
+      const data = await response.json();
+      
+      if (data.text) {
+        setInputValue(data.text);
+        // Automatically send the message if speech is detected
+        const message = data.text;
+        
+        // Add some delay to allow user to see what was recognized
+        setTimeout(() => {
+          const newUserMessage: Message = {
+            content: message,
+            isUser: true
+          };
+          
+          setMessages(prev => [...prev, newUserMessage]);
+          setInputValue('');
+          handleSendMessageWithText(message);
+        }, 1000);
+      } else {
+        console.error('No speech recognized');
+      }
+    } catch (error) {
+      console.error('Error with speech recognition:', error);
+    } finally {
+      setIsListening(false);
+    }
+  };
+  
+  // Function to stop speech playback
+  const stopSpeech = async () => {
+    try {
+      // Call the server to stop speech
+      await fetch('http://localhost:9001/speech/stop', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      // Immediately set speaking to false to show microphone button
+      setIsSpeaking(false);
+    } catch (error) {
+      console.error('Error stopping speech:', error);
+      // Make sure speaking state is reset even if there's an error
+      setIsSpeaking(false);
+    }
+  };
+  
+  // Function to speak text using the speech synthesis API
+  const speakResponse = async (text: string) => {
+    if (!useSpeechOutput) return;
+    
+    try {
+      // Set speaking state to true
+      setIsSpeaking(true);
+      
+      // Call the speech synthesis API
+      const response = await fetch('http://localhost:9001/speech/synthesize', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: inputValue }),
+        body: JSON.stringify({ text }),
+      });
+      
+      // Simple fixed duration based on text length
+      // This is a fallback in case the server doesn't provide completion notification
+      const wordCount = text.split(/\s+/).length;
+      const approximateDuration = Math.max(3000, wordCount * 300); // 300ms per word minimum 3 seconds
+      
+      console.log(`Setting speech timeout for ${approximateDuration}ms`);
+      
+      // Set timeout to reset the speaking state
+      setTimeout(() => {
+        console.log('Speech timeout completed, setting isSpeaking to false');
+        setIsSpeaking(false);
+      }, approximateDuration);
+      
+    } catch (error) {
+      // If there's an error, make sure to reset the speaking state
+      console.error('Error with speech synthesis:', error);
+      setIsSpeaking(false);
+    }
+  };
+  
+  // Helper function to handle sending a message with specific text
+  const handleSendMessageWithText = async (text: string) => {
+    setIsLoading(true);
+    
+    try {
+      // Call the triage agent API
+      const response = await fetch('http://localhost:9001/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: text }),
       });
       
       if (!response.ok) {
-        throw new Error('Failed to get response from calendar service');
+        throw new Error('Failed to get response from triage agent service');
       }
       
       const data = await response.json();
@@ -355,18 +456,44 @@ function App() {
       };
       
       setMessages(prev => [...prev, aiResponse]);
+      
+      // Speak the response if speech output is enabled
+      if (useSpeechOutput && data.response) {
+        console.log("Speech output is enabled, speaking response");
+        await speakResponse(data.response);
+      } else {
+        console.log("Speech output is disabled, not speaking response");
+      }
     } catch (error) {
-      console.error('Error calling calendar API:', error);
+      console.error('Error calling triage agent API:', error);
       
       const errorMessage: Message = {
-        content: "Sorry, I couldn't connect to the calendar service. Please try again later.",
+        content: "Sorry, I couldn't connect to the triage agent service. Please try again later.",
         isUser: false
       };
       
       setMessages(prev => [...prev, errorMessage]);
+      setIsSpeaking(false); // Ensure speaking state is reset on error
     } finally {
       setIsLoading(false);
     }
+  };
+  
+  // Send message to Triage Agent API
+  const handleSendMessage = async () => {
+    if (inputValue.trim() === '' || isLoading) return;
+    
+    const newUserMessage: Message = {
+      content: inputValue,
+      isUser: true
+    };
+    
+    setMessages(prev => [...prev, newUserMessage]);
+    const messageText = inputValue;
+    setInputValue('');
+    
+    // Use the helper function to handle the actual API call
+    handleSendMessageWithText(messageText);
   };
   
   // Enter key handler
@@ -428,12 +555,25 @@ function App() {
                 Back
               </button>
               <h2>Chat with CAMPUS.AI</h2>
+              <div className="speech-controls">
+                <div className="speech-toggle">
+                  <span className="speech-toggle-label">{useSpeechOutput ? "Speech: On" : "Speech: Off"}</span>
+                  <label className="switch">
+                    <input 
+                      type="checkbox" 
+                      checked={useSpeechOutput}
+                      onChange={() => setUseSpeechOutput(prev => !prev)}
+                    />
+                    <span className="slider round"></span>
+                  </label>
+                </div>
+              </div>
             </div>
             
             <div className="chat-messages">
               {messages.length === 0 ? (
                 <div className="empty-chat">
-                  <p>Ask me about your schedule or to create calendar events...</p>
+                  <p>I can help with various tasks including calendar management, IoT devices, speech recognition, and attendance tracking. Just ask!</p>
                 </div>
               ) : (
                 messages.map((msg, index) => (
@@ -445,7 +585,7 @@ function App() {
                   </div>
                 ))
               )}
-              {isLoading && (
+              {isLoading && !isSpeaking && (
                 <div className="message ai-message">
                   <div className="message-content">Thinking...</div>
                 </div>
@@ -459,11 +599,29 @@ function App() {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleKeyPress}
-                placeholder="Ask about your calendar, schedule events..."
+                placeholder="Ask about anything on campus..."
                 className="chat-input"
                 autoFocus={isChatMode}
-                disabled={isLoading}
+                disabled={isLoading || isListening}
               />
+              {isSpeaking ? (
+                <button 
+                  className="mic-button stop-speaking"
+                  onClick={stopSpeech}
+                  title="Stop speaking"
+                >
+                  ✅
+                </button>
+              ) : (
+                <button 
+                  className={`mic-button ${isListening ? 'listening' : ''}`}
+                  onClick={handleSpeechRecognition}
+                  disabled={isLoading}
+                  title={isListening ? "Listening..." : "Click to speak"}
+                >
+                  🎤
+                </button>
+              )}
               <button 
                 className="send-button"
                 onClick={handleSendMessage}

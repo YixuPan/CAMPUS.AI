@@ -235,6 +235,11 @@ canvas {
   margin: 0;
 }
 
+.speech-controls {
+  display: flex;
+  align-items: center;
+}
+
 .back-button {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -527,3 +532,163 @@ i.icon-ed::before { font-style: normal; font-size: 22px; font-weight: bold; colo
 .message:nth-child(8) { --index: 7; }
 .message:nth-child(9) { --index: 8; }
 .message:nth-child(10) { --index: 9; }
+
+/* Add styles for the microphone button */
+.mic-button {
+  background-color: #5a54c9;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.mic-button:hover {
+  background-color: #7773d4;
+}
+
+.mic-button:disabled {
+  background-color: #3a396e;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.mic-button.listening {
+  background-color: #ff4d4d;
+  animation: pulse 1.5s infinite;
+}
+
+.mic-button.stop-speaking {
+  background-color: #4CAF50; /* Green color for the checkmark button */
+  color: white;
+  font-size: 18px;
+  /* Ensure same size and dimensions as mic button */
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 77, 77, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 77, 77, 0);
+  }
+}
+
+/* Add styles for the speech output toggle button */
+.speech-output-toggle {
+  background-color: #3a396e;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.speech-output-toggle:hover {
+  background-color: #4a4986;
+}
+
+.speech-output-toggle.active {
+  background-color: #5a54c9;
+  box-shadow: 0 0 10px rgba(90, 84, 201, 0.5);
+}
+
+/* Toggle switch styles */
+.speech-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 8px;
+  border-radius: 20px;
+  background-color: rgba(58, 57, 110, 0.3);
+  transition: all 0.3s ease;
+}
+
+.speech-toggle:hover {
+  background-color: rgba(58, 57, 110, 0.5);
+}
+
+.speech-toggle-label {
+  font-size: 14px;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #3a396e;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #5a54c9;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #5a54c9;
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 24px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
