@@ -143,8 +143,9 @@ const ResourceCard: React.FC<{
     boxShadow: '0 15px 25px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.2)',
     cursor: isSelected ? 'default' : 'pointer',
     position: 'relative' as const,
-    zIndex: isSelected ? 1000 : 1,
-    transform: 'perspective(800px) rotateX(18deg)',
+    zIndex: isSelected ? 1000 : columnIndex, // Use columnIndex for z-index to maintain depth
+    // Vary initial rotation based on columnIndex for more natural look
+    transform: `perspective(800px) rotateX(${18 + (columnIndex % 3) * 0.4}deg) rotateY(${(columnIndex % 2) * 0.5}deg)`,
     borderBottom: '8px solid rgba(20, 10, 40, 0.6)',
     borderTop: '1px solid rgba(255, 255, 255, 0.2)',
     opacity: isSelected ? 0 : isPaused ? 0.3 : 1,
@@ -167,24 +168,28 @@ const ResourceCard: React.FC<{
       // Batch DOM updates into one style operation
       requestAnimationFrame(() => {
         if (cardRef.current) {
-          cardRef.current.style.transform = 'perspective(800px) rotateX(21deg) scale(1.05)';
+          // Use columnIndex to create slight variations in hover effect
+          const rotateAngle = 21 + (columnIndex % 3) * 0.5;
+          cardRef.current.style.transform = `perspective(800px) rotateX(${rotateAngle}deg) scale(1.05)`;
           cardRef.current.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.6)';
         }
       });
     }
-  }, [isSelected]);
+  }, [isSelected, columnIndex]);
   
   const handleMouseLeave = useCallback(() => {
     if (cardRef.current && !isSelected) {
       // Batch DOM updates into one style operation
       requestAnimationFrame(() => {
         if (cardRef.current) {
-          cardRef.current.style.transform = 'perspective(800px) rotateX(18deg)';
+          // Use columnIndex to create slight variations in rest position
+          const restAngle = 18 + (columnIndex % 2) * 0.3;
+          cardRef.current.style.transform = `perspective(800px) rotateX(${restAngle}deg)`;
           cardRef.current.style.boxShadow = '0 15px 25px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.2)';
         }
       });
     }
-  }, [isSelected]);
+  }, [isSelected, columnIndex]);
 
   // Simplified JSX with fewer nested elements and transforms
   return (
