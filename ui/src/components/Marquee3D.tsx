@@ -185,7 +185,7 @@ const StaticMarquee: React.FC<{
   // Calculate which items are visible based on scroll position for optimization
   const visibleItems = useMemo(() => {
     // Create mapping of which items are visible
-    return items.map((item, idx) => {
+    return items.map((_, idx) => {
       // Position of this item (0-100)
       const itemPos = (idx * (100 / items.length)) % 100;
       
