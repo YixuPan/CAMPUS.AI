@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useCallback } from 'react';
+import React, { useRef, useMemo, useCallback, useState, useEffect } from 'react';
 import './magicui/marquee.css';
 
 // Item interfaces
@@ -32,11 +32,6 @@ interface Marquee3DProps {
   items: MarqueeItem[];
   onItemClick: (type: 'equipment' | 'room', item: Equipment | Room) => void;
   isPaused?: boolean;
-  selectedPosition?: {
-    columnIndex: number;
-    itemIndex: number;
-    rect: DOMRect | null;
-  } | null;
 }
 
 // Create mock data for testing if needed
@@ -74,209 +69,189 @@ const createMockData = (): MarqueeItem[] => {
   ];
 };
 
-// Optimize card rendering - use fewer transform operations and simpler styles
+// Extremely simplified resource card with minimal DOM elements
 const ResourceCard: React.FC<{
   item: MarqueeItem;
-  onClick: (rect: DOMRect) => void;
+  onClick: () => void;
   isPaused: boolean;
   isSelected: boolean;
   columnIndex: number;
-}> = ({ item, onClick, isPaused, isSelected, columnIndex }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const lastMoveTime = useRef(0);
+  isVisible: boolean; // Add visibility control for performance
+}> = ({ item, onClick, isPaused, isSelected, columnIndex, isVisible }) => {
+  // Skip rendering completely if not visible
+  if (!isVisible) {
+    return null;
+  }
 
-  // Handle mouse move events with more aggressive throttling (100ms instead of 50ms)
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current || isSelected) return;
-    
-    // More aggressive throttling for better performance
-    const now = Date.now();
-    if (now - lastMoveTime.current < 100) return;
-    lastMoveTime.current = now;
-    
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    cardRef.current.style.setProperty('--mouse-x', `${x}px`);
-    cardRef.current.style.setProperty('--mouse-y', `${y}px`);
-  };
-
-  // Handle click - pass up the card's position
-  const handleClick = () => {
-    if (isSelected || !cardRef.current) return;
-    
-    const rect = cardRef.current.getBoundingClientRect();
-    onClick(rect);
-  };
-
-  // Determine icon based on type (memoize by caching the result)
-  const icon = useMemo(() => {
-    if (item.type === 'equipment') {
-      if (item.name.toLowerCase().includes('camera')) return '📷';
-      if (item.name.toLowerCase().includes('ipad')) return '📱';
-      if (item.name.toLowerCase().includes('mixer')) return '🎛️';
-      if (item.name.toLowerCase().includes('laptop') || item.name.toLowerCase().includes('macbook')) return '💻';
-      if (item.name.toLowerCase().includes('projector')) return '📽️';
-      if (item.name.toLowerCase().includes('printer')) return '🖨️';
-      if (item.name.toLowerCase().includes('microphone')) return '🎙️';
-      if (item.name.toLowerCase().includes('vr')) return '🥽';
-      if (item.name.toLowerCase().includes('gaming')) return '🎮';
-      if (item.name.toLowerCase().includes('streaming')) return '🎬';
-      if (item.name.toLowerCase().includes('drawing') || item.name.toLowerCase().includes('tablet')) return '🖌️';
-      return '📱';
-    } else {
-      return '🏢';
-    }
-  }, [item.type, item.name]);
+  // Determine icon based on type - simplified with fewer conditions
+  const icon = 
+    item.type === 'room' ? '🏢' : 
+    item.name.toLowerCase().includes('camera') ? '📷' :
+    item.name.toLowerCase().includes('laptop') ? '💻' :
+    '📱';
 
   // Determine gradient based on item type
   const gradientClass = item.type === 'equipment' 
     ? 'from-blue-400/30 to-green-400/30' 
     : 'from-purple-400/30 to-pink-400/30';
 
-  // Simplified card style - reduce complexity for better performance
-  const cardStyle = {
-    backgroundColor: 'rgba(30, 20, 60, 0.7)',
-    padding: '1.2rem',
-    margin: '1.2rem 0',
-    boxShadow: '0 15px 25px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.2)',
-    cursor: isSelected ? 'default' : 'pointer',
-    position: 'relative' as const,
-    zIndex: isSelected ? 1000 : columnIndex, // Use columnIndex for z-index to maintain depth
-    // Vary initial rotation based on columnIndex for more natural look
-    transform: `perspective(800px) rotateX(${18 + (columnIndex % 3) * 0.4}deg) rotateY(${(columnIndex % 2) * 0.5}deg)`,
-    borderBottom: '8px solid rgba(20, 10, 40, 0.6)',
-    borderTop: '1px solid rgba(255, 255, 255, 0.2)',
-    opacity: isSelected ? 0 : isPaused ? 0.3 : 1,
-    // Use hardware-acceleration but only for essential properties
-    willChange: 'transform, opacity',
-    // Avoid multiple redraws by grouping transitions
-    transition: 'all 300ms ease',
+  // Super-simple bare minimum style for better performance
+  const styles = {
+    container: {
+      backgroundColor: 'rgba(30, 20, 60, 0.7)',
+      padding: '1rem',
+      margin: '1rem 0',
+      borderRadius: '0.5rem',
+      boxShadow: '0 10px 15px rgba(0, 0, 0, 0.3)',
+      cursor: isSelected ? 'default' : 'pointer',
+      opacity: isSelected ? 0 : isPaused ? 0.3 : 1,
+      transform: `perspective(800px) rotateX(${16 + columnIndex}deg)`,
+      border: '1px solid rgba(255, 255, 255, 0.1)',
+      // These two properties are critical for performance
+      willChange: 'transform',
+      transition: 'transform 0.2s ease'
+    },
+    header: {
+      display: 'flex',
+      alignItems: 'center',
+      marginBottom: '0.5rem'
+    },
+    icon: {
+      marginRight: '0.5rem',
+      fontSize: '1.25rem'
+    },
+    title: {
+      color: '#ffffff',
+      fontSize: '0.9rem',
+      fontWeight: 'bold'
+    },
+    location: {
+      color: 'rgba(255, 255, 255, 0.7)',
+      fontSize: '0.8rem'
+    }
   };
 
-  const frontStyle = {
-    // Simplify styles to reduce painting operations
-    backfaceVisibility: 'hidden' as const,
-    position: 'relative' as const,
-    zIndex: 2,
-  };
-  
-  // Use functions with memoization to reduce function creation on renders
-  const handleMouseEnter = useCallback(() => {
-    if (cardRef.current && !isSelected) {
-      // Batch DOM updates into one style operation
-      requestAnimationFrame(() => {
-        if (cardRef.current) {
-          // Use columnIndex to create slight variations in hover effect
-          const rotateAngle = 21 + (columnIndex % 3) * 0.5;
-          cardRef.current.style.transform = `perspective(800px) rotateX(${rotateAngle}deg) scale(1.05)`;
-          cardRef.current.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.6)';
-        }
-      });
-    }
-  }, [isSelected, columnIndex]);
-  
-  const handleMouseLeave = useCallback(() => {
-    if (cardRef.current && !isSelected) {
-      // Batch DOM updates into one style operation
-      requestAnimationFrame(() => {
-        if (cardRef.current) {
-          // Use columnIndex to create slight variations in rest position
-          const restAngle = 18 + (columnIndex % 2) * 0.3;
-          cardRef.current.style.transform = `perspective(800px) rotateX(${restAngle}deg)`;
-          cardRef.current.style.boxShadow = '0 15px 25px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.2)';
-        }
-      });
-    }
-  }, [isSelected, columnIndex]);
-
-  // Simplified JSX with fewer nested elements and transforms
+  // Super simplified render with far fewer DOM elements
   return (
     <div 
-      ref={cardRef}
-      className={`marquee-3d-card relative rounded-xl border border-white/10 bg-gradient-to-br ${gradientClass} shadow-lg`}
-      onClick={handleClick}
-      onMouseMove={handleMouseMove}
-      style={cardStyle}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      style={styles.container}
+      onClick={onClick}
+      className={`bg-gradient-to-br ${gradientClass}`}
     >
-      {/* Simplified front of card */}
-      <div style={frontStyle}>
-        <div className="flex flex-row items-center gap-3 mb-2">
-          <div className="rounded-full bg-gradient-to-r w-10 h-10 flex items-center justify-center text-2xl">
-            {icon}
-          </div>
-          <div className="flex flex-col">
-            <h3 className="text-base font-medium text-white">{item.name}</h3>
-          </div>
-        </div>
+      <div style={styles.header}>
+        <span style={styles.icon}>{icon}</span>
+        <span style={styles.title}>{item.name}</span>
+      </div>
+      <div style={styles.location}>{item.location}</div>
+      {item.type === 'room' && (item.item as Room).capacity && (
+        <div style={styles.location}>{(item.item as Room).capacity} seats</div>
+      )}
+    </div>
+  );
+};
+
+// Optimized Static Marquee - removed animation from individual items
+const StaticMarquee: React.FC<{
+  items: MarqueeItem[];
+  onItemClick: (type: 'equipment' | 'room', item: Equipment | Room) => void;
+  isPaused: boolean;
+  columnIndex: number;
+}> = ({ items, onItemClick, isPaused, columnIndex }) => {
+  const [scrollPos, setScrollPos] = useState(0);
+  const speedRef = useRef(0.02 + (columnIndex % 2 ? 0.01 : 0));
+  const directionRef = useRef(columnIndex % 2 === 0 ? 1 : -1);
+  
+  // Use setInterval instead of requestAnimationFrame to avoid linter issues
+  useEffect(() => {
+    // Only animate if not paused
+    if (isPaused) return;
+    
+    const intervalId = setInterval(() => {
+      setScrollPos(prev => {
+        let newPos = prev + speedRef.current * directionRef.current;
         
-        <p className="mt-2 text-sm text-white/80">{item.location}</p>
-        {item.type === 'room' && (item.item as Room).capacity && (
-          <p className="text-sm text-white/60 mt-1">• {(item.item as Room).capacity} seats</p>
-        )}
-      </div>
-    </div>
-  );
-};
+        // Loop back when reaching the end
+        if (newPos > 100) newPos = 0;
+        if (newPos < 0) newPos = 100;
+        
+        return newPos;
+      });
+    }, 16); // ~60fps
+    
+    // Clean up on unmount
+    return () => clearInterval(intervalId);
+  }, [isPaused]);
+  
+  // Calculate which items are visible based on scroll position for optimization
+  const visibleItems = useMemo(() => {
+    // Create mapping of which items are visible
+    return items.map((item, idx) => {
+      // Position of this item (0-100)
+      const itemPos = (idx * (100 / items.length)) % 100;
+      
+      // Calculate distance from current scroll position (accounting for wrapping)
+      const distance = Math.min(
+        Math.abs(itemPos - scrollPos),
+        Math.abs(itemPos - (scrollPos + 100)),
+        Math.abs((itemPos + 100) - scrollPos)
+      );
+      
+      // Only render items in visible range (about 30% of total)
+      return distance < 30;
+    });
+  }, [items, scrollPos]);
 
-// Optimized Vertical marquee component
-const VerticalMarquee = ({ children, duration, reverse = false, isPaused = false }: { 
-  children: React.ReactNode, 
-  duration: string, 
-  reverse?: boolean,
-  isPaused?: boolean
-}) => {
-  // Memoize the animation style to prevent recreation on every render
-  const animationStyle = useMemo(() => ({
-    animation: isPaused 
-      ? 'none' 
-      : `scrollY ${duration} linear infinite ${reverse ? 'reverse' : ''}`,
-    willChange: isPaused ? 'auto' : "transform",
-    transition: "all 400ms ease",
-  }), [duration, isPaused, reverse]);
-
-  // Memoize the style setup
-  const containerStyle = useMemo(() => ({ 
-    height: "100%", 
-    overflow: "hidden",
-  }), []);
-
-  // Simpler optimized structure with static CSS
+  // Calculate transform based on scroll position
+  const wrapperStyle: React.CSSProperties = {
+    transform: `translateY(${-scrollPos}%)`,
+    height: '500%', // Make it much taller than viewport
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column'
+  };
+  
+  // Handle clicks directly now
+  const handleCardClick = (item: MarqueeItem) => {
+    onItemClick(item.type, item.item);
+  };
+  
   return (
-    <div className="marquee-vertical" style={containerStyle}>
-      <div style={animationStyle}>
-        {children}
-        {children}
+    <div className="marquee-container" style={{ height: '100%', overflow: 'hidden' }}>
+      <div style={wrapperStyle}>
+        {items.map((item, idx) => (
+          <ResourceCard
+            key={`${columnIndex}-${item.id}-${idx}`}
+            item={item}
+            onClick={() => handleCardClick(item)}
+            isPaused={isPaused}
+            isSelected={false}
+            columnIndex={columnIndex}
+            isVisible={visibleItems[idx]} // Only render visible items
+          />
+        ))}
+        {/* Repeat items to create continuous scrolling effect */}
+        {items.map((item, idx) => (
+          <ResourceCard
+            key={`${columnIndex}-${item.id}-${idx}-clone`}
+            item={item}
+            onClick={() => handleCardClick(item)}
+            isPaused={isPaused}
+            isSelected={false}
+            columnIndex={columnIndex}
+            isVisible={visibleItems[idx]} // Only render visible items
+          />
+        ))}
       </div>
-      {/* Move styles to static CSS to prevent reflows */}
-      <style>{`
-        @keyframes scrollY {
-          from { transform: translateY(0); }
-          to { transform: translateY(-50%); }
-        }
-        .marquee-vertical > div {
-          display: flex;
-          flex-direction: column;
-          backface-visibility: hidden;
-          transform: translateZ(0);
-        }
-      `}</style>
     </div>
   );
 };
 
-// Main 3D Marquee component
+// Main 3D Marquee component - extremely simplified
 export const Marquee3D: React.FC<Marquee3DProps> = ({ 
   items, 
   onItemClick, 
-  isPaused = false, 
-  selectedPosition = null 
+  isPaused = false
 }) => {
-  const mainContainerRef = useRef<HTMLDivElement>(null);
-  
   // If no items are provided, use mock data for testing
   const displayItems = useMemo(
     () => items && items.length > 0 ? items : createMockData(),
@@ -294,20 +269,14 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
     [displayItems]
   );
   
-  // Mix equipment and room items for visual interest - memoize
-  const mixedItems = useMemo(
-    () => [...displayItems].sort(() => Math.random() - 0.5),
-    [displayItems]
-  );
-  
   // Ensure we have enough items by repeating them if necessary
   const ensureItems = useCallback((arr: MarqueeItem[], count: number): MarqueeItem[] => {
     if (arr.length >= count) return arr.slice(0, count);
     return [...arr, ...arr, ...arr].slice(0, count);
   }, []);
   
-  // Reduced number of items per column for better performance
-  const ITEMS_PER_COLUMN = 6; // Reduced from 8 to 6
+  // Dramatically reduced number of items per column for performance
+  const ITEMS_PER_COLUMN = 4; // Far fewer items
   
   // Create 4 columns with fewer items
   const column1 = useMemo(
@@ -321,186 +290,107 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
   );
   
   const column3 = useMemo(
-    () => ensureItems([...mixedItems].slice(0, 10).sort(() => 0.5 - Math.random()), ITEMS_PER_COLUMN),
-    [mixedItems, ensureItems]
+    () => ensureItems([...equipmentItems.slice(Math.min(4, equipmentItems.length))].sort(() => 0.5 - Math.random()), ITEMS_PER_COLUMN),
+    [equipmentItems, ensureItems]
   );
   
   const column4 = useMemo(
-    () => ensureItems([...mixedItems].slice(10, 20).sort(() => 0.5 - Math.random()), ITEMS_PER_COLUMN),
-    [mixedItems, ensureItems]
+    () => ensureItems([...roomItems.slice(Math.min(4, roomItems.length))].sort(() => 0.5 - Math.random()), ITEMS_PER_COLUMN),
+    [roomItems, ensureItems]
   );
 
-  // Handle card click - pass position info to parent
-  const handleCardClick = useCallback((type: 'equipment' | 'room', item: Equipment | Room) => {
-    // Directly call onItemClick with the card's information
-    onItemClick(type, item);
-  }, [onItemClick]);
+  // Super simple container styles, minimal DOM nesting
+  const containerStyles = {
+    perspective: '500px',
+    height: '580px',
+    position: 'relative' as const,
+    width: '100%',
+    overflow: 'hidden'
+  };
+  
+  const sceneStyles = {
+    transform: 'rotateX(20deg)',
+    height: '100%',
+    width: '100%',
+    position: 'absolute' as const,
+    transformStyle: 'preserve-3d' as const,
+  };
+  
+  const columnStyles = {
+    display: 'flex',
+    justifyContent: 'space-around',
+    width: '100%',
+    height: '100%',
+    position: 'relative' as const
+  };
 
-  // Memoize styles to prevent recreation on each render
-  const containerStyle = useMemo(() => ({
-    width: "100%",
-  }), []);
-
-  // Reduce the perspective value and height for better performance
-  const perspectiveStyle = useMemo(() => ({
-    perspective: "500px", // Reduced from 600px
-    height: "4000px", // Reduced from 5200px
-    width: "100%", 
-    maxWidth: "1300px",
-    margin: "0 auto",
-    position: "relative" as const,
-    transformStyle: "preserve-3d" as const,
-  }), []);
-
-  const rotatedContainerStyle = useMemo(() => ({
-    position: "absolute" as const,
-    top: "0",
-    left: "0",
-    right: "0",
-    bottom: "0",
-    transform: "rotateX(40deg) translateY(-160px)", // Less extreme angle
-    transformStyle: "preserve-3d" as const,
-    transformOrigin: "center center"
-  }), []);
-
-  const columnLayoutStyle = useMemo(() => ({
-    display: "flex",
-    justifyContent: "center",
-    gap: "3rem",
-    height: "200%",
-    width: "100%"
-  }), []);
-
-  // Individual column styles - simplified transforms
-  const column1Style = useMemo(() => ({ 
-    width: "220px", 
-    height: "100%", 
-    transform: "translateZ(15px)",
-    position: "relative" as const
-  }), []);
-
-  const column2Style = useMemo(() => ({ 
-    width: "220px", 
-    height: "100%", 
-    transform: "translateZ(5px)",
-    position: "relative" as const
-  }), []);
-
-  const column3Style = useMemo(() => ({ 
-    width: "220px", 
-    height: "100%", 
-    transform: "translateZ(-5px)",
-    position: "relative" as const
-  }), []);
-
-  const column4Style = useMemo(() => ({ 
-    width: "220px", 
-    height: "100%", 
-    transform: "translateZ(-15px)",
-    position: "relative" as const
-  }), []);
-
-  // Slower animations for better performance - even slower for better CPU usage
-  const duration1 = "120s"; // Increased from 90s
-  const duration2 = "150s"; // Increased from 100s
-  const duration3 = "140s"; // Increased from 110s
-  const duration4 = "160s"; // Increased from 120s
-
-  // Simpler and more reliable approach to the 3D transform
   return (
-    <div className="marquee-3d-section" style={containerStyle} ref={mainContainerRef}>
-      <div style={perspectiveStyle}>
-        {/* Completely simplified approach to render columns */}
-        <div style={rotatedContainerStyle}>
-          <div style={columnLayoutStyle}>
-            {/* Column 1 */}
-            <div className="column" style={column1Style}>
-              <VerticalMarquee duration={duration1} isPaused={isPaused}>
-                {column1.map((item, idx) => (
-                  <ResourceCard 
-                    key={`col1-${item.id}-${idx}`} 
-                    item={item} 
-                    onClick={() => handleCardClick(item.type, item.item)}
-                    isPaused={isPaused}
-                    isSelected={selectedPosition?.columnIndex === 1 && selectedPosition?.itemIndex === idx}
-                    columnIndex={1}
-                  />
-                ))}
-              </VerticalMarquee>
-            </div>
-            
-            {/* Column 2 */}
-            <div className="column" style={column2Style}>
-              <VerticalMarquee duration={duration2} reverse={true} isPaused={isPaused}>
-                {column2.map((item, idx) => (
-                  <ResourceCard 
-                    key={`col2-${item.id}-${idx}`} 
-                    item={item} 
-                    onClick={() => handleCardClick(item.type, item.item)}
-                    isPaused={isPaused}
-                    isSelected={selectedPosition?.columnIndex === 2 && selectedPosition?.itemIndex === idx}
-                    columnIndex={2}
-                  />
-                ))}
-              </VerticalMarquee>
-            </div>
-            
-            {/* Column 3 */}
-            <div className="column" style={column3Style}>
-              <VerticalMarquee duration={duration3} isPaused={isPaused}>
-                {column3.map((item, idx) => (
-                  <ResourceCard 
-                    key={`col3-${item.id}-${idx}`} 
-                    item={item} 
-                    onClick={() => handleCardClick(item.type, item.item)}
-                    isPaused={isPaused}
-                    isSelected={selectedPosition?.columnIndex === 3 && selectedPosition?.itemIndex === idx}
-                    columnIndex={3}
-                  />
-                ))}
-              </VerticalMarquee>
-            </div>
-            
-            {/* Column 4 */}
-            <div className="column" style={column4Style}>
-              <VerticalMarquee duration={duration4} reverse={true} isPaused={isPaused}>
-                {column4.map((item, idx) => (
-                  <ResourceCard 
-                    key={`col4-${item.id}-${idx}`} 
-                    item={item} 
-                    onClick={() => handleCardClick(item.type, item.item)}
-                    isPaused={isPaused}
-                    isSelected={selectedPosition?.columnIndex === 4 && selectedPosition?.itemIndex === idx}
-                    columnIndex={4}
-                  />
-                ))}
-              </VerticalMarquee>
-            </div>
+    <div style={containerStyles}>
+      <div style={sceneStyles}>
+        <div style={columnStyles}>
+          {/* Column 1 - Static marquee with fewer items */}
+          <div style={{ width: '22%', height: '100%', transform: 'translateZ(20px)' }}>
+            <StaticMarquee 
+              items={column1} 
+              onItemClick={onItemClick} 
+              isPaused={isPaused}
+              columnIndex={1}
+            />
+          </div>
+          
+          {/* Column 2 */}
+          <div style={{ width: '22%', height: '100%', transform: 'translateZ(0px)' }}>
+            <StaticMarquee 
+              items={column2} 
+              onItemClick={onItemClick} 
+              isPaused={isPaused}
+              columnIndex={2}
+            />
+          </div>
+          
+          {/* Column 3 */}
+          <div style={{ width: '22%', height: '100%', transform: 'translateZ(-10px)' }}>
+            <StaticMarquee 
+              items={column3} 
+              onItemClick={onItemClick} 
+              isPaused={isPaused}
+              columnIndex={3}
+            />
+          </div>
+          
+          {/* Column 4 */}
+          <div style={{ width: '22%', height: '100%', transform: 'translateZ(-20px)' }}>
+            <StaticMarquee 
+              items={column4} 
+              onItemClick={onItemClick} 
+              isPaused={isPaused}
+              columnIndex={4}
+            />
           </div>
         </div>
-        
-        {/* Simplified gradient overlays - fewer elements and simpler styles */}
-        <div style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "15%",
-          background: "linear-gradient(to bottom, rgba(18, 5, 26, 0.9), transparent)",
-          pointerEvents: "none",
-          zIndex: 10
-        }}></div>
-        <div style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: "25%",
-          background: "linear-gradient(to top, rgba(18, 5, 26, 0.9), transparent)",
-          pointerEvents: "none",
-          zIndex: 10
-        }}></div>
       </div>
+      
+      {/* Simple top and bottom gradients */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: '80px',
+        background: 'linear-gradient(to bottom, rgba(18, 5, 26, 0.9), transparent)',
+        pointerEvents: 'none',
+        zIndex: 10
+      }}></div>
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: '80px',
+        background: 'linear-gradient(to top, rgba(18, 5, 26, 0.9), transparent)',
+        pointerEvents: 'none',
+        zIndex: 10
+      }}></div>
     </div>
   );
 };
@@ -509,16 +399,7 @@ export const Marquee3D: React.FC<Marquee3DProps> = ({
 export const getResourceIcon = (item: MarqueeItem): string => {
   if (item.type === 'equipment') {
     if (item.name.toLowerCase().includes('camera')) return '📷';
-    if (item.name.toLowerCase().includes('ipad')) return '📱';
-    if (item.name.toLowerCase().includes('mixer')) return '🎛️';
-    if (item.name.toLowerCase().includes('laptop') || item.name.toLowerCase().includes('macbook')) return '💻';
-    if (item.name.toLowerCase().includes('projector')) return '📽️';
-    if (item.name.toLowerCase().includes('printer')) return '🖨️';
-    if (item.name.toLowerCase().includes('microphone')) return '🎙️';
-    if (item.name.toLowerCase().includes('vr')) return '🥽';
-    if (item.name.toLowerCase().includes('gaming')) return '🎮';
-    if (item.name.toLowerCase().includes('streaming')) return '🎬';
-    if (item.name.toLowerCase().includes('drawing') || item.name.toLowerCase().includes('tablet')) return '🖌️';
+    if (item.name.toLowerCase().includes('laptop')) return '💻';
     return '📱';
   } else {
     return '🏢';
