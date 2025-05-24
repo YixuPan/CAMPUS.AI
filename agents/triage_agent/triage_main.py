@@ -6,7 +6,7 @@ from semantic_kernel.connectors.ai.open_ai import AzureChatCompletion
 from semantic_kernel.functions.kernel_function_decorator import kernel_function
 from semantic_kernel.agents import ChatCompletionAgent
 
-from agents.base_agent import BaseAgent
+from agents.base_agent import BaseAgent 
 
 # --- Azure OpenAI Setup for Triage Agent ---
 AZURE_OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_API_ENDPOINT")
@@ -85,9 +85,18 @@ class TriageAgent:
 
         {self.get_prompt_contributions()}
 
+        **Conversation History:**
+        You will be provided with the ongoing conversation history as a list of messages. Use this history to:
+        - Understand the context of the current user request.
+        - Avoid asking for information that has already been provided.
+        - Interpret follow-up questions or commands correctly.
+        - Maintain a coherent and natural conversation flow.
+        The history will be part of the message list sent to you.
+        Remember your primary role is to delegate to specialized agents based on the *current* user query, informed by the history.
+
         **Your Process:**
 
-        1.  **Analyze User Request:** Carefully examine the user's query to identify the core intent and any specific entities or constraints. Determine which of the available specialized agents (listed above) is best suited to handle the request or parts of it.
+        1.  **Analyze User Request:** Carefully examine the user's query (and the preceding conversation history) to identify the core intent and any specific entities or constraints. Determine which of the available specialized agents (listed above) is best suited to handle the request or parts of it.
 
         2.  **Planning and Execution:**
             *   **Delegation:** Use the 'delegate_to_agent' function from the 'SubAgentControls' plugin to pass the task to the chosen specialized agent. You MUST specify the 'agent_name' (e.g., "Calendar", "IoT", "Speech", "Attendance") and the 'query' (the specific task or question for that agent).
@@ -117,9 +126,6 @@ class TriageAgent:
         )
         print("Triage Agent instantiated and ready.")
 
-    async def invoke(self, messages: str):
-        """Invoke the Triage Agent with a user message."""
-        return await self.triage_agent.invoke(messages)
 
     def get_prompt_contributions(self) -> str:
         """Get the prompt contributions from all initialized agents."""
@@ -161,4 +167,4 @@ class TriageAgent:
             error_msg = f"Error calling {agent_name} Agent: {e}"
             if self.show_thoughts:
                 print(f"[Triage Thought Process] {error_msg}")
-            return error_msg 
+            return error_msg
