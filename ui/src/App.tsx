@@ -682,7 +682,6 @@ function App() {
               >
                 Back
               </button>
-              <h2>Chat with Yuni</h2>
               <div className="speech-controls">
                 <div className="speech-toggle">
                   <span className="speech-toggle-label">{useSpeechOutput ? "Speech: On" : "Speech: Off"}</span>

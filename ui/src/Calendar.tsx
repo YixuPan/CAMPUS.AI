@@ -552,7 +552,7 @@ const Calendar: React.FC = () => {
         <LogoButton />
         <nav>
           <ul>
-            <li><Link to="/">CampusSphere</Link></li>
+            <li><Link to="/app">CampusSphere</Link></li>
             <li className="active"><Link to="/calendar">Calendar</Link></li>
             <li><Link to="/booking">Booking</Link></li>
             <li><Link to="/user">User</Link></li>
