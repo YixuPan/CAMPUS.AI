@@ -29,9 +29,9 @@ class IoTAgent(BaseAgent):
             "azure_openai_api_key": os.getenv("AZURE_OPENAI_API_KEY"),
             "azure_openai_deployment_name": os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"),
             "azure_openai_api_version": os.getenv("AZURE_OPENAI_API_VERSION", "2024-12-01-preview"),
-            "cosmos_connection_string": os.getenv("COSMOS_CONNECTION_STRING"),
-            "cosmos_db_name": os.getenv("COSMOS_DB_NAME", "CampusData"),
-            "cosmos_container_name": os.getenv("COSMOS_CONTAINER_NAME", "Students")
+            "cosmos_connection_string": os.getenv("AZURE_COSMOS_CONNECTION_STRING"),
+            "cosmos_db_name": os.getenv("COSMOS_DB_NAME"),
+            "cosmos_container_name": os.getenv("COSMOS_CONTAINER_NAME")
         }
 
     def _validate_configuration(self, config: Dict[str, str]):
@@ -42,6 +42,7 @@ class IoTAgent(BaseAgent):
             raise ValueError(
                 "Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, and AZURE_OPENAI_DEPLOYMENT_NAME "
                 "environment variables for the IoT agent."
+                f"Missing keys: {missing_keys}"
             )
 
     def initialize_kernel_and_service(self, config: Dict[str, Optional[str]]) -> Tuple[Kernel, AzureChatCompletion]:

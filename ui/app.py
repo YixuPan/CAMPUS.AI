@@ -13,6 +13,8 @@ import requests
 project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(project_dir)
 sys.path.append(os.path.join(project_dir, "triagespeech1"))
+# Add agents directory for direct import
+sys.path.append(os.path.join(os.path.dirname(project_dir), "agents"))
 
 # Load environment variables
 load_dotenv()
@@ -40,17 +42,40 @@ except Exception as e:
     print("Ensure triagespeech1/agents/speech/speech_io.py exists")
     SPEECH_AVAILABLE = False
 
-# Force production mode - we don't want mock mode
-TESTING_MODE = False 
+# Import agents and ChatMessageContent
 try:
-    from triagespeech1.triage_agent import create_triage_agent
+    from semantic_kernel.contents import ChatMessageContent
+    from agents import CalendarAgent, IoTAgent, SpeechAgent, AttendanceAgent, TriageAgent # Assuming TriageAgent is also in agents
+    AGENTS_AVAILABLE = True
+    print("All specialized agents and ChatMessageContent imported successfully.")
+except ImportError as e:
+    print(f"ERROR importing agents or ChatMessageContent: {e}")
+    print("Ensure 'agents.py' and necessary Semantic Kernel components are in the PYTHONPATH.")
+    AGENTS_AVAILABLE = False
+    # Define dummy classes if import fails to avoid NameError later, though functionality will be impaired
+    class TriageAgent: pass
+    class CalendarAgent: pass
+    class IoTAgent: pass
+    class SpeechAgent: pass
+    class AttendanceAgent: pass
+    class ChatMessageContent: pass
+
+# Force production mode - we don't want mock mode
+TESTING_MODE = False
+try:
     # Create a single instance of the triage agent
-    triage_agent = create_triage_agent(show_thoughts=True)
-    print("Triage Agent initialized successfully!")
+    if AGENTS_AVAILABLE:
+        triage_agent_instance = TriageAgent(show_thoughts=True, available_agents=[CalendarAgent, IoTAgent, SpeechAgent, AttendanceAgent])
+        triage_agent = triage_agent_instance.triage_agent # Assuming TriageAgent class has a .triage_agent attribute that is the invokable agent
+        print("Triage Agent initialized successfully!")
+    else:
+        triage_agent = None
+        print("Triage Agent could not be initialized due to missing agent modules.")
 except Exception as e:
     print(f"ERROR initializing triage agent: {e}")
-    print("Path issue? Check that triagespeech1/triage_agent.py exists.")
-    print("Will still attempt to use the triage agent functions.")
+    # print("Path issue? Check that triagespeech1/triage_agent.py exists.") # This path might be obsolete
+    print("Check TriageAgent class and its dependencies.")
+    triage_agent = None # Ensure triage_agent is None if initialization fails
 
 # Create a global variable to track the speech synthesizer
 speech_synthesizer = None
@@ -328,18 +353,25 @@ async def process_message(message):
     """
     try:
         # Try to use the triage agent if it was initialized
-        if 'triage_agent' in globals() and triage_agent is not None:
+        if triage_agent is not None and AGENTS_AVAILABLE:
+            # Prepare the message in the format expected by the agent
+            # For now, sending only the current message as a User message.
+            # Conversation history management would require a more complex setup (e.g., session state).
+            user_message = ChatMessageContent(role="user", content=message)
+            messages_for_agent = [user_message]
+
             full_response = []
-            async for response_chunk in triage_agent.invoke(messages=message):
+            async for response_chunk in triage_agent.invoke(messages=messages_for_agent):
                 if response_chunk.content:
                     content_str = str(response_chunk.content) if response_chunk.content is not None else ""
                     full_response.append(content_str)
             return "".join(full_response)
+        elif not AGENTS_AVAILABLE:
+            return "The Triage Agent's components are not available. Please check the server configuration."
         else:
             return "The triage agent is not available at the moment. Please try again later."
     except Exception as e:
         print(f"Error processing message: {e}")
-        return f"I'm sorry, I encountered an error: {str(e)}"
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 9001))

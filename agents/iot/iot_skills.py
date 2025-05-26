@@ -11,6 +11,6 @@ class IoTDataSkill:
 
     @kernel_function(name="get_latest_telemetry", description="Fetch latest IoT sensor readings")
     async def get_latest_telemetry(self):
-        query = "SELECT * FROM c WHERE c.type = 'iot_data' ORDER BY c.timestamp DESC OFFSET 0 LIMIT 10"
+        query = "SELECT * FROM c ORDER BY c.timestamp DESC OFFSET 0 LIMIT 10"
         results = list(self.container.query_items(query, enable_cross_partition_query=True))
         return json.dumps(results, indent=2)
