@@ -1,20 +1,4 @@
 
-Environment variables loaded:
-AZURE_OPENAI_API_ENDPOINT: [REDACTED]
-AZURE_OPENAI_API_KEY: [REDACTED]
-AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
-AZURE_OPENAI_API_VERSION: 2024-12-01-preview
-SPEECH_KEY: [REDACTED]
-SPEECH_REGION: westeurope
-WARNING: Speech module import failed: No module named 'triagespeech1'
-Ensure triagespeech1/agents/speech/speech_io.py exists
-ERROR initializing triage agent: No module named 'triagespeech1'
-Path issue? Check that triagespeech1/triage_agent.py exists.
-Will still attempt to use the triage agent functions.
- * Serving Flask app 'app'
- * Debug mode: on
-Address already in use
-Port 9001 is in use by another program. Either identify and stop that program, or start the server with a different port.
 
 > jellyfish-shader@0.0.0 dev
 > vite
@@ -25,14 +9,16 @@ Port 5175 is in use, trying another one...
 Port 5176 is in use, trying another one...
 Port 5177 is in use, trying another one...
 Port 5178 is in use, trying another one...
+Port 5179 is in use, trying another one...
+Port 5180 is in use, trying another one...
+Port 5181 is in use, trying another one...
+Port 5182 is in use, trying another one...
+Port 5183 is in use, trying another one...
 
-  VITE v6.3.5  ready in 283 ms
+  VITE v6.3.5  ready in 614 ms
 
-  ➜  Local:   http://localhost:5179/CampusSphere/
+  ➜  Local:   http://localhost:5184/CampusSphere/
   ➜  Network: use --host to expose
-127.0.0.1 - - [26/May/2025 17:49:50] "POST /chat HTTP/1.1" 200 -
-127.0.0.1 - - [26/May/2025 17:49:50] "POST /speech/synthesize HTTP/1.1" 503 -
- * Detected change in '/home/bruno/Documents/Workspace/Microsoft/CAMPUS.AI/ui/app.py', reloading
 Environment variables loaded:
 AZURE_OPENAI_API_ENDPOINT: [REDACTED]
 AZURE_OPENAI_API_KEY: [REDACTED]
@@ -42,172 +28,46 @@ SPEECH_KEY: [REDACTED]
 SPEECH_REGION: westeurope
 WARNING: Speech module import failed: No module named 'triagespeech1'
 Ensure triagespeech1/agents/speech/speech_io.py exists
-ERROR initializing triage agent: No module named 'triagespeech1'
-Path issue? Check that triagespeech1/triage_agent.py exists.
-Will still attempt to use the triage agent functions.
-Received chat message: Hello 
-Sending response: The triage agent is not available at the moment. Please try again later.
-Speech synthesis not available - module not loaded
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+AZURE_OPENAI_API_ENDPOINT: https://aihub0149538098.openai.azure.com/
+AZURE_OPENAI_API_KEY: 2xPHmfbx95MxBkUe93PjxC65rTqIVwPuqfOMdYJhNJNe3BvZ2rwhJQQJ99BEACmepeSXJ3w3AAAAACOGJVGq
+AZURE_OPENAI_DEPLOYMENT_NAME: gpt-4o-mini
+GRAPH_ACCESS_TOKEN: None
+
+
+Initializing IoT Agent...
+[IoTAgent] IoTPlugin loaded successfully.
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+AZURE_OPENAI_API_ENDPOINT: https://aihub0149538098.openai.azure.com/
+AZURE_OPENAI_API_KEY: 2xPHmfbx95MxBkUe93PjxC65rTqIVwPuqfOMdYJhNJNe3BvZ2rwhJQQJ99BEACmepeSXJ3w3AAAAACOGJVGq
+AZURE_OPENAI_DEPLOYMENT_NAME: gpt-4o-mini
+COSMOS_ENDPOINT: None
+COSMOS_KEY: None
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:9001
+ * Running on http://192.168.1.68:9001
+Press CTRL+C to quit
  * Restarting with stat
  * Debugger is active!
  * Debugger PIN: 447-833-545
- * Detected change in '/home/bruno/Documents/Workspace/Microsoft/CAMPUS.AI/ui/app.py', reloading
-Environment variables loaded:
-AZURE_OPENAI_API_ENDPOINT: [REDACTED]
-AZURE_OPENAI_API_KEY: [REDACTED]
-AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
-AZURE_OPENAI_API_VERSION: 2024-12-01-preview
-SPEECH_KEY: [REDACTED]
-SPEECH_REGION: westeurope
-WARNING: Speech module import failed: No module named 'triagespeech1'
-Ensure triagespeech1/agents/speech/speech_io.py exists
-ERROR importing agents or ChatMessageContent: No module named 'agents'
-Ensure 'agents.py' and necessary Semantic Kernel components are in the PYTHONPATH.
-Triage Agent could not be initialized due to missing agent modules.
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 447-833-545
- * Detected change in '/home/bruno/Documents/Workspace/Microsoft/CAMPUS.AI/agents/iot/iot_main.py', reloading
-Environment variables loaded:
-AZURE_OPENAI_API_ENDPOINT: [REDACTED]
-AZURE_OPENAI_API_KEY: [REDACTED]
-AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
-AZURE_OPENAI_API_VERSION: 2024-12-01-preview
-SPEECH_KEY: [REDACTED]
-SPEECH_REGION: westeurope
-WARNING: Speech module import failed: No module named 'triagespeech1'
-Ensure triagespeech1/agents/speech/speech_io.py exists
-ERROR importing agents or ChatMessageContent: No module named 'agents'
-Ensure 'agents.py' and necessary Semantic Kernel components are in the PYTHONPATH.
-Triage Agent could not be initialized due to missing agent modules.
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 447-833-545
- * Detected change in '/home/bruno/Documents/Workspace/Microsoft/CAMPUS.AI/agents/iot/iot_main.py', reloading
-Environment variables loaded:
-AZURE_OPENAI_API_ENDPOINT: [REDACTED]
-AZURE_OPENAI_API_KEY: [REDACTED]
-AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
-AZURE_OPENAI_API_VERSION: 2024-12-01-preview
-SPEECH_KEY: [REDACTED]
-SPEECH_REGION: westeurope
-WARNING: Speech module import failed: No module named 'triagespeech1'
-Ensure triagespeech1/agents/speech/speech_io.py exists
-ERROR importing agents or ChatMessageContent: No module named 'agents'
-Ensure 'agents.py' and necessary Semantic Kernel components are in the PYTHONPATH.
-Triage Agent could not be initialized due to missing agent modules.
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 447-833-545
- * Detected change in '/home/bruno/Documents/Workspace/Microsoft/CAMPUS.AI/agents/iot/iot_main.py', reloading
-Environment variables loaded:
-AZURE_OPENAI_API_ENDPOINT: [REDACTED]
-AZURE_OPENAI_API_KEY: [REDACTED]
-AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
-AZURE_OPENAI_API_VERSION: 2024-12-01-preview
-SPEECH_KEY: [REDACTED]
-SPEECH_REGION: westeurope
-WARNING: Speech module import failed: No module named 'triagespeech1'
-Ensure triagespeech1/agents/speech/speech_io.py exists
-ERROR importing agents or ChatMessageContent: No module named 'agents'
-Ensure 'agents.py' and necessary Semantic Kernel components are in the PYTHONPATH.
-Triage Agent could not be initialized due to missing agent modules.
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 447-833-545
- * Detected change in '/home/bruno/Documents/Workspace/Microsoft/CAMPUS.AI/agents/iot/iot_main.py', reloading
-Environment variables loaded:
-AZURE_OPENAI_API_ENDPOINT: [REDACTED]
-AZURE_OPENAI_API_KEY: [REDACTED]
-AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
-AZURE_OPENAI_API_VERSION: 2024-12-01-preview
-SPEECH_KEY: [REDACTED]
-SPEECH_REGION: westeurope
-WARNING: Speech module import failed: No module named 'triagespeech1'
-Ensure triagespeech1/agents/speech/speech_io.py exists
-ERROR importing agents or ChatMessageContent: No module named 'agents'
-Ensure 'agents.py' and necessary Semantic Kernel components are in the PYTHONPATH.
-Triage Agent could not be initialized due to missing agent modules.
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 447-833-545
- * Detected change in '/home/bruno/Documents/Workspace/Microsoft/CAMPUS.AI/agents/iot/iot_main.py', reloading
-Environment variables loaded:
-AZURE_OPENAI_API_ENDPOINT: [REDACTED]
-AZURE_OPENAI_API_KEY: [REDACTED]
-AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
-AZURE_OPENAI_API_VERSION: 2024-12-01-preview
-SPEECH_KEY: [REDACTED]
-SPEECH_REGION: westeurope
-WARNING: Speech module import failed: No module named 'triagespeech1'
-Ensure triagespeech1/agents/speech/speech_io.py exists
-ERROR importing agents or ChatMessageContent: No module named 'agents'
-Ensure 'agents.py' and necessary Semantic Kernel components are in the PYTHONPATH.
-Triage Agent could not be initialized due to missing agent modules.
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 447-833-545
- * Detected change in '/home/bruno/Documents/Workspace/Microsoft/CAMPUS.AI/agents/iot/iot_main.py', reloading
-Environment variables loaded:
-AZURE_OPENAI_API_ENDPOINT: [REDACTED]
-AZURE_OPENAI_API_KEY: [REDACTED]
-AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
-AZURE_OPENAI_API_VERSION: 2024-12-01-preview
-SPEECH_KEY: [REDACTED]
-SPEECH_REGION: westeurope
-WARNING: Speech module import failed: No module named 'triagespeech1'
-Ensure triagespeech1/agents/speech/speech_io.py exists
-ERROR importing agents or ChatMessageContent: No module named 'agents'
-Ensure 'agents.py' and necessary Semantic Kernel components are in the PYTHONPATH.
-Triage Agent could not be initialized due to missing agent modules.
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 447-833-545
- * Detected change in '/home/bruno/Documents/Workspace/Microsoft/CAMPUS.AI/agents/iot/iot_main.py', reloading
-Environment variables loaded:
-AZURE_OPENAI_API_ENDPOINT: [REDACTED]
-AZURE_OPENAI_API_KEY: [REDACTED]
-AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
-AZURE_OPENAI_API_VERSION: 2024-12-01-preview
-SPEECH_KEY: [REDACTED]
-SPEECH_REGION: westeurope
-WARNING: Speech module import failed: No module named 'triagespeech1'
-Ensure triagespeech1/agents/speech/speech_io.py exists
-ERROR importing agents or ChatMessageContent: No module named 'agents'
-Ensure 'agents.py' and necessary Semantic Kernel components are in the PYTHONPATH.
-Triage Agent could not be initialized due to missing agent modules.
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 447-833-545
- * Detected change in '/home/bruno/Documents/Workspace/Microsoft/CAMPUS.AI/agents/iot/iot_skills.py', reloading
-Environment variables loaded:
-AZURE_OPENAI_API_ENDPOINT: [REDACTED]
-AZURE_OPENAI_API_KEY: [REDACTED]
-AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
-AZURE_OPENAI_API_VERSION: 2024-12-01-preview
-SPEECH_KEY: [REDACTED]
-SPEECH_REGION: westeurope
-WARNING: Speech module import failed: No module named 'triagespeech1'
-Ensure triagespeech1/agents/speech/speech_io.py exists
-ERROR importing agents or ChatMessageContent: No module named 'agents'
-Ensure 'agents.py' and necessary Semantic Kernel components are in the PYTHONPATH.
-Triage Agent could not be initialized due to missing agent modules.
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 447-833-545
- * Detected change in '/home/bruno/Documents/Workspace/Microsoft/CAMPUS.AI/agents/iot/iot_skills.py', reloading
-Environment variables loaded:
-AZURE_OPENAI_API_ENDPOINT: [REDACTED]
-AZURE_OPENAI_API_KEY: [REDACTED]
-AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
-AZURE_OPENAI_API_VERSION: 2024-12-01-preview
-SPEECH_KEY: [REDACTED]
-SPEECH_REGION: westeurope
-WARNING: Speech module import failed: No module named 'triagespeech1'
-Ensure triagespeech1/agents/speech/speech_io.py exists
-ERROR importing agents or ChatMessageContent: No module named 'agents'
-Ensure 'agents.py' and necessary Semantic Kernel components are in the PYTHONPATH.
-Triage Agent could not be initialized due to missing agent modules.
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 447-833-545
+127.0.0.1 - - [26/May/2025 19:07:40] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [26/May/2025 19:07:40] "POST /speech/synthesize HTTP/1.1" 503 -
+127.0.0.1 - - [26/May/2025 19:07:49] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [26/May/2025 19:07:49] "POST /speech/synthesize HTTP/1.1" 503 -

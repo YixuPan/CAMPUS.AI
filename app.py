@@ -12,7 +12,7 @@ import requests
 # Add the project directory and triagespeech1 folder to the Python path
 project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(project_dir)
-sys.path.append(os.path.join(project_dir, "triagespeech1"))
+# sys.path.append(os.path.join(project_dir, "`triagespeech1`"))
 # Add agents directory for direct import
 sys.path.append(os.path.join(os.path.dirname(project_dir), "agents"))
 
@@ -80,6 +80,9 @@ except Exception as e:
 # Create a global variable to track the speech synthesizer
 speech_synthesizer = None
 
+# Global conversation history (Note: This is in-memory and shared across all users/requests, and resets on app restart)
+conversation_history = []
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
@@ -89,21 +92,37 @@ def chat():
     Endpoint to handle chat messages.
     Uses the triage agent to process messages and get responses.
     """
+    global conversation_history # Ensure we're using the global history
     try:
         data = request.json
-        message = data.get('message', '')
+        message_text = data.get('message', '')
         
-        if not message:
+        if not message_text:
             return jsonify({"error": "No message provided"}), 400
         
-        print(f"Received chat message: {message}")
+        print(f"Received chat message: {message_text}")
+        
+        # Add current user message to history before processing
+        # The process_message function will format the history for the agent
+        # conversation_history.append({"role": "user", "content": message_text}) # This will be handled by process_message now
         
         # Use run_async to call the async function from the synchronous Flask context
         try:
-            response = asyncio.run(process_message(message))
+            # Pass the current message and a copy of the history
+            response = asyncio.run(process_message(message_text, list(conversation_history)))
+            
+            # Update history after successful processing
+            conversation_history.append({"role": "user", "content": message_text})
+            conversation_history.append({"role": "assistant", "content": response})
+
         except Exception as e:
             print(f"Error processing message with triage agent: {e}")
             response = f"I'm having trouble connecting to my AI services: {str(e)}"
+        
+        # Trim history if it gets too long to prevent excessive memory usage (optional)
+        MAX_HISTORY_LEN = 20 # Keep last 10 turns (20 messages)
+        if len(conversation_history) > MAX_HISTORY_LEN:
+            conversation_history = conversation_history[-MAX_HISTORY_LEN:]
         
         print(f"Sending response: {response[:100]}..." if len(response) > 100 else f"Sending response: {response}")
         
@@ -346,32 +365,42 @@ def calendar_test():
             "token_available": graph_token is not None
         }), 500
 
-async def process_message(message):
+async def process_message(current_user_message: str, history: list):
     """
-    Process a user message through the triage agent.
+    Process a user message through the triage agent, including conversation history.
     Returns the full response as a string.
+    history: A list of dictionaries, e.g., [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}]
     """
     try:
-        # Try to use the triage agent if it was initialized
         if triage_agent is not None and AGENTS_AVAILABLE:
-            # Prepare the message in the format expected by the agent
-            # For now, sending only the current message as a User message.
-            # Conversation history management would require a more complex setup (e.g., session state).
-            user_message = ChatMessageContent(role="user", content=message)
-            messages_for_agent = [user_message]
+            messages_for_agent = []
+            # Add historical messages
+            for entry in history:
+                try:
+                    messages_for_agent.append(ChatMessageContent(role=entry["role"], content=entry["content"]))
+                except KeyError:
+                    print(f"Warning: Skipping history entry due to missing 'role' or 'content': {entry}")
+                    continue
+            
+            # Add current user message
+            messages_for_agent.append(ChatMessageContent(role="user", content=current_user_message))
 
             full_response = []
             async for response_chunk in triage_agent.invoke(messages=messages_for_agent):
                 if response_chunk.content:
                     content_str = str(response_chunk.content) if response_chunk.content is not None else ""
                     full_response.append(content_str)
-            return "".join(full_response)
+            
+            response_text = "".join(full_response)
+            return response_text
         elif not AGENTS_AVAILABLE:
             return "The Triage Agent's components are not available. Please check the server configuration."
         else:
             return "The triage agent is not available at the moment. Please try again later."
     except Exception as e:
         print(f"Error processing message: {e}")
+        # It's better to re-raise or return a specific error that the calling function can handle
+        raise # Re-raise the exception to be caught by the /chat endpoint's error handler
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 9001))
