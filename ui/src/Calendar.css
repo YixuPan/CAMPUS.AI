@@ -1180,4 +1180,46 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.test-connection-button {
+  background: rgba(32, 96, 255, 0.2);
+  border: 1px solid rgba(32, 96, 255, 0.3);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  margin-left: 10px;
+}
+
+.test-connection-button:hover {
+  background: rgba(32, 96, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.connection-status {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.connection-status.success {
+  border-left: 4px solid #4caf50;
+  color: #4caf50;
+}
+
+.connection-status.error {
+  border-left: 4px solid #f44336;
+  color: #f44336;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 } 

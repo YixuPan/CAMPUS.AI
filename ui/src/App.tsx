@@ -9,7 +9,9 @@ import LogoButton from './components/LogoButton'
 const globalAnimationState = {
   isAnimating: true,
   time: 0,
-  lastTimestamp: 0
+  lastTimestamp: 0,
+  isExpanded: false, // Add state to track if the 3D object is expanded
+  transitionSpeed: 0.02 // Controls how fast the object expands/contracts
 };
 
 // Animation loop running outside of React to ensure continuous animation
@@ -35,7 +37,7 @@ const globalAnimationState = {
 // 3D Siri-like jellyfish component that always stays jellyfish
 function SiriJellyfish() {
   const meshRef = useRef<THREE.Mesh>(null)
-  const { viewport } = useThree()
+  const { viewport, camera } = useThree()
   const [mousePos] = useState(new THREE.Vector3())
   
   // Run exactly once, immediately after mount
@@ -83,6 +85,30 @@ function SiriJellyfish() {
     // Update time and mouse uniforms
     material.uniforms.uTime.value = time;
     material.uniforms.uMouse.value.copy(mousePos);
+    
+    // Smooth transition using linear interpolation
+    const targetScale = globalAnimationState.isExpanded ? 6 : 1;
+    const currentScale = mesh.scale.x; // Assuming uniform scaling, we just use x
+    const newScale = currentScale + (targetScale - currentScale) * globalAnimationState.transitionSpeed;
+    
+    mesh.scale.set(newScale, newScale, newScale);
+    
+    // Move the object farther from the camera when it's enlarged to keep it visible
+    if (globalAnimationState.isExpanded) {
+      // Calculate target position - move back as it gets larger
+      const targetZ = -4.0 * (newScale / 6.0); // Move back proportionally to the scale
+      // Smoothly interpolate the position
+      mesh.position.z = mesh.position.z + (targetZ - mesh.position.z) * globalAnimationState.transitionSpeed;
+      
+      // Keep object centered in x and y
+      mesh.position.x = mesh.position.x * (1 - globalAnimationState.transitionSpeed);
+      mesh.position.y = mesh.position.y * (1 - globalAnimationState.transitionSpeed);
+    } else {
+      // Return to original position
+      mesh.position.z = mesh.position.z * (1 - globalAnimationState.transitionSpeed); // Gradually return to zero
+      mesh.position.x = mesh.position.x * (1 - globalAnimationState.transitionSpeed);
+      mesh.position.y = mesh.position.y * (1 - globalAnimationState.transitionSpeed);
+    }
     
     // Keep rotation constant
     mesh.rotation.y = time * 0.1;
@@ -163,11 +189,26 @@ function SiriJellyfish() {
     positions.needsUpdate = true;
   });
   
+  // Always ensure camera is looking at the center
+  useEffect(() => {
+    camera.lookAt(0, 0, 0);
+  }, [camera]);
+  
   // Simple 3D simplex noise implementation for JS
   function simplex3(x: number, y: number, z: number): number {
     // Very simplified noise function that mimics the shader's noise
     return (Math.sin(x) * Math.cos(y) + Math.sin(y) * Math.cos(z) + Math.sin(z) * Math.cos(x)) * 0.16667;
       }
+  
+  // Add an effect to reset position when expansion state changes
+  useEffect(() => {
+    if (meshRef.current) {
+      // When expansion state changes, reset any accumulated x/y drift to ensure centering
+      const mesh = meshRef.current;
+      mesh.position.x = 0;
+      mesh.position.y = 0;
+    }
+  }, [globalAnimationState.isExpanded]);
   
   return (
     <mesh ref={meshRef}>
@@ -288,6 +329,29 @@ interface Message {
 
 // Main App component with more reliable event handling
 function App() {
+  // Utility functions to hide/show footer
+  const hideFooter = () => {
+    const footer = document.querySelector('footer');
+    if (footer) {
+      footer.style.display = 'none';
+      footer.style.visibility = 'hidden';
+      footer.style.opacity = '0';
+      footer.style.position = 'absolute';
+      footer.style.bottom = '-9999px';
+    }
+  };
+  
+  const showFooter = () => {
+    const footer = document.querySelector('footer');
+    if (footer) {
+      footer.style.display = '';
+      footer.style.visibility = '';
+      footer.style.opacity = '';
+      footer.style.position = '';
+      footer.style.bottom = '';
+    }
+  };
+  
   // Force mouse movement simulation on component mount
   useEffect(() => {
     // Simulate random mouse movements to activate effects
@@ -304,6 +368,12 @@ function App() {
       }
     }, 1000);
     
+    // Ensure footer is properly hidden if we're in chat mode when component mounts
+    if (isChatMode) {
+      hideFooter();
+      document.body.classList.add('chat-mode-active');
+    }
+    
     return () => clearInterval(interval);
   }, []);
   
@@ -315,6 +385,41 @@ function App() {
   const [useSpeechOutput, setUseSpeechOutput] = useState(true)
   const [isSpeaking, setIsSpeaking] = useState(false)
   const messageEndRef = useRef<HTMLDivElement>(null)
+  
+  // Update body class when chat mode changes
+  useEffect(() => {
+    if (isChatMode) {
+      document.body.classList.add('chat-mode-active');
+      hideFooter();
+    } else {
+      // Only show the footer when explicitly leaving chat mode
+      setTimeout(() => {
+        showFooter();
+      }, 100);
+    }
+    
+    // We don't remove the class here - it will be removed when clicking "Back"
+    // This way the footer stays hidden during the entire chat session
+  }, [isChatMode]);
+  
+  // Add an interval to periodically check and rehide the footer while in chat mode
+  useEffect(() => {
+    if (!isChatMode) return;
+    
+    // Check every 500ms if the footer is visible when it should be hidden
+    const footerCheckInterval = setInterval(() => {
+      const footer = document.querySelector('footer');
+      if (footer && 
+          (footer.style.display !== 'none' || 
+           footer.style.visibility !== 'hidden' || 
+           footer.style.opacity !== '0')) {
+        console.log('Footer became visible when it should be hidden, rehiding...');
+        hideFooter();
+      }
+    }, 500);
+    
+    return () => clearInterval(footerCheckInterval);
+  }, [isChatMode]);
   
   // Auto-scroll to latest message
   useEffect(() => {
@@ -434,6 +539,9 @@ function App() {
   const handleSendMessageWithText = async (text: string) => {
     setIsLoading(true);
     
+    // Ensure footer remains hidden during chat
+    hideFooter();
+    
     try {
       // Call the triage agent API
       const response = await fetch('http://localhost:9001/chat', {
@@ -456,6 +564,9 @@ function App() {
       };
       
       setMessages(prev => [...prev, aiResponse]);
+      
+      // Ensure footer remains hidden after response
+      hideFooter();
       
       // Speak the response if speech output is enabled
       if (useSpeechOutput && data.response) {
@@ -509,11 +620,10 @@ function App() {
         <LogoButton />
         <nav>
           <ul>
-            <li className="active"><Link to="/">CAMPUS.AI</Link></li>
+            <li className="active"><Link to="/app">CampusSphere</Link></li>
             <li><Link to="/calendar">Calendar</Link></li>
             <li><Link to="/booking">Booking</Link></li>
             <li><Link to="/user">User</Link></li>
-            <li><a href="#about">About</a></li>
           </ul>
         </nav>
       </header>
@@ -536,10 +646,18 @@ function App() {
           
           {/* Welcome text that shows the "Ask me" button */}
           <div className={`overlay-text ${isChatMode ? 'fade-out' : ''}`}>
-            <h1><span>Hi, I am </span>CAMPUS.AI</h1>
+            <h1><span>Hello, I am </span>Yuni</h1>
             <button 
               className="ask-me-button"
-              onClick={() => setIsChatMode(true)}
+              onClick={() => {
+                setIsChatMode(true);
+                // Expand the 3D object when entering chat mode
+                globalAnimationState.isExpanded = true;
+                // Add class to body to hide footer
+                document.body.classList.add('chat-mode-active');
+                // Hide footer
+                hideFooter();
+              }}
             >
               Ask me anything
             </button>
@@ -550,11 +668,21 @@ function App() {
             <div className="chat-header">
               <button 
                 className="back-button"
-                onClick={() => setIsChatMode(false)}
+                onClick={() => {
+                  setIsChatMode(false);
+                  // Return the 3D object to normal size when exiting chat mode
+                  globalAnimationState.isExpanded = false;
+                  
+                  // Only restore the footer after a delay to match transition
+                  setTimeout(() => {
+                    document.body.classList.remove('chat-mode-active');
+                    showFooter();
+                  }, 300); // Longer delay to ensure transition completes
+                }}
               >
                 Back
               </button>
-              <h2>Chat with CAMPUS.AI</h2>
+              <h2>Chat with Yuni</h2>
               <div className="speech-controls">
                 <div className="speech-toggle">
                   <span className="speech-toggle-label">{useSpeechOutput ? "Speech: On" : "Speech: Off"}</span>
@@ -573,7 +701,24 @@ function App() {
             <div className="chat-messages">
               {messages.length === 0 ? (
                 <div className="empty-chat">
-                  <p>I can help with various tasks including calendar management, IoT devices, speech recognition, and attendance tracking. Just ask!</p>
+                  <h3>What can I help with?</h3>
+                  <div className="function-buttons">
+                    <button className="function-button" onClick={() => handleSendMessageWithText("What can Yuni do?")}>
+                      <span className="function-icon">💡</span> About Yuni
+                    </button>
+                    <button className="function-button" onClick={() => handleSendMessageWithText("How do I book a room?")}>
+                      <span className="function-icon">🏢</span> Book a room
+                    </button>
+                    <button className="function-button" onClick={() => handleSendMessageWithText("Help me manage my calendar schedule")}>
+                      <span className="function-icon">📅</span> Calendar Schedule
+                    </button>
+                    <button className="function-button" onClick={() => handleSendMessageWithText("Analyze attendance patterns")}>
+                      <span className="function-icon">📊</span> Attendance analysis
+                    </button>
+                    <button className="function-button" onClick={() => handleSendMessageWithText("Can you provide academic support?")}>
+                      <span className="function-icon">🎓</span> Academic support
+                    </button>
+                  </div>
                 </div>
               ) : (
                 messages.map((msg, index) => (
@@ -599,7 +744,7 @@ function App() {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleKeyPress}
-                placeholder="Ask about anything on campus..."
+                placeholder="Ask Yuni anything..."
                 className="chat-input"
                 autoFocus={isChatMode}
                 disabled={isLoading || isListening}

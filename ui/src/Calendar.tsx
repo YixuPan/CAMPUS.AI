@@ -57,6 +57,7 @@ const Calendar: React.FC = () => {
     durationHours: 1
   });
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
+  const [connectionStatus, setConnectionStatus] = useState<string | null>(null);
 
   // Format date to UK London time
   const formatToUKTime = (date: Date): Date => {
@@ -80,7 +81,7 @@ const Calendar: React.FC = () => {
       const endStr = endDate.toISOString();
       
       // Make API request
-      const response = await fetch(`${API_URL}/calendar/events?start_date=${startStr}&end_date=${endStr}`);
+      const response = await fetch(`http://localhost:9001/calendar/sync?start_date=${startStr}&end_date=${endStr}`);
       
       if (!response.ok) {
         throw new Error(`API error: ${response.status} ${response.statusText}`);
@@ -545,6 +546,33 @@ const Calendar: React.FC = () => {
     setSelectedEvent(null);
   };
 
+  // Test the connection to the calendar API
+  const testCalendarConnection = async () => {
+    setIsLoading(true);
+    setConnectionStatus(null);
+    
+    try {
+      const response = await fetch('http://localhost:9001/calendar/test');
+      
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status} ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.status === 'success') {
+        setConnectionStatus(`Connected as ${data.user.displayName} (${data.user.email}). Found ${data.calendars.count} calendars.`);
+      } else {
+        setConnectionStatus(`Connection issue: ${data.message}`);
+      }
+    } catch (err) {
+      console.error('Error testing calendar connection:', err);
+      setConnectionStatus(`Failed to connect: ${err instanceof Error ? err.message : String(err)}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Render calendar UI
   return (
     <div className="calendar-page">
@@ -552,11 +580,10 @@ const Calendar: React.FC = () => {
         <LogoButton />
         <nav>
           <ul>
-            <li><Link to="/">CAMPUS.AI</Link></li>
+            <li><Link to="/app">CampusSphere</Link></li>
             <li className="active"><Link to="/calendar">Calendar</Link></li>
             <li><Link to="/booking">Booking</Link></li>
             <li><Link to="/user">User</Link></li>
-            <li><a href="#about">About</a></li>
           </ul>
         </nav>
       </header>
@@ -607,6 +634,28 @@ const Calendar: React.FC = () => {
               <button className="today-button" onClick={() => setCurrentDate(new Date())}>
                 Today
               </button>
+              
+              <button className="test-connection-button" onClick={testCalendarConnection}>
+                Test Connection
+              </button>
+            </div>
+
+            <div className="view-buttons">
+              <button 
+                className={calendarView === 'week' ? 'active' : ''} 
+                onClick={() => handleViewChange('week')}
+              >Week</button>
+              <button 
+                className={calendarView === 'month' ? 'active' : ''} 
+                onClick={() => handleViewChange('month')}
+              >Month</button>
+              <button 
+                className={calendarView === 'year' ? 'active' : ''} 
+                onClick={() => handleViewChange('year')}
+              >Year</button>
+              <button onClick={testCalendarConnection}>
+                Test Connection
+              </button>
             </div>
           </div>
 
@@ -615,13 +664,19 @@ const Calendar: React.FC = () => {
             <div className="calendar-loading">
               <div className="loading-spinner"></div>
               <p>Loading calendar events...</p>
-                  </div>
+            </div>
           )}
           
           {error && (
             <div className="calendar-error">
               <p>Error: {error}</p>
               <p>Showing sample events as fallback.</p>
+            </div>
+          )}
+
+          {connectionStatus && (
+            <div className={`connection-status ${connectionStatus.includes('Connected') ? 'success' : 'error'}`}>
+              {connectionStatus}
             </div>
           )}
 

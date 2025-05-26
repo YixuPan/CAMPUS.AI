@@ -1,0 +1,719 @@
+/* Login Page Styles */
+.login-container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: radial-gradient(circle at center, #12051a 0%, #080510 60%, #000000 100%);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.login-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    radial-gradient(circle at 50% 70%, rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+  background-size: 50px 50px, 70px 70px, 40px 40px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Header */
+.login-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  position: relative;
+  z-index: 10;
+  background: rgba(8, 5, 16, 0.7);
+  backdrop-filter: blur(10px);
+}
+
+.login-header nav ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.login-header nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 0.25rem;
+}
+
+.login-header nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  transition: width 0.3s;
+}
+
+.login-header nav li.active a::after,
+.login-header nav a:hover::after {
+  width: 100%;
+}
+
+/* Login content */
+.login-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  min-height: 80vh;
+}
+
+/* Remove unnecessary container */
+.login-rings-container,
+.orbit-container {
+  display: none;
+}
+
+/* Orbit animation */
+@keyframes orbit {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Mouse interaction for the centered container - completely flat */
+.login-centered-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transform: none;
+  transition: none;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1.02);
+  }
+}
+
+/* Feature orbit - larger 3D circle ring */
+.feature-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 850px;
+  height: 850px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  animation: orbit var(--orbit-duration, 120s) linear infinite;
+  pointer-events: none;
+  box-shadow: 0 0 20px rgba(var(--feature-color-rgb), 0.2);
+  opacity: 0.8;
+  z-index: 0;
+}
+
+/* Feature items as cloud-like shapes that always face user */
+.feature-item {
+  background: rgb(var(--feature-color-rgb));
+  padding: 1rem 1.5rem;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+  cursor: default;
+  position: absolute;
+  overflow: visible;
+  z-index: 5;
+  min-width: 180px;
+  max-width: 220px;
+  min-height: 60px;
+  /* Position on ring circumference */
+  width: 200px;
+  height: 70px;
+}
+
+/* Text label displayed directly on clouds */
+.feature-text {
+  font-size: 1rem;
+  font-weight: 700;
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.8),
+    0 0 5px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  color: #ffffff;
+  line-height: 1.3;
+  z-index: 2;
+  padding: 0;
+  max-width: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  transition: none;
+}
+
+/* Remove old glow effects for pure solid colors */
+.feature-item::after {
+  display: none;
+}
+
+/* Remove cloud glow effect */
+.feature-item::before {
+  display: none;
+}
+
+/* Hover effect */
+.feature-item:hover {
+  z-index: 100;
+  box-shadow: 
+    inset 8px -8px 20px rgba(255, 255, 255, 0.2),
+    inset -8px 8px 20px rgba(0, 0, 0, 0.4),
+    0 0 50px rgba(var(--feature-color-rgb), 0.8);
+  /* Scale but preserve animation */
+  animation: planet-motion-hover var(--orbit-duration, 120s) linear infinite;
+}
+
+.feature-item:hover .feature-text {
+  font-size: 1rem;
+  text-shadow: 
+    0 0 5px rgba(0, 0, 0, 0.9),
+    0 0 15px rgba(var(--feature-color-rgb), 1);
+}
+
+/* Hover animation for planets */
+@keyframes planet-motion-hover {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) rotateZ(0deg) scale(1.15);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-360deg) rotateZ(90deg) scale(1.15);
+  }
+}
+
+/* Simple counter-rotation to keep text readable - for top/bottom positions */
+@keyframes counter-rotate-text {
+  0% {
+    transform: translateX(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-50%) rotate(-360deg);
+  }
+}
+
+/* Counter-rotation for vertical positions - for left/right positions */
+@keyframes counter-rotate-text-vertical {
+  0% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-50%) rotate(-360deg);
+  }
+}
+
+/* Position features on the ring circumference - exactly on the border */
+.feature-item.top { 
+  top: -35px; 
+  left: 50%; 
+  transform: translateX(-50%);
+  animation: counter-rotate-text var(--orbit-duration, 120s) linear infinite;
+}
+
+.feature-item.right { 
+  top: 50%; 
+  right: -100px; 
+  transform: translateY(-50%);
+  animation: counter-rotate-text-vertical var(--orbit-duration, 120s) linear infinite;
+}
+
+.feature-item.bottom { 
+  bottom: -35px; 
+  left: 50%; 
+  transform: translateX(-50%);
+  animation: counter-rotate-text var(--orbit-duration, 120s) linear infinite;
+}
+
+.feature-item.left { 
+  top: 50%; 
+  left: -100px; 
+  transform: translateY(-50%);
+  animation: counter-rotate-text-vertical var(--orbit-duration, 120s) linear infinite;
+}
+
+/* Login card with 3D effect */
+.login-card {
+  width: 450px;
+  max-width: 90%;
+  background: rgba(10, 15, 30, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+    0 0 50px rgba(100, 150, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 2.5rem;
+  z-index: 10;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform: perspective(1000px) rotateX(5deg);
+}
+
+/* 3D hover effect for card */
+.login-card:hover {
+  transform: perspective(1000px) rotateX(8deg) translateY(-5px);
+  box-shadow: 
+    0 30px 60px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+    0 0 60px rgba(100, 150, 255, 0.4);
+}
+
+/* 3D effect for card elements */
+.login-brand, .login-form-container h1, .login-subtitle, .form-group, .login-button {
+  transform: translateZ(10px);
+  transform-style: preserve-3d;
+}
+
+/* Enhanced gradient for card header */
+.login-brand h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(to right, #fff, #b0c0ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transform: translateZ(20px);
+  text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.login-brand {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-brand p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.login-form-container {
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  transform-style: preserve-3d;
+}
+
+.login-form-container h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(to right, #ff7eb3, #b180ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-align: center;
+  transform: translateZ(20px);
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.login-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.login-error {
+  background: rgba(255, 50, 50, 0.2);
+  border: 1px solid rgba(255, 50, 50, 0.3);
+  color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  transform: translateZ(15px);
+  box-shadow: 0 5px 15px rgba(255, 50, 50, 0.2);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  perspective: 1000px;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0.5rem;
+  transform: translateZ(15px);
+  transition: transform 0.3s ease;
+}
+
+/* Form inputs with 3D effect */
+.form-group input {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  transform: translateZ(5px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: rgba(177, 128, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(177, 128, 255, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: translateZ(8px);
+}
+
+/* Make input placeholder 3D */
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.3s ease;
+}
+
+.form-group input:focus::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  transform: translateZ(10px);
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  transform: translateZ(12px);
+  perspective: 800px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.remember-me input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #b180ff;
+}
+
+.forgot-password {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+  color: #b180ff;
+  text-decoration: underline;
+}
+
+/* Button with 3D effect */
+.login-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #ff7eb3, #b180ff);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(15px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.login-button:hover {
+  transform: translateZ(20px) translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.login-button:active {
+  transform: translateY(-1px);
+}
+
+.login-button.loading {
+  background: linear-gradient(135deg, #d969a5, #9f75dd);
+  cursor: not-allowed;
+}
+
+.login-button.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: translateY(-50%) rotate(360deg); }
+}
+
+.login-alt {
+  margin-top: 2rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.login-alt a {
+  color: rgba(177, 128, 255, 0.9);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-alt a:hover {
+  color: rgba(177, 128, 255, 1);
+  text-decoration: underline;
+}
+
+.sso-options {
+  margin-top: 1.5rem;
+}
+
+.sso-options p {
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.sso-options p::before,
+.sso-options p::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.sso-options p::before {
+  left: 0;
+}
+
+.sso-options p::after {
+  right: 0;
+}
+
+.sso-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.sso-button {
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: translateZ(10px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sso-button:hover {
+  transform: translateZ(15px) translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.sso-button svg {
+  flex-shrink: 0;
+}
+
+/* Footer */
+.login-footer {
+  padding: 1.5rem;
+  position: relative;
+  z-index: 10;
+  background: rgba(8, 5, 16, 0.7);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+.copyright {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  .feature-orbit:nth-child(n+4) {
+    display: none; /* Hide some orbits on smaller screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .login-header {
+    padding: 1rem;
+  }
+
+  .login-content {
+    padding: 1rem;
+  }
+
+  .login-card {
+    padding: 1.5rem;
+  }
+
+  .feature-orbit:nth-child(n+3) {
+    display: none; /* Hide more orbits on mobile */
+  }
+
+  .sso-buttons {
+    flex-direction: column;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+/* Feature colors as RGB variables for JS use */
+:root {
+  --feature-color-rgb-1: 100, 210, 255; /* Analytics */
+  --feature-color-rgb-2: 255, 126, 179; /* Room Booking */
+  --feature-color-rgb-3: 142, 120, 255; /* Calendar */
+  --feature-color-rgb-4: 255, 190, 100; /* Academic */
+  --feature-color-rgb-5: 100, 220, 170; /* AI */
+  --feature-color-rgb-6: 255, 100, 100; /* Mobile */
+}
+
+/* Add lighting effect to the card */
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 0;
+  right: 0;
+  bottom: -60px;
+  width: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 50, 0.3) 0%,
+    transparent 70%
+  );
+  filter: blur(30px);
+  z-index: -2;
+  transform: translateZ(-50px);
+  pointer-events: none;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+/* Lighting effect on card surface */
+.login-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Remove problematic shadow */
+.login-centered-container::after {
+  display: none;
+}
+
+.login-card:hover + .login-centered-container::after {
+  display: none;
+}
+
+/* Remove the icon styling since we don't use icons anymore */
+.feature-icon {
+  display: none;
+} 

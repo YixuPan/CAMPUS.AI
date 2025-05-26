@@ -230,11 +230,10 @@ const User: React.FC = () => {
         <LogoButton />
         <nav>
           <ul>
-            <li><Link to="/">CAMPUS.AI</Link></li>
+            <li><Link to="/app">CampusSphere</Link></li>
             <li><Link to="/calendar">Calendar</Link></li>
             <li><Link to="/booking">Booking</Link></li>
             <li className="active"><Link to="/user">User</Link></li>
-            <li><a href="#about">About</a></li>
           </ul>
         </nav>
       </header>
@@ -246,9 +245,9 @@ const User: React.FC = () => {
               <div className="avatar-circle">AI</div>
             </div>
             <div className="user-details">
-              <h1>CAMPUS.AI</h1>
+              <h1>CampusSphere</h1>
               <p>Student</p>
-              <p>CAMPUS_AI@example.com</p>
+              <p>CampusSphere@example.com</p>
             </div>
           </div>
 

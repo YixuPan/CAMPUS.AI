@@ -1,6 +1,6 @@
-# CAMPUS.AI UI
+# CampusSphere UI
 
-The frontend user interface for the CAMPUS.AI calendar application.
+The frontend user interface for the CampusSphere calendar application.
 
 ## About
 

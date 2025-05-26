@@ -390,10 +390,6 @@ const Booking: React.FC = () => {
           }))
       : [];
     
-    // Log available items for debugging
-    console.log("Equipment items:", equipmentItems.length);
-    console.log("Room items:", roomItems.length);
-    
     return [...equipmentItems, ...roomItems];
   }, [equipment, rooms]);
   
@@ -403,11 +399,10 @@ const Booking: React.FC = () => {
         <LogoButton />
         <nav>
           <ul>
-            <li><Link to="/">CAMPUS.AI</Link></li>
+            <li><Link to="/app">CampusSphere</Link></li>
             <li><Link to="/calendar">Calendar</Link></li>
             <li className="active"><Link to="/booking">Booking</Link></li>
             <li><Link to="/user">User</Link></li>
-            <li><a href="#about">About</a></li>
           </ul>
         </nav>
       </header>
