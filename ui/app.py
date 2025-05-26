@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 import requests
 
 # Add the project directory and triagespeech1 folder to the Python path
-project_dir = os.path.dirname(os.path.abspath(_file_))
+project_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(project_dir)
 sys.path.append(os.path.join(project_dir, "triagespeech1"))
 
@@ -55,7 +55,7 @@ except Exception as e:
 # Create a global variable to track the speech synthesizer
 speech_synthesizer = None
 
-app = Flask(_name_)
+app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 @app.route('/chat', methods=['POST'])
@@ -341,6 +341,6 @@ async def process_message(message):
         print(f"Error processing message: {e}")
         return f"I'm sorry, I encountered an error: {str(e)}"
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     port = int(os.environ.get("PORT", 9001))
     app.run(host="0.0.0.0", port=port, debug=True)
