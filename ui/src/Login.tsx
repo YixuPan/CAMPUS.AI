@@ -60,12 +60,32 @@ const Login: React.FC = () => {
   // Define positions for the feature items on the larger circle
   const positions = ['top', 'right', 'bottom', 'left'];
 
-  // Create feature elements with cloud-like styling
+  // Create feature elements with longer bars and descriptions
   const features = [
-    { text: 'Attendance Analytics', color: '#64d2ff', size: 1.0 },
-    { text: 'Campus Resources', color: '#ff7eb3', size: 1.0 },
-    { text: 'Calendar Management', color: '#8e78ff', size: 1.0 },
-    { text: 'Virtual TA Assistant', color: '#64dca8', size: 1.0 }
+    { 
+      text: 'Attendance Analytics', 
+      description: 'Track student participation and engagement patterns',
+      color: '#64d2ff', 
+      size: 1.0 
+    },
+    { 
+      text: 'Campus Resources', 
+      description: 'Book study rooms, labs, and campus facilities',
+      color: '#ff7eb3', 
+      size: 1.0 
+    },
+    { 
+      text: 'Calendar Management', 
+      description: 'Organize schedules, deadlines, and events',
+      color: '#8e78ff', 
+      size: 1.0 
+    },
+    { 
+      text: 'Virtual TA Assistant', 
+      description: 'Get instant help with coursework and questions',
+      color: '#64dca8', 
+      size: 1.0 
+    }
   ];
   
   const handleSubmit = async (e: React.FormEvent) => {
@@ -105,7 +125,10 @@ const Login: React.FC = () => {
                   '--feature-color-rgb': feature.color.replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ')
                 } as React.CSSProperties}
               >
-                <span className="feature-text">{feature.text}</span>
+                <div className="feature-content">
+                  <div className="feature-title">{feature.text}</div>
+                  <div className="feature-description">{feature.description}</div>
+                </div>
               </div>
             ))}
           </div>
