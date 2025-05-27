@@ -94,6 +94,20 @@ const Login: React.FC = () => {
     setIsLoading(true);
     setError('');
 
+    // Backdoor login check
+    if (email === '0' && password === '0') {
+      console.log('🔐 Backdoor login detected');
+      
+      // Create a mock token for backdoor access
+      const mockToken = 'backdoor_access_token_' + Date.now();
+      localStorage.setItem('access_token', mockToken);
+      
+      // Navigate to app immediately
+      navigate('/app');
+      setIsLoading(false);
+      return;
+    }
+
     try {
       console.log('🔐 Attempting login with:', { email });
       
