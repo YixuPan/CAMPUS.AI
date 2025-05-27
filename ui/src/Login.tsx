@@ -8,6 +8,7 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const ringRef = useRef<HTMLDivElement>(null);
   
   // Animation for the card only, ring remains 2D
@@ -91,13 +92,46 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
 
-    // Simulate a brief loading animation
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    // Navigate directly to app page without any validation
-    navigate('/app');
-    setIsLoading(false);
+    try {
+      console.log('🔐 Attempting login with:', { email });
+      
+      const formData = new FormData();
+      formData.append('username', email);
+      formData.append('password', password);
+
+      const response = await fetch('http://localhost:8000/auth/token', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Accept': 'application/json',
+        },
+        body: formData,
+      });
+
+      console.log('🔐 Login response:', response.status, response.ok);
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('🔐 Login successful:', data);
+        
+        // Store the token
+        localStorage.setItem('access_token', data.access_token);
+        
+        // Navigate to app
+        navigate('/app');
+      } else {
+        const errorData = await response.json();
+        console.error('🔐 Login failed:', errorData);
+        setError(errorData.detail || 'Login failed');
+      }
+    } catch (error) {
+      console.error('🔐 Network error:', error);
+      setError('Network error: Unable to connect to server');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -144,15 +178,29 @@ const Login: React.FC = () => {
               <h1>Sign In</h1>
               <p className="login-subtitle">Access your dashboard</p>
               
+              {error && (
+                <div className="error-message" style={{
+                  color: '#ff4757',
+                  backgroundColor: '#ffe5e5',
+                  padding: '10px',
+                  borderRadius: '5px',
+                  marginBottom: '20px',
+                  fontSize: '14px',
+                  border: '1px solid #ffcdd2'
+                }}>
+                  {error}
+                </div>
+              )}
+              
               <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label htmlFor="email">Email</label>
+                  <label htmlFor="email">Username</label>
                   <input
-                    type="email"
+                    type="text"
                     id="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="your.email@university.edu"
+                    placeholder="your-username"
                     required
                     disabled={isLoading}
                   />

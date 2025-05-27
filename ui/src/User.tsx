@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './User.css';
 import LogoButton from './components/LogoButton';
+import { logout } from './api';
 
 // API URL - using the same as the Calendar component
 const API_URL = 'http://localhost:9000';
@@ -248,6 +249,13 @@ const User: React.FC = () => {
               <h1>CampusSphere</h1>
               <p>Student</p>
               <p>CampusSphere@example.com</p>
+              <button 
+                className="logout-button"
+                onClick={logout}
+                title="Sign out"
+              >
+                Logout
+              </button>
             </div>
           </div>
 
