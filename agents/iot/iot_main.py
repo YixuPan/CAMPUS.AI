@@ -51,9 +51,6 @@ class IoTAgent(BaseAgent):
             raise RuntimeError(
                 "Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_KEY, and AZURE_OPENAI_DEPLOYMENT_NAME "
                 "environment variables for the IoT agent.\n"
-                f"AZURE_OPENAI_API_ENDPOINT: {config['azure_openai_api_endpoint']}\n"
-                f"AZURE_OPENAI_API_KEY: {config['azure_openai_api_key']}\n"
-                f"AZURE_OPENAI_DEPLOYMENT_NAME: {config['azure_openai_deployment_name']}\n"
             )
         
         kernel = Kernel()

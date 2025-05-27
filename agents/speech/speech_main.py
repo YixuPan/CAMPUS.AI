@@ -46,11 +46,6 @@ class SpeechAgent(BaseAgent):
             raise RuntimeError(
                 "Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, "
                 "SPEECH_KEY, and SPEECH_REGION environment variables.\n"
-                f"AZURE_OPENAI_API_ENDPOINT: {config['openai_endpoint']}\n"
-                f"AZURE_OPENAI_API_KEY: {config['openai_key']}\n"
-                f"AZURE_OPENAI_DEPLOYMENT_NAME: {config['deployment_name']}\n"
-                f"SPEECH_KEY: {config['speech_key']}\n"
-                f"SPEECH_REGION: {config['speech_region']}\n"
             )
 
         kernel = Kernel()

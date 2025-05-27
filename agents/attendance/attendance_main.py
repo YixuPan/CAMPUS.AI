@@ -52,11 +52,6 @@ class AttendanceAgent(BaseAgent):
             raise RuntimeError(
                 "Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, "
                 "COSMOS_ENDPOINT, and COSMOS_KEY environment variables.\n"
-                f"AZURE_OPENAI_API_ENDPOINT: {config['openai_endpoint']}\n"
-                f"AZURE_OPENAI_API_KEY: {config['openai_key']}\n"
-                f"AZURE_OPENAI_DEPLOYMENT_NAME: {config['deployment_name']}\n"
-                f"COSMOS_ENDPOINT: {config['cosmos_endpoint']}\n"
-                f"COSMOS_KEY: {config['cosmos_key']}\n"
             )
 
         kernel = Kernel()

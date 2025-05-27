@@ -25,9 +25,6 @@ class TriageAgent:
             raise RuntimeError(
                 "Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_CHAT_DEPLOYMENT_NAME, "
                 "and AZURE_OPENAI_API_KEY environment variables for the Triage Agent. \n"
-                f"AZURE_OPENAI_API_KEY: {AZURE_OPENAI_API_KEY} \n"
-                f"AZURE_OPENAI_API_ENDPOINT: {AZURE_OPENAI_ENDPOINT} \n"
-                f"AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: {AZURE_OPENAI_DEPLOYMENT_NAME} \n"
             )
 
         # --- Semantic Kernel Setup for Triage Agent ---

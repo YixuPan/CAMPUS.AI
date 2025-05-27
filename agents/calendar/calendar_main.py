@@ -47,10 +47,6 @@ class CalendarAgent(BaseAgent):
             raise RuntimeError(
                 "Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, "
                 "and GRAPH_ACCESS_TOKEN environment variables.\n"
-                f"AZURE_OPENAI_API_ENDPOINT: {config['azure_openai_api_endpoint']}\n"
-                f"AZURE_OPENAI_API_KEY: {config['openai_key']}\n"
-                f"AZURE_OPENAI_DEPLOYMENT_NAME: {config['azure_openai_deployment_name']}\n"
-                f"GRAPH_ACCESS_TOKEN: {config['graph_access_token']}\n"
             )
 
         kernel = Kernel()
