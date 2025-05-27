@@ -156,6 +156,26 @@
   margin-bottom: 0.5rem;
 }
 
+.logout-button {
+  background: linear-gradient(135deg, #ff4757, #ff6b7a);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  box-shadow: 0 2px 8px rgba(255, 71, 87, 0.3);
+}
+
+.logout-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+  background: linear-gradient(135deg, #ff3742, #ff5a6e);
+}
+
 /* User content */
 .user-content {
   display: flex;
