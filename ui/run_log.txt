@@ -1,0 +1,2005 @@
+
+
+> jellyfish-shader@0.0.0 dev
+> vite
+
+
+  VITE v6.3.5  ready in 111 ms
+
+  ➜  Local:   http://localhost:5173/CampusSphere/
+  ➜  Network: use --host to expose
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:9001
+ * Running on http://192.168.8.106:9001
+Press CTRL+C to quit
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+127.0.0.1 - - [27/May/2025 17:35:07] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:35:08] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:35:08] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:35:09] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:35:09] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:35:13] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:35:18] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:35:22] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:35:23] "POST /speech/recognize HTTP/1.1" 204 -
+127.0.0.1 - - [27/May/2025 17:35:23] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:35:24] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:35:25] "POST /speech/recognize HTTP/1.1" 204 -
+127.0.0.1 - - [27/May/2025 17:35:27] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:35:27] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:35:32] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:35:32] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:36:25] "POST /speech/synthesize HTTP/1.1" 200 -
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+Received chat message: Help me manage my calendar schedule
+Sending response: Could you please provide more details about what you need help with regarding your calendar schedule...
+Speech synthesis flags reset
+Starting new speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=70d3a7a6f88749f49971e16c4c20e5f6, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+NUCLEAR SPEECH STOP - Destroying everything!
+Creating silence to interrupt audio...
+Error creating silence: default speaker needs to be explicitly activated
+Speech stop result: SPEECH FORCE STOPPED - Audio stream nuked!
+Starting speech recognition...
+Speak into your microphone...
+Starting speech recognition...
+Starting speech recognition...
+Speak into your microphone...
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=70d3a7a6f88749f49971e16c4c20e5f6, reason=ResultReason.SynthesizingAudioCompleted, audio_length=422830)])
+Recognized: Appointment. Check your availability or something else.
+Recognition timeout
+Error in speech recognition: 'NoneType' object has no attribute 'stop_continuous_recognition'
+Recognized text: 
+Recognized text: Appointment. Check your availability or something else.
+Received chat message: How do I book a room?
+Error in speech recognition: 'NoneType' object has no attribute 'recognized'
+Recognized text: 
+Sending response: Booking a room typically involves checking the availability of the desired space and then reserving ...
+Speech synthesis flags reset
+Starting new speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=b29faed7ccdb4a89bef78c56261032b1, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+NUCLEAR SPEECH STOP - Destroying everything!
+Creating silence to interrupt audio...
+Error creating silence: default speaker needs to be explicitly activated
+Speech stop result: SPEECH FORCE STOPPED - Audio stream nuked!
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=b29faed7ccdb4a89bef78c56261032b1, reason=ResultReason.SynthesizingAudioCompleted, audio_length=1837486)])
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+127.0.0.1 - - [27/May/2025 17:37:58] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:37:59] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:37:59] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:38:02] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:38:02] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:38:04] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:38:08] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:38:09] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:38:11] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:38:11] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:38:12] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:38:16] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:38:16] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:38:25] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:40:22] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:40:25] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:40:26] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:40:34] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:40:34] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:40:42] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:40:42] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:40:43] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:40:45] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:40:47] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:40:48] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:40:50] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:40:50] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:00] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:00] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:06] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:07] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:08] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:08] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:21] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:22] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:25] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:25] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:35] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:35] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:36] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:40] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:41] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:42] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:42] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:43] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:45] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:46] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:41:47] "POST /speech/synthesize HTTP/1.1" 200 -
+5:42:45 PM [vite] (client) hmr update /src/App.tsx
+5:42:53 PM [vite] (client) hmr update /src/App.tsx
+5:42:53 PM [vite] Internal server error: /Users/lovekrissa/Desktop/Proj/ui/src/App.tsx: Unexpected token (630:6)
+
+  628 |       setIsSpeaking(false); // Ensure speaking state is reset on error
+  629 |       setIsLoading(false); // Set loading false on error
+> 630 |     } catch (finalError) {
+      |       ^
+  631 |       // Extra safety net
+  632 |       console.error('Final error in message handling:', finalError);
+  633 |       setIsLoading(false);
+  Plugin: vite:react-babel
+  File: /Users/lovekrissa/Desktop/Proj/ui/src/App.tsx:630:6
+  628|        setIsSpeaking(false); // Ensure speaking state is reset on error
+  629|        setIsLoading(false); // Set loading false on error
+  630|      } catch (finalError) {
+     |        ^
+  631|        // Extra safety net
+  632|        console.error('Final error in message handling:', finalError);
+      at constructor (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:360:19)
+      at TypeScriptParserMixin.raise (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:6613:19)
+      at TypeScriptParserMixin.unexpected (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:6633:16)
+      at TypeScriptParserMixin.parseExprAtom (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:11358:16)
+      at TypeScriptParserMixin.parseExprAtom (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:4770:20)
+      at TypeScriptParserMixin.parseExprSubscripts (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10992:23)
+      at TypeScriptParserMixin.parseUpdate (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10977:21)
+      at TypeScriptParserMixin.parseMaybeUnary (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10957:23)
+      at TypeScriptParserMixin.parseMaybeUnary (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:9779:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10810:61)
+      at TypeScriptParserMixin.parseExprOps (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10815:23)
+      at TypeScriptParserMixin.parseMaybeConditional (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10792:23)
+      at TypeScriptParserMixin.parseMaybeAssign (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10745:21)
+      at TypeScriptParserMixin.parseMaybeAssign (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:9728:20)
+      at TypeScriptParserMixin.parseExpressionBase (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10698:23)
+      at /Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10694:39
+      at TypeScriptParserMixin.allowInAnd (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:12329:16)
+      at TypeScriptParserMixin.parseExpression (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10694:17)
+      at TypeScriptParserMixin.parseStatementContent (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:12771:23)
+      at TypeScriptParserMixin.parseStatementContent (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:9454:18)
+      at TypeScriptParserMixin.parseStatementLike (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:12644:17)
+      at TypeScriptParserMixin.parseStatementListItem (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:12624:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:13192:61)
+      at TypeScriptParserMixin.parseBlockBody (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:13185:10)
+      at TypeScriptParserMixin.parseBlock (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:13173:10)
+      at TypeScriptParserMixin.parseFunctionBody (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:12018:24)
+      at TypeScriptParserMixin.parseArrowExpression (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:11993:10)
+      at TypeScriptParserMixin.parseAsyncArrowFromCallExpression (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:11175:10)
+      at TypeScriptParserMixin.parseAsyncArrowFromCallExpression (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:9708:18)
+      at TypeScriptParserMixin.parseCoverCallAndAsyncArrowHead (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:11105:27)
+      at TypeScriptParserMixin.parseSubscript (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:11031:19)
+      at TypeScriptParserMixin.parseSubscript (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:9284:18)
+      at TypeScriptParserMixin.parseSubscripts (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:11005:19)
+      at TypeScriptParserMixin.parseExprSubscripts (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10996:17)
+      at TypeScriptParserMixin.parseUpdate (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10977:21)
+      at TypeScriptParserMixin.parseMaybeUnary (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10957:23)
+      at TypeScriptParserMixin.parseMaybeUnary (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:9779:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10810:61)
+      at TypeScriptParserMixin.parseExprOps (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10815:23)
+      at TypeScriptParserMixin.parseMaybeConditional (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10792:23)
+      at TypeScriptParserMixin.parseMaybeAssign (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10745:21)
+      at TypeScriptParserMixin.parseMaybeAssign (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:9728:20)
+      at /Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10714:39
+      at TypeScriptParserMixin.allowInAnd (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:12329:16)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:10714:17)
+      at TypeScriptParserMixin.parseVar (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:13260:91)
+      at TypeScriptParserMixin.parseVarStatement (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:13106:10)
+      at TypeScriptParserMixin.parseVarStatement (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:9424:31)
+      at TypeScriptParserMixin.parseStatementContent (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:12727:23)
+      at TypeScriptParserMixin.parseStatementContent (/Users/lovekrissa/Desktop/Proj/ui/node_modules/@babel/parser/lib/index.js:9454:18)
+5:42:59 PM [vite] (client) hmr update /src/App.tsx
+127.0.0.1 - - [27/May/2025 17:43:50] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:43:54] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:43:54] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+Received chat message: Help me manage my calendar schedule
+Sending response: Could you please provide more specific details about what you need help with regarding your calendar...
+🎤 Speech synthesis flags reset and audio restored
+🎤 Starting new speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=f8110eb2064146939276523911b33d93, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+🔥 SYSTEM-LEVEL AUDIO MUTE ACTIVATED!
+🔇 SYSTEM AUDIO MUTED - macOS
+Speech stop result: 🔇 SYSTEM AUDIO MUTED - Speech silenced immediately!
+Starting speech recognition...
+Speak into your microphone...
+Recognized: Hello, hello, hello, hello.
+Recognized text: Hello, hello, hello, hello.
+Received chat message: Hello, hello, hello, hello.
+Sending response: It seems like you might be speaking or trying to interact using voice. Would you like me to convert ...
+🔊 Unmuting system audio for new speech session...
+🔊 SYSTEM AUDIO UNMUTED - macOS
+🎤 Speech synthesis flags reset and audio restored
+🎤 Starting new speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=d4c471a81c864c4287b694f1273f6264, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=f8110eb2064146939276523911b33d93, reason=ResultReason.SynthesizingAudioCompleted, audio_length=358318)])
+🔥 SYSTEM-LEVEL AUDIO MUTE ACTIVATED!
+🔇 SYSTEM AUDIO MUTED - macOS
+Speech stop result: 🔇 SYSTEM AUDIO MUTED - Speech silenced immediately!
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=d4c471a81c864c4287b694f1273f6264, reason=ResultReason.SynthesizingAudioCompleted, audio_length=427438)])
+Starting speech recognition...
+Speak into your microphone...
+Recognized: Hello, can you hear me?
+Recognized text: Hello, can you hear me?
+Received chat message: Hello, can you hear me?
+
+[Triage Thought Process] Delegating to Speech Agent: 'Convert audio to text for the phrase: 'Hello, can you hear me?''
+ Speak into your microphone...
+ No speech recognized.
+[Triage Thought Process] Speech Agent Response: 'I didn't capture any speech input. Please try speaking again, and I'll listen for your audio.'
+Sending response: It seems I wasn't able to capture your voice input. If you'd like, you can type your message, or try...
+🔊 Unmuting system audio for new speech session...
+🔊 SYSTEM AUDIO UNMUTED - macOS
+🎤 Speech synthesis flags reset and audio restored
+🎤 Starting new speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=d26fa668e4bc411e8804e4e4a1afe313, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+🔥 SYSTEM-LEVEL AUDIO MUTE ACTIVATED!
+🔇 SYSTEM AUDIO MUTED - macOS
+Speech stop result: 🔇 SYSTEM AUDIO MUTED - Speech silenced immediately!
+Starting speech recognition...
+Speak into your microphone...
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=d26fa668e4bc411e8804e4e4a1afe313, reason=ResultReason.SynthesizingAudioCompleted, audio_length=308782)])
+Recognized: What is my name?
+Recognized text: What is my name?
+Received chat message: What is my name?
+Sending response: I currently don't have access to your name from the previous conversation. Could you please provide ...
+🔊 Unmuting system audio for new speech session...
+🔊 SYSTEM AUDIO UNMUTED - macOS
+🎤 Speech synthesis flags reset and audio restored
+🎤 Starting new speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=d4df85e243a348f49a0d4adfd72852e9, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=d4df85e243a348f49a0d4adfd72852e9, reason=ResultReason.SynthesizingAudioCompleted, audio_length=277678)])
+Starting speech recognition...
+Speak into your microphone...
+Recognized: My name is Pan.
+Recognized text: My name is Pan.
+Received chat message: My name is Pan.
+Sending response: Thank you, Pan! How can I assist you with your calendar schedule today? Are you looking to schedule ...
+🎤 Speech synthesis flags reset and audio restored
+🎤 Starting new speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=7fab8be6b56e4222b4d66a4d7435cb82, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=7fab8be6b56e4222b4d66a4d7435cb82, reason=ResultReason.SynthesizingAudioCompleted, audio_length=392878)])
+Received chat message: Can you provide academic support?
+Sending response: I can assist you with various tasks, but I need you to clarify what type of academic support you're ...
+🎤 Speech synthesis flags reset and audio restored
+🎤 Starting new speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=a43ce077841a4433a8cf3e5ca79ee26f, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+🔥 SYSTEM-LEVEL AUDIO MUTE ACTIVATED!
+🔇 SYSTEM AUDIO MUTED - macOS
+Speech stop result: 🔇 SYSTEM AUDIO MUTED - Speech silenced immediately!
+Starting speech recognition...
+Speak into your microphone...
+Recognized: What is my name?
+Recognized text: What is my name?
+Received chat message: What is my name?
+Sending response: Your name is Pan. How can I assist you today?
+🔊 Unmuting system audio for new speech session...
+🔊 SYSTEM AUDIO UNMUTED - macOS
+🎤 Speech synthesis flags reset and audio restored
+🎤 Starting new speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=e00c72cb390b476c890f0080d05dba2e, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=a43ce077841a4433a8cf3e5ca79ee26f, reason=ResultReason.SynthesizingAudioCompleted, audio_length=550702)])
+🔥 SYSTEM-LEVEL AUDIO MUTE ACTIVATED!
+🔇 SYSTEM AUDIO MUTED - macOS
+Speech stop result: 🔇 SYSTEM AUDIO MUTED - Speech silenced immediately!
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=e00c72cb390b476c890f0080d05dba2e, reason=ResultReason.SynthesizingAudioCompleted, audio_length=138286)])
+Received chat message: How do I book a room?
+Sending response: To help you book a room, could you provide a bit more detail? For example, what type of room are you...
+🔊 Unmuting system audio for new speech session...
+🔊 SYSTEM AUDIO UNMUTED - macOS
+🎤 Speech synthesis flags reset and audio restored
+127.0.0.1 - - [27/May/2025 17:43:58] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:43:58] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:00] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:04] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:05] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:06] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:06] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:12] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:14] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:16] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:16] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:17] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:22] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:23] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:24] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:24] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:29] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:30] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:32] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:33] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:34] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:34] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:36] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:36] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:37] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:39] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:40] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:42] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:42] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:47] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:48] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:44:48] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:45:08] "POST /speech/synthesize HTTP/1.1" 200 -
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+🎤 Starting new speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=9cf4d36a97cf40c3b80232dbb88b4a42, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+🔥 SYSTEM-LEVEL AUDIO MUTE ACTIVATED!
+🔇 SYSTEM AUDIO MUTED - macOS
+Speech stop result: 🔇 SYSTEM AUDIO MUTED - Speech silenced immediately!
+Starting speech recognition...
+Speak into your microphone...
+Recognized: What is my name?
+Recognized text: What is my name?
+Received chat message: What is my name?
+Sending response: Your name is Pan. If you have any specific requests or need assistance, feel free to let me know!
+🔊 Unmuting system audio for new speech session...
+🔊 SYSTEM AUDIO UNMUTED - macOS
+🎤 Speech synthesis flags reset and audio restored
+🎤 Starting new speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=f38c2142fba44fe08243c4396a74e2b6, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=9cf4d36a97cf40c3b80232dbb88b4a42, reason=ResultReason.SynthesizingAudioCompleted, audio_length=535726)])
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=f38c2142fba44fe08243c4396a74e2b6, reason=ResultReason.SynthesizingAudioCompleted, audio_length=225838)])
+🔥 SYSTEM-LEVEL AUDIO MUTE ACTIVATED!
+🔇 SYSTEM AUDIO MUTED - macOS
+Speech stop result: 🔇 SYSTEM AUDIO MUTED - Speech silenced immediately!
+Starting speech recognition...
+Speak into your microphone...
+Recognized: What is my name?
+Recognized text: What is my name?
+Received chat message: What is my name?
+Sending response: Your name is Pan. How can I assist you today?
+🔊 Unmuting system audio for new speech session...
+🔊 SYSTEM AUDIO UNMUTED - macOS
+🎤 Speech synthesis flags reset and audio restored
+🎤 Starting new speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=1bbc9659e4d244a1b5bb6fae1129a6be, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+Starting speech recognition...
+Speak into your microphone...
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=1bbc9659e4d244a1b5bb6fae1129a6be, reason=ResultReason.SynthesizingAudioCompleted, audio_length=138286)])
+Recognized: What can you do?
+Recognized text: What can you do?
+Received chat message: What can you do?
+Sending response: I can assist you with a variety of tasks, including:
+
+1. **Calendar Management**: Schedule meetings,...
+🎤 Speech synthesis flags reset and audio restored
+🎤 Starting new speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=486214e0c62a4f5896edbc690126a4f5, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+🔥 SYSTEM-LEVEL AUDIO MUTE ACTIVATED!
+🔇 SYSTEM AUDIO MUTED - macOS
+Speech stop result: 🔇 SYSTEM AUDIO MUTED - Speech silenced immediately!
+Starting speech recognition...
+Speak into your microphone...
+Recognized: What is my name?
+Recognized text: What is my name?
+Received chat message: What is my name?
+Sending response: Your name is Pan. How can I assist you further?
+🔊 Unmuting system audio for new speech session...
+🔊 SYSTEM AUDIO UNMUTED - macOS
+🎤 Speech synthesis flags reset and audio restored
+🎤 Starting new speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=bf0251611ae149d9aacf570faa3ddae8, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=bf0251611ae149d9aacf570faa3ddae8, reason=ResultReason.SynthesizingAudioCompleted, audio_length=139438)])
+🔥 SYSTEM-LEVEL AUDIO MUTE ACTIVATED!
+🔇 SYSTEM AUDIO MUTED - macOS
+Speech stop result: 🔇 SYSTEM AUDIO MUTED - Speech silenced immediately!
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=486214e0c62a4f5896edbc690126a4f5, reason=ResultReason.SynthesizingAudioCompleted, audio_length=1046062)])
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+5:46:35 PM [vite] (client) hmr update /src/App.tsx
+5:46:45 PM [vite] (client) hmr update /src/App.tsx
+5:46:45 PM [vite] (client) hmr update /src/App.tsx
+127.0.0.1 - - [27/May/2025 17:47:42] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:47:44] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:47:44] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:47:50] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:47:50] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:47:51] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:47:54] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:47:55] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:47:57] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:47:57] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:47:57] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:48:00] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:48:00] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:48:01] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:48:04] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:48:05] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:48:08] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:48:08] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:48:12] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:48:12] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:48:12] "POST /speech/stop HTTP/1.1" 200 -
+5:48:21 PM [vite] (client) hmr update /src/App.tsx
+127.0.0.1 - - [27/May/2025 17:48:25] "POST /speech/synthesize HTTP/1.1" 200 -
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+Received chat message: Help me manage my calendar schedule
+Sending response: Could you please provide more details about what you need help with regarding your calendar schedule...
+🎤 Speech synthesis flags reset and audio restored
+🔪 KILLING any existing synthesis before starting new speech...
+🎤 Starting FRESH speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=88f472e2e8b04ae383905a4e7eb6fe74, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+🔥 SYSTEM-LEVEL AUDIO MUTE ACTIVATED!
+🔇 SYSTEM AUDIO MUTED - macOS
+Speech stop result: 🔇 SYSTEM AUDIO MUTED - Speech silenced immediately!
+Starting speech recognition...
+Speak into your microphone...
+Recognized: Hello, hello, hello.
+Recognized text: Hello, hello, hello.
+Received chat message: Hello, hello, hello.
+Sending response: It seems like you might be trying to test a speech-to-text function or you're simply expressing some...
+🔊 Unmuting system audio for new speech session...
+🔊 SYSTEM AUDIO UNMUTED - macOS
+🎤 Speech synthesis flags reset and audio restored
+🔪 KILLING any existing synthesis before starting new speech...
+🎤 Starting FRESH speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=86f6cefc02cd475facc29b9e537a1077, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=88f472e2e8b04ae383905a4e7eb6fe74, reason=ResultReason.SynthesizingAudioCompleted, audio_length=352558)])
+🔥 SYSTEM-LEVEL AUDIO MUTE ACTIVATED!
+🔇 SYSTEM AUDIO MUTED - macOS
+Speech stop result: 🔇 SYSTEM AUDIO MUTED - Speech silenced immediately!
+Starting speech recognition...
+Speak into your microphone...
+Recognized: What is my name?
+Recognized text: What is my name?
+Received chat message: What is my name?
+Sending response: I'm unable to access personal information directly, including your name, unless you've provided it i...
+🔊 Unmuting system audio for new speech session...
+🔊 SYSTEM AUDIO UNMUTED - macOS
+🎤 Speech synthesis flags reset and audio restored
+🔪 KILLING any existing synthesis before starting new speech...
+🎤 Starting FRESH speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=4e83012aa4744e7d91bda36e40c21e75, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+🔥 SYSTEM-LEVEL AUDIO MUTE ACTIVATED!
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=86f6cefc02cd475facc29b9e537a1077, reason=ResultReason.SynthesizingAudioCompleted, audio_length=441262)])
+🔇 SYSTEM AUDIO MUTED - macOS
+Speech stop result: 🔇 SYSTEM AUDIO MUTED - Speech silenced immediately!
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=4e83012aa4744e7d91bda36e40c21e75, reason=ResultReason.SynthesizingAudioCompleted, audio_length=452782)])
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+5:51:12 PM [vite] (client) hmr update /src/App.tsx
+127.0.0.1 - - [27/May/2025 17:51:58] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:51:59] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:51:59] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:52:03] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:52:03] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:52:04] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:52:07] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:52:08] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:52:12] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:52:12] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:52:15] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:52:18] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:52:18] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:52:24] "POST /speech/synthesize HTTP/1.1" 200 -
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+Received chat message: Help me manage my calendar schedule
+Sending response: Could you please provide more specific details about what you need help with regarding your calendar...
+🔄 Resetting speech system for new session...
+✅ Speech system reset complete - ready for new speech
+🎯 Starting speech #1: 'Could you please provide more specific details abo...'
+🎤 Actually starting speech synthesis #1...
+🛑 STOP SPEECH REQUEST - Cancelling speech #1
+🔇 SYSTEM AUDIO MUTED - macOS
+✅ Speech #1 cancelled and audio muted!
+Speech stop result: 🔇 Speech #1 STOPPED - Audio muted!
+Starting speech recognition...
+Speak into your microphone...
+Recognized: Hello, hello, hello.
+Recognized text: Hello, hello, hello.
+Received chat message: Hello, hello, hello.
+Sending response: It seems you might be using voice commands or trying to test out the system. If you're looking to ma...
+🔄 Resetting speech system for new session...
+🔊 Unmuting system audio for new speech session...
+🔊 SYSTEM AUDIO UNMUTED - macOS
+✅ Speech system reset complete - ready for new speech
+🎯 Starting speech #3: 'It seems you might be using voice commands or tryi...'
+🎤 Actually starting speech synthesis #3...
+🛑 Speech #1 was cancelled externally
+🔄 Speech #1 was superseded by newer speech
+🛑 STOP SPEECH REQUEST - Cancelling speech #3
+🔇 SYSTEM AUDIO MUTED - macOS
+✅ Speech #3 cancelled and audio muted!
+Speech stop result: 🔇 Speech #3 STOPPED - Audio muted!
+🛑 Speech #3 was cancelled externally
+🔄 Speech #3 was superseded by newer speech
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+127.0.0.1 - - [27/May/2025 17:54:15] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:16] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:16] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:16] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:19] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:19] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:20] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:22] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:23] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:25] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:25] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:25] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:30] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:35] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:36] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:38] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:38] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:54:38] "POST /speech/synthesize HTTP/1.1" 200 -
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+Received chat message: Help me manage my calendar schedule
+Sending response: Could you please provide more specific details about what you need help with regarding your calendar...
+🔄 Resetting speech system for new session...
+✅ Speech system reset complete - ready for new speech
+🎯 Starting speech #1: 'Could you please provide more specific details abo...'
+🎤 Thread starting synthesis #1...
+🗣️ Speech #1 speaking: 'Could you please provide more ...'
+🛑 STOP SPEECH REQUEST - Cancelling speech #1
+✅ Speech #1 stop signal sent!
+Speech stop result: 🛑 Speech #1 STOPPED!
+Starting speech recognition...
+Speak into your microphone...
+Recognized: Hello.
+Recognized text: Hello.
+Received chat message: Hello.
+Sending response: Hello! How can I assist you today? If you have any questions or requests, especially regarding your ...
+🔄 Resetting speech system for new session...
+✅ Speech system reset complete - ready for new speech
+🎯 Starting speech #3: 'Hello! How can I assist you today? If you have any...'
+🎤 Thread starting synthesis #3...
+🗣️ Speech #3 speaking: 'Hello! How can I assist you to...'
+Starting speech recognition...
+Speak into your microphone...
+✅ Speech #1 completed
+Recognized: Hello. Hello. Hello. Can you hear me?
+Recognized text: Hello. Hello. Hello. Can you hear me?
+Received chat message: Hello. Hello. Hello. Can you hear me?
+✅ Speech #3 completed
+🧹 Thread cleaned up speech #3
+Sending response: I can see your messages! If you're trying to check if I'm responding or if you have a specific reque...
+🔄 Resetting speech system for new session...
+✅ Speech system reset complete - ready for new speech
+🎯 Starting speech #4: 'I can see your messages! If you're trying to check...'
+🎤 Thread starting synthesis #4...
+🗣️ Speech #4 speaking: 'I can see your messages! If yo...'
+✅ Speech #4 completed
+🧹 Thread cleaned up speech #4
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+127.0.0.1 - - [27/May/2025 17:57:38] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:57:39] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:57:39] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:57:42] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:57:42] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:57:43] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:57:46] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:57:47] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:57:48] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:57:48] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:57:52] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:57:53] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:57:53] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:57:59] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:58:48] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:58:52] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:58:53] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:59:03] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:59:03] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 17:59:12] "POST /speech/synthesize HTTP/1.1" 200 -
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+Received chat message: Help me manage my calendar schedule
+Sending response: Could you please provide more specific details about what you need help with regarding your calendar...
+🔄 Resetting speech flags...
+✅ Speech flags reset
+🎤 SIMPLE speech synthesis starting: 'Could you please provide more specific details abo...'
+🎤 Starting speech synthesis...
+🛑 STOP SPEECH REQUEST
+🗑️ Synthesizer destroyed
+✅ Speech stop signal sent!
+Speech stop result: 🛑 Speech STOPPED!
+Starting speech recognition...
+Speak into your microphone...
+Recognized: Hello, hello, hello.
+Recognized text: Hello, hello, hello.
+Received chat message: Hello, hello, hello.
+Sending response: It seems like you might want to use voice commands. Would you like me to convert your speech into te...
+🔄 Resetting speech flags...
+✅ Speech flags reset
+🎤 SIMPLE speech synthesis starting: 'It seems like you might want to use voice commands...'
+🎤 Starting speech synthesis...
+✅ Speech synthesis completed successfully
+🛑 STOP SPEECH REQUEST
+🗑️ Synthesizer destroyed
+✅ Speech stop signal sent!
+Speech stop result: 🛑 Speech STOPPED!
+✅ Speech synthesis completed successfully
+Starting speech recognition...
+Speak into your microphone...
+Recognized: Hello, hello, hello.
+Recognized text: Hello, hello, hello.
+Received chat message: Hello, hello, hello.
+
+[Triage Thought Process] Delegating to Speech Agent: 'Hello, hello, hello.'
+ Speak into your microphone...
+ No speech recognized.
+[Triage Thought Process] Speech Agent Response: 'I didn't capture any speech. Could you please try speaking again?'
+Sending response: It seems I wasn't able to capture your speech this time. Please try speaking again clearly, and I'll...
+🔄 Resetting speech flags...
+✅ Speech flags reset
+🎤 SIMPLE speech synthesis starting: 'It seems I wasn't able to capture your speech this...'
+🎤 Starting speech synthesis...
+✅ Speech synthesis completed successfully
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+127.0.0.1 - - [27/May/2025 18:00:35] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:00:36] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:00:36] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:00:39] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:00:39] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:00:39] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:00:43] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:00:44] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:00:45] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:00:45] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:00:49] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:00:58] "POST /speech/synthesize HTTP/1.1" 200 -
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+Received chat message: Help me manage my calendar schedule
+Sending response: Could you please provide more details about what you need help with regarding your calendar schedule...
+🎤 Speech synthesis flags reset
+🔄 Cleaning up speech state before starting new synthesis...
+✅ Stop flag reset to False
+🎤 Starting FRESH speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=f63d0e92cc4c4204910995b4a709f901, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+🛑 STOP SPEECH REQUEST
+🗑️ Synthesizer destroyed
+✅ Speech stop signal sent!
+Speech stop result: 🛑 Speech STOPPED!
+Starting speech recognition...
+Speak into your microphone...
+Recognized: Hello, hello, hello.
+Recognized text: Hello, hello, hello.
+Received chat message: Hello, hello, hello.
+Sending response: It seems like you might want to use voice commands. Would you like me to convert your speech to text...
+🎤 Speech synthesis flags reset
+🔄 Cleaning up speech state before starting new synthesis...
+✅ Stop flag reset to False
+🎤 Starting FRESH speech synthesis
+Starting speech synthesis...
+Speech synthesis started: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=43bfc44eabb448a890fdbe837ac5a1bd, reason=ResultReason.SynthesizingAudioStarted, audio_length=0)])
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=f63d0e92cc4c4204910995b4a709f901, reason=ResultReason.SynthesizingAudioCompleted, audio_length=366382)])
+Speech synthesis completed: SpeechSynthesisEventArgs(result=[SpeechSynthesisResult(result_id=43bfc44eabb448a890fdbe837ac5a1bd, reason=ResultReason.SynthesizingAudioCompleted, audio_length=382510)])
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+127.0.0.1 - - [27/May/2025 18:02:40] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:02:42] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:02:42] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:02:42] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:02:51] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:02:51] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:02:52] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:02:57] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:02:58] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:03:00] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:03:00] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:03:00] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:03:17] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:03:17] "POST /speech/stop HTTP/1.1" 200 -
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+Received chat message: Help me manage my calendar schedule
+Sending response: Could you please provide more specific details about how you'd like to manage your calendar? For exa...
+Speech flags reset
+Starting speech synthesis: Could you please provide more specific details abo...
+Stopping speech...
+Speech synthesizer stopped
+Speech stop result: Speech stopped
+Starting speech recognition...
+Speak into your microphone...
+Speech synthesis completed successfully
+Recognized: Check for conflicts Hello hello, hello, hello, hello.
+Recognized text: Check for conflicts Hello hello, hello, hello, hello.
+Received chat message: Check for conflicts Hello hello, hello, hello, hello.
+Sending response: It seems like you were trying to communicate a conflict check but repeated "hello," which might be a...
+Speech flags reset
+Starting speech synthesis: It seems like you were trying to communicate a con...
+Stopping speech...
+Speech synthesizer stopped
+Speech stop result: Speech stopped
+Speech synthesis completed successfully
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+6:04:27 PM [vite] (client) hmr update /src/App.tsx
+127.0.0.1 - - [27/May/2025 18:04:50] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:04:52] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:04:52] "OPTIONS /speech/reset HTTP/1.1" 404 -
+127.0.0.1 - - [27/May/2025 18:05:02] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:05:06] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:05:07] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:05:18] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:05:18] "OPTIONS /speech/reset HTTP/1.1" 404 -
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+Received chat message: Help me manage my calendar schedule
+Sending response: I can assist you with managing your calendar schedule. Could you please provide more details on what...
+Starting speech recognition...
+Speak into your microphone...
+Recognized: Hello, hello, hello.
+Recognized text: Hello, hello, hello.
+Received chat message: Hello, hello, hello.
+
+[Triage Thought Process] Delegating to Speech Agent: 'Hello, hello, hello.'
+ Speak into your microphone...
+ No speech recognized.
+[Triage Thought Process] Speech Agent Response: 'I didn't capture any speech. It seems there was an issue with the recognition. Please try speaking again clearly, and I'll listen for your input.'
+Sending response: It seems there was an issue with the speech recognition, and I couldn't capture anything from that i...
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+127.0.0.1 - - [27/May/2025 18:05:56] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:05:59] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:05:59] "OPTIONS /speech/reset HTTP/1.1" 404 -
+127.0.0.1 - - [27/May/2025 18:06:02] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:06:06] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:06:07] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:06:08] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:06:08] "OPTIONS /speech/reset HTTP/1.1" 404 -
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+Received chat message: Help me manage my calendar schedule
+Sending response: Could you please provide more specific details about what you need help with regarding your calendar...
+Starting speech recognition...
+Speak into your microphone...
+Recognized: Hello, hello, hello.
+Recognized text: Hello, hello, hello.
+Received chat message: Hello, hello, hello.
+Sending response: It seems like you might be trying to use voice to communicate. Would you like me to convert your spe...
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+127.0.0.1 - - [27/May/2025 18:06:45] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:06:46] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:06:46] "OPTIONS /speech/reset HTTP/1.1" 404 -
+127.0.0.1 - - [27/May/2025 18:06:50] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:06:54] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:06:55] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:06:56] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:06:56] "OPTIONS /speech/reset HTTP/1.1" 404 -
+127.0.0.1 - - [27/May/2025 18:06:58] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+Received chat message: Help me manage my calendar schedule
+Sending response: Could you please provide more details about what you would like to do with your calendar schedule? F...
+Starting speech recognition...
+Speak into your microphone...
+Recognized: Hello, hello, hello.
+Recognized text: Hello, hello, hello.
+Starting speech recognition...
+Speak into your microphone...
+Received chat message: Hello, hello, hello.
+Sending response: It seems like you might be trying to use voice commands. Would you like me to convert your speech to...
+Starting speech recognition...
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+127.0.0.1 - - [27/May/2025 18:07:15] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:07:16] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:07:16] "OPTIONS /speech/reset HTTP/1.1" 404 -
+127.0.0.1 - - [27/May/2025 18:07:18] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:07:21] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:07:22] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:07:25] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:07:25] "OPTIONS /speech/reset HTTP/1.1" 404 -
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+Received chat message: Help me manage my calendar schedule
+Sending response: Could you please provide more details about how you'd like to manage your calendar? For instance, ar...
+Starting speech recognition...
+Speak into your microphone...
+Recognized: Hello, hello, hello.
+Recognized text: Hello, hello, hello.
+Received chat message: Hello, hello, hello.
+
+[Triage Thought Process] Delegating to Speech Agent: 'Hello, hello, hello.'
+[Triage Thought Process] Speech Agent Response: 'It seems like you're testing the microphone. If you have something specific you want to say or ask, please go ahead! Otherwise, I can start listening for your speech input.'
+Sending response: It seems like you're testing the microphone. If you have something specific you'd like to say or ask...
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+127.0.0.1 - - [27/May/2025 18:08:30] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:08:31] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:08:31] "OPTIONS /speech/reset HTTP/1.1" 404 -
+6:08:45 PM [vite] (client) hmr update /src/App.tsx
+127.0.0.1 - - [27/May/2025 18:08:49] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:08:51] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:08:51] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:08:51] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:08:55] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:08:55] "POST /speech/stop HTTP/1.1" 200 -
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+Received chat message: Help me manage my calendar schedule
+Sending response: Could you please provide more details about what you need help with regarding your calendar? For exa...
+Received chat message: Help me manage my calendar schedule
+Sending response: I still need a bit more information to assist you effectively with your calendar management. Here ar...
+Speech flags reset
+Starting speech synthesis: I still need a bit more information to assist you ...
+Stopping speech...
+Speech synthesizer stopped
+Speech stop result: Speech stopped
+Speech synthesis completed successfully
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+127.0.0.1 - - [27/May/2025 18:10:40] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:10:41] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:10:41] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:10:41] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:10:43] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:10:43] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:10:44] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:10:47] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:10:48] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:10:49] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:10:49] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:10:49] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:10:54] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:10:54] "POST /speech/stop HTTP/1.1" 200 -
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+Received chat message: Help me manage my calendar schedule
+Sending response: Could you please provide me with more details about how you'd like to manage your calendar? For exam...
+Speech flags reset
+Starting speech synthesis: Could you please provide me with more details abou...
+🛑 KILLING SPEECH NOW!
+🔥 Synthesizer methods called
+🗑️ Synthesizer destroyed
+💥 Temporary synthesizer cycle - audio stream interrupted
+✅ VOICE KILLED!
+Speech stop result: VOICE STOPPED IMMEDIATELY
+🛑 CANCELLED during synthesis
+Starting speech recognition...
+Starting speech recognition...
+Speak into your microphone...
+Recognized: What is my name?
+Recognized text: What is my name?
+Received chat message: What is my name?
+Sending response: I currently don't have your name or any personal details from our conversation history. If you provi...
+Speech flags reset
+Starting speech synthesis: I currently don't have your name or any personal d...
+🛑 KILLING SPEECH NOW!
+🔥 Synthesizer methods called
+🗑️ Synthesizer destroyed
+💥 Temporary synthesizer cycle - audio stream interrupted
+✅ VOICE KILLED!
+Speech stop result: VOICE STOPPED IMMEDIATELY
+🛑 CANCELLED during synthesis
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+ * Detected change in '/Users/lovekrissa/Desktop/Proj/agents/speech/speech_io.py', reloading
+Environment variables loaded:
+AZURE_OPENAI_API_ENDPOINT: [REDACTED]
+AZURE_OPENAI_API_KEY: [REDACTED]
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME: gpt-4o-mini
+AZURE_OPENAI_API_VERSION: 2024-12-01-preview
+SPEECH_KEY: [REDACTED]
+SPEECH_REGION: westeurope
+Speech module imported successfully
+All specialized agents and ChatMessageContent imported successfully.
+Initializing TriageAgentPlugin and Triage Agent...
+SubAgentControls plugin added to Triage Kernel.
+
+Initializing Calendar Agent...
+Failed to initialize CalendarAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, and GRAPH_ACCESS_TOKEN environment variables.
+
+
+Initializing IoT Agent...
+[IoTAgent] Warning: Failed to initialize IoTDataSkill: 'NoneType' object is not subscriptable
+IoT Agent initialized successfully.
+
+Initializing Speech Agent...
+Speech Agent initialized successfully.
+
+Initializing Attendance Agent...
+Failed to initialize AttendanceAgent: Please set AZURE_OPENAI_API_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_NAME, COSMOS_ENDPOINT, and COSMOS_KEY environment variables.
+
+Triage Agent instantiated and ready.
+Triage Agent initialized successfully!
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 152-163-419
+127.0.0.1 - - [27/May/2025 18:11:45] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:11:46] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:11:46] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:11:46] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:11:48] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:11:48] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:11:49] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:11:51] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:11:52] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:11:54] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:11:54] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:11:54] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:11:59] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:06] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:06] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:06] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:08] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:08] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:08] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:10] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:10] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:11] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:14] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:15] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:17] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:17] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:17] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:24] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:24] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:25] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:30] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:31] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:33] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:33] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:33] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:35] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:35] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:36] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:39] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:40] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:42] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:42] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:42] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:45] "OPTIONS /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:51] "POST /speech/recognize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:52] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:56] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:56] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:12:56] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:13:01] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [27/May/2025 18:13:01] "POST /speech/stop HTTP/1.1" 200 -

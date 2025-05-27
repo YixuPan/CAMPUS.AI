@@ -34,12 +34,12 @@ if os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"):
 
 # Import the speech recognition functionality
 try:
-    from triagespeech1.agents.speech.speech_io import recognize_from_microphone, speak_text, stop_speech
+    from agents.speech.speech_io import recognize_from_microphone, speak_text, stop_speech, stop_recognition, speak_text_async, reset_synthesis_flags
     SPEECH_AVAILABLE = True
     print("Speech module imported successfully")
 except Exception as e:
     print(f"WARNING: Speech module import failed: {e}")
-    print("Ensure triagespeech1/agents/speech/speech_io.py exists")
+    print("Ensure agents/speech/speech_io.py exists")
     SPEECH_AVAILABLE = False
 
 # Import agents and ChatMessageContent
@@ -155,27 +155,30 @@ def speech_recognize():
         return jsonify({"error": str(e)}), 500
 
 @app.route('/speech/synthesize', methods=['POST'])
-def speech_synthesize():
+def synthesize_speech():
     """
-    Endpoint to handle text-to-speech requests.
-    Uses the Azure Cognitive Services to convert text to speech.
+    Convert text to speech using Azure Text-to-Speech
     """
     try:
-        data = request.json
-        text = data.get('text', '')
+        data = request.get_json()
+        if not data or 'text' not in data:
+            return jsonify({'error': 'Text is required'}), 400
         
-        if not text:
-            return jsonify({"error": "No text provided"}), 400
+        text = data['text']
+        if not text.strip():
+            return jsonify({'error': 'Text cannot be empty'}), 400
         
-        if not SPEECH_AVAILABLE:
-            print("Speech synthesis not available - module not loaded")
-            return jsonify({"result": "Speech synthesis is not available on this server."}), 503
+        # Reset stop flag when starting new speech
+        reset_synthesis_flags()
         
-        result = speak_text(text)
-        return jsonify({"result": result})
+        # Use the improved async speech function
+        result = speak_text_async(text)
+        
+        return jsonify({'status': 'Speech synthesis started', 'result': result})
+        
     except Exception as e:
         print(f"Error in speech synthesis: {e}")
-        return jsonify({"error": str(e)}), 500
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/speech/stop', methods=['POST'])
 def speech_stop():
@@ -193,6 +196,28 @@ def speech_stop():
         return jsonify({"result": result})
     except Exception as e:
         print(f"Error stopping speech: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/speech/stop_recognition', methods=['POST', 'OPTIONS'])
+def speech_stop_recognition():
+    """
+    Endpoint to stop ongoing speech recognition.
+    """
+    if request.method == 'OPTIONS':
+        # Handle CORS preflight
+        return jsonify({}), 200
+    
+    try:
+        if not SPEECH_AVAILABLE:
+            print("Speech recognition stop not available - module not loaded")
+            return jsonify({"result": "Speech functionality is not available on this server."}), 503
+        
+        # Call the stop_recognition function from speech_io
+        result = stop_recognition()
+        print("Speech recognition stop result:", result)
+        return jsonify({"result": result})
+    except Exception as e:
+        print(f"Error stopping speech recognition: {e}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/calendar/sync', methods=['GET'])
