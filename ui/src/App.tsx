@@ -5,6 +5,7 @@ import * as THREE from 'three'
 import './App.css'
 import LogoButton from './components/LogoButton'
 import ReactMarkdown from 'react-markdown'
+import ChatLineChart from './components/ChatLineChart'
 
 // Global animation state to persist between navigation
 const globalAnimationState = {
@@ -728,6 +729,7 @@ function App() {
                     className={`message ${msg.isUser ? 'user-message' : 'ai-message'}`}
                   >
                     <div className="message-content">
+                      {!msg.isUser && <ChatLineChart />}
                       <ReactMarkdown>{msg.content}</ReactMarkdown>
                     </div>
                   </div>
