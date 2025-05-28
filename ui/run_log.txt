@@ -4405,3 +4405,272 @@ Calendar sync request received for date range: 2025-03-02T00:00:00.000Z to 2025-
 3:14:15 AM [vite] (client) hmr update /src/Calendar.css
 3:14:17 AM [vite] (client) hmr update /src/Calendar.css
 3:14:19 AM [vite] (client) hmr update /src/Calendar.css
+3:15:02 AM [vite] (client) hmr update /src/Calendar.css
+3:17:26 AM [vite] (client) hmr update /src/Calendar.css
+3:17:27 AM [vite] (client) hmr update /src/Calendar.css
+3:17:48 AM [vite] (client) hmr update /src/Calendar.css
+3:17:51 AM [vite] (client) hmr update /src/Calendar.css
+3:17:51 AM [vite] (client) hmr update /src/Calendar.css
+127.0.0.1 - - [28/May/2025 03:17:58] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:17:59] "GET /calendar/sync?start_date=2025-01-01T00:00:00.000Z&end_date=2025-12-31T23:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:18:00] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:18:01] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+3:18:10 AM [vite] (client) hmr update /src/Calendar.tsx
+3:18:25 AM [vite] (client) hmr update /src/Calendar.tsx
+3:18:28 AM [vite] (client) hmr update /src/Calendar.tsx
+3:18:48 AM [vite] (client) hmr update /src/Calendar.tsx
+127.0.0.1 - - [28/May/2025 03:18:48] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:18:48] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+3:18:54 AM [vite] (client) hmr update /src/Calendar.tsx
+127.0.0.1 - - [28/May/2025 03:19:00] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:19:00] "GET /calendar/sync?start_date=2025-01-01T00:00:00.000Z&end_date=2025-12-31T23:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:19:01] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+3:19:05 AM [vite] (client) hmr update /src/Calendar.css
+127.0.0.1 - - [28/May/2025 03:19:18] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:19:18] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:20:13] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2025 03:20:16] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2025 03:20:16] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2025 03:20:16] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2025 03:20:18] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2025 03:20:18] "POST /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2025 03:20:21] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:20:21] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+3:20:30 AM [vite] (client) hmr update /src/Calendar.css
+3:20:33 AM [vite] (client) hmr update /src/Calendar.css
+127.0.0.1 - - [28/May/2025 03:20:41] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:20:42] "GET /calendar/sync?start_date=2025-01-01T00:00:00.000Z&end_date=2025-12-31T23:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:20:43] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+3:21:01 AM [vite] (client) hmr update /src/Calendar.css
+3:21:04 AM [vite] (client) hmr update /src/Calendar.css
+127.0.0.1 - - [28/May/2025 03:21:41] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:21:45] "GET /calendar/sync?start_date=2025-01-01T00:00:00.000Z&end_date=2025-12-31T23:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:21:48] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+3:23:30 AM [vite] (client) hmr update /src/Calendar.css
+3:23:33 AM [vite] (client) hmr update /src/Calendar.css
+3:23:35 AM [vite] (client) hmr update /src/Calendar.css
+3:23:45 AM [vite] (client) hmr update /src/Calendar.css
+3:23:46 AM [vite] (client) hmr update /src/Calendar.css
+3:23:48 AM [vite] (client) hmr update /src/Calendar.css
+127.0.0.1 - - [28/May/2025 03:24:12] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:24:17] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:24:17] "GET /calendar/sync?start_date=2025-01-01T00:00:00.000Z&end_date=2025-12-31T23:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:24:21] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:24:22] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:26:54] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+3:27:00 AM [vite] (client) hmr update /src/Calendar.css
+3:27:04 AM [vite] (client) hmr update /src/Calendar.css
+3:27:04 AM [vite] (client) hmr update /src/Calendar.css
+127.0.0.1 - - [28/May/2025 03:27:04] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-01-01T00:00:00.000Z to 2025-12-31T23:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-04-30T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-01-01T00:00:00.000Z to 2025-12-31T23:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Received chat message: Help me manage my calendar schedule
+Sending response: It seems that I don't have access to a calendar management agent to directly assist you with your sc...
+Speech flags reset
+Starting speech synthesis: It seems that I don't have access to a calendar ma...
+🛑 KILLING SPEECH NOW!
+🔥 Synthesizer methods called
+🗑️ Synthesizer destroyed
+💥 Temporary synthesizer cycle - audio stream interrupted
+✅ VOICE KILLED!
+Speech stop result: VOICE STOPPED IMMEDIATELY
+🛑 CANCELLED during synthesis
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Received chat message: Help me manage my calendar schedule
+Sending response: It seems there has been some difficulty in understanding your request. Since I currently don't have ...
+Speech flags reset
+Starting speech synthesis: It seems there has been some difficulty in underst...
+🛑 KILLING SPEECH NOW!
+🔥 Synthesizer methods called
+🗑️ Synthesizer destroyed
+💥 Temporary synthesizer cycle - audio stream interrupted
+✅ VOICE KILLED!
+Speech stop result: VOICE STOPPED IMMEDIATELY
+🛑 CANCELLED during synthesis
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-04-30T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-01-01T00:00:00.000Z to 2025-12-31T23:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-04-30T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-04-30T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-01-01T00:00:00.000Z to 2025-12-31T23:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-04-30T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Received chat message: Help me manage my calendar schedule
+Sending response: It seems there has been some misunderstanding in our communication. I can't directly manage your cal...
+Speech flags reset
+Starting speech synthesis: It seems there has been some misunderstanding in o...
+🛑 KILLING SPEECH NOW!
+🔥 Synthesizer methods called
+🗑️ Synthesizer destroyed
+💥 Temporary synthesizer cycle - audio stream interrupted
+✅ VOICE KILLED!
+Speech stop result: VOICE STOPPED IMMEDIATELY
+🛑 CANCELLED during synthesis
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-04-30T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-01-01T00:00:00.000Z to 2025-12-31T23:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-04-30T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-01-01T00:00:00.000Z to 2025-12-31T23:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-04-30T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-01-01T00:00:00.000Z to 2025-12-31T23:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-04-30T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-04-30T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-05-24T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available
+Calendar sync request received for date range: 2025-04-30T23:00:00.000Z to 2025-05-31T22:59:59.999Z
+ERROR: Graph Access Token is not available127.0.0.1 - - [28/May/2025 03:27:15] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+3:27:23 AM [vite] (client) hmr update /src/Calendar.tsx
+3:27:28 AM [vite] (client) hmr update /src/Calendar.tsx
+127.0.0.1 - - [28/May/2025 03:27:40] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+3:27:42 AM [vite] (client) hmr update /src/Calendar.tsx
+3:27:47 AM [vite] (client) hmr update /src/Calendar.tsx
+127.0.0.1 - - [28/May/2025 03:28:43] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:28:43] "GET /calendar/sync?start_date=2025-01-01T00:00:00.000Z&end_date=2025-12-31T23:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:28:44] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+3:29:51 AM [vite] (client) hmr update /src/Calendar.css
+3:29:56 AM [vite] (client) hmr update /src/Calendar.css
+127.0.0.1 - - [28/May/2025 03:30:07] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:30:08] "GET /calendar/sync?start_date=2025-01-01T00:00:00.000Z&end_date=2025-12-31T23:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:30:09] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+3:30:14 AM [vite] (client) hmr update /src/Calendar.tsx
+3:30:16 AM [vite] (client) hmr update /src/Calendar.tsx
+3:30:26 AM [vite] (client) hmr update /src/Calendar.css
+3:30:29 AM [vite] (client) hmr update /src/Calendar.css
+127.0.0.1 - - [28/May/2025 03:30:41] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:30:42] "GET /calendar/sync?start_date=2025-01-01T00:00:00.000Z&end_date=2025-12-31T23:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:30:45] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:30:47] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+3:33:40 AM [vite] (client) hmr update /src/Calendar.tsx
+127.0.0.1 - - [28/May/2025 03:33:40] "OPTIONS /chat HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2025 03:33:42] "POST /chat HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2025 03:33:42] "OPTIONS /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2025 03:33:42] "POST /speech/synthesize HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2025 03:33:45] "OPTIONS /speech/stop HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2025 03:33:45] "POST /speech/stop HTTP/1.1" 200 -
+3:33:45 AM [vite] (client) hmr update /src/Calendar.tsx
+3:33:46 AM [vite] (client) hmr update /src/Calendar.tsx
+127.0.0.1 - - [28/May/2025 03:33:48] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:33:48] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+3:34:06 AM [vite] (client) hmr update /src/Calendar.css
+3:34:09 AM [vite] (client) hmr update /src/Calendar.css
+3:35:40 AM [vite] (client) hmr update /src/Calendar.css
+3:35:43 AM [vite] (client) hmr update /src/Calendar.css
+3:35:55 AM [vite] (client) hmr update /src/Calendar.tsx
+3:35:59 AM [vite] (client) hmr update /src/Calendar.tsx
+3:37:21 AM [vite] (client) hmr update /src/Calendar.css
+3:37:21 AM [vite] (client) hmr update /src/Calendar.css
+3:37:32 AM [vite] (client) hmr update /src/Calendar.css
+3:37:33 AM [vite] (client) hmr update /src/Calendar.css
+3:37:44 AM [vite] (client) hmr update /src/Calendar.css
+3:37:44 AM [vite] (client) hmr update /src/Calendar.css
+3:37:56 AM [vite] (client) hmr update /src/Calendar.css
+3:37:56 AM [vite] (client) hmr update /src/Calendar.css
+127.0.0.1 - - [28/May/2025 03:38:04] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:38:07] "GET /calendar/sync?start_date=2025-01-01T00:00:00.000Z&end_date=2025-12-31T23:59:59.999Z HTTP/1.1" 401 -
+3:38:09 AM [vite] (client) hmr update /src/Calendar.css
+3:38:09 AM [vite] (client) hmr update /src/Calendar.css
+127.0.0.1 - - [28/May/2025 03:38:10] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:39:05] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:39:06] "GET /calendar/sync?start_date=2025-01-01T00:00:00.000Z&end_date=2025-12-31T23:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:39:10] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:39:11] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:39:11] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:39:13] "GET /calendar/sync?start_date=2025-05-31T23:00:00.000Z&end_date=2025-06-30T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:39:14] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:39:38] "GET /calendar/sync?start_date=2025-04-26T23:00:00.000Z&end_date=2025-05-03T22:59:59.999Z HTTP/1.1" 401 -
+3:41:04 AM [vite] (client) hmr update /src/Calendar.css
+3:41:04 AM [vite] (client) hmr update /src/Calendar.css
+3:41:13 AM [vite] (client) hmr update /src/Calendar.css
+3:41:13 AM [vite] (client) hmr update /src/Calendar.css
+127.0.0.1 - - [28/May/2025 03:41:16] "GET /calendar/sync?start_date=2025-04-19T23:00:00.000Z&end_date=2025-04-26T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:17] "GET /calendar/sync?start_date=2025-04-12T23:00:00.000Z&end_date=2025-04-19T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:18] "GET /calendar/sync?start_date=2025-04-19T23:00:00.000Z&end_date=2025-04-26T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:18] "GET /calendar/sync?start_date=2025-04-26T23:00:00.000Z&end_date=2025-05-03T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:19] "GET /calendar/sync?start_date=2025-05-03T23:00:00.000Z&end_date=2025-05-10T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:21] "GET /calendar/sync?start_date=2025-05-10T23:00:00.000Z&end_date=2025-05-17T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:21] "GET /calendar/sync?start_date=2025-05-17T23:00:00.000Z&end_date=2025-05-24T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:21] "GET /calendar/sync?start_date=2025-05-24T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:21] "GET /calendar/sync?start_date=2025-05-31T23:00:00.000Z&end_date=2025-06-07T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:21] "GET /calendar/sync?start_date=2025-06-07T23:00:00.000Z&end_date=2025-06-14T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:22] "GET /calendar/sync?start_date=2025-06-14T23:00:00.000Z&end_date=2025-06-21T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:22] "GET /calendar/sync?start_date=2025-06-21T23:00:00.000Z&end_date=2025-06-28T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:23] "GET /calendar/sync?start_date=2025-06-14T23:00:00.000Z&end_date=2025-06-21T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:23] "GET /calendar/sync?start_date=2025-06-07T23:00:00.000Z&end_date=2025-06-14T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:24] "GET /calendar/sync?start_date=2025-05-31T23:00:00.000Z&end_date=2025-06-07T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:31] "GET /calendar/sync?start_date=2025-05-31T23:00:00.000Z&end_date=2025-06-30T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:34] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:37] "GET /calendar/sync?start_date=2025-01-01T00:00:00.000Z&end_date=2025-12-31T23:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:53] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:41:54] "GET /calendar/sync?start_date=2025-04-26T23:00:00.000Z&end_date=2025-05-03T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:42:08] "GET /calendar/sync?start_date=2025-04-30T23:00:00.000Z&end_date=2025-05-31T22:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:42:09] "GET /calendar/sync?start_date=2025-01-01T00:00:00.000Z&end_date=2025-12-31T23:59:59.999Z HTTP/1.1" 401 -
+127.0.0.1 - - [28/May/2025 03:42:10] "GET /calendar/sync?start_date=2025-04-26T23:00:00.000Z&end_date=2025-05-03T22:59:59.999Z HTTP/1.1" 401 -

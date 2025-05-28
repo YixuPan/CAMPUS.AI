@@ -26,6 +26,7 @@ interface CalendarEvent {
   category: 'meeting' | 'reminder' | 'task' | 'social' | 'lecture' | 'exam';
   durationHours?: number;
   location?: string;
+  style?: React.CSSProperties;
 }
 
 // API Response Event interface
@@ -478,25 +479,30 @@ const Calendar: React.FC = () => {
 
   // Get events for specific date and hour - includes events that span this hour
   const getEventsForHour = (date: Date, hour: number) => {
+    const events = generateDailyEvents(date);
     return events.filter(event => {
-      // Check if event is on the same day
-      const sameDay = event.date.getDate() === date.getDate() && 
-      event.date.getMonth() === date.getMonth() && 
-                      event.date.getFullYear() === date.getFullYear();
-      
-      if (!sameDay) return false;
-      
-      // Get event hour
-      const eventHour = event.date.getHours();
-      
-      // Get event end hour (calculated from duration)
-      const durationHours = event.durationHours || 1;
-      const eventEndHour = eventHour + durationHours;
-      
-      // Event includes this hour if:
-      // 1. It starts at this hour, or
-      // 2. It spans this hour (starts before and ends after)
-      return eventHour === hour || (eventHour < hour && eventEndHour > hour);
+      const eventHour = parseInt(event.time.split(':')[0]);
+      // Only return events that start at this hour
+      return eventHour === hour;
+    }).map(event => {
+      const eventHour = parseInt(event.time.split(':')[0]);
+      const eventMinutes = parseInt(event.time.split(':')[1]);
+      const style = {
+        top: `${(eventMinutes / 60) * 100}%`,
+        '--duration-hours': event.duration,
+        height: `calc(${event.duration} * 40px - 4px)`
+      } as React.CSSProperties;
+
+      return {
+        id: `${date.toISOString()}-${event.time}-${event.title}`,
+        title: event.title,
+        description: event.title,
+        date: date,
+        time: event.time,
+        category: event.type as CalendarEvent['category'],
+        durationHours: event.duration,
+        style
+      } as CalendarEvent;
     });
   };
 
@@ -589,9 +595,7 @@ const Calendar: React.FC = () => {
                     <div 
                       key={eventIndex}
                       className={`week-event ${event.category} ${event.durationHours && event.durationHours > 1 ? 'multi-hour' : ''}`}
-                      style={{
-                        height: event.durationHours ? `${Math.min(event.durationHours * 100, 100)}%` : '100%'
-                      }}
+                      style={event.style}
                       onClick={(e) => {
                         e.stopPropagation();
                         handleEventClick(event);
@@ -822,12 +826,37 @@ const Calendar: React.FC = () => {
   // Handle card click
   const handleCardClick = (index: number) => {
     if (index === 0) {
-      // Yellow card - animate expansion to calendar dialog
+      // My Calendar card - open calendar dialog with animation
+      const cardElement = document.querySelector('.dashboard-card.my-calendar');
+      const cardRect = cardElement?.getBoundingClientRect();
+      
+      if (cardRect) {
+        // Set dialog position to match card position
+        const dialog = document.querySelector('.calendar-dialog') as HTMLElement;
+        if (dialog) {
+          dialog.style.position = 'fixed';
+          dialog.style.top = `${cardRect.top}px`;
+          dialog.style.left = `${cardRect.left}px`;
+          dialog.style.width = `${cardRect.width}px`;
+          dialog.style.height = `${cardRect.height}px`;
+        }
+      }
+      
       setIsCardExpanding(true);
       setTimeout(() => {
         setIsCalendarDialogOpen(true);
         setIsCardExpanding(false);
-      }, 400);
+        
+        // Reset dialog position after animation
+        const dialog = document.querySelector('.calendar-dialog') as HTMLElement;
+        if (dialog) {
+          dialog.style.position = '';
+          dialog.style.top = '';
+          dialog.style.left = '';
+          dialog.style.width = '';
+          dialog.style.height = '';
+        }
+      }, 300);
     } else if (index === 1) {
       // Upcoming events card - show all events
       const upcoming = getUpcomingEvents();
@@ -919,62 +948,221 @@ const Calendar: React.FC = () => {
       return [];
     }
 
-    // Fixed events for each weekday
+    // Fixed events for each weekday matching the card data
     const weekdayEvents = {
       1: [ // Monday
         {
           type: 'lecture',
           title: 'Computer Vision',
-          time: '10:00'
+          time: '10:00',
+          duration: 2
         },
         {
           type: 'meeting',
           title: 'Project Team Meeting',
-          time: '14:30'
+          time: '14:30',
+          duration: 1.5
         }
       ],
       2: [ // Tuesday
         {
-          type: 'exam',
-          title: 'Midterm Exam',
-          time: '09:30'
+          type: 'lecture',
+          title: 'Data Structures',
+          time: '09:30',
+          duration: 2
+        },
+        {
+          type: 'task',
+          title: 'Assignment Due',
+          time: '16:00',
+          duration: 1
         }
       ],
       3: [ // Wednesday
         {
           type: 'lecture',
-          title: 'Data Structures',
-          time: '11:00'
+          title: 'Software Engineering',
+          time: '11:00',
+          duration: 2
         },
         {
-          type: 'task',
-          title: 'Assignment Due',
-          time: '16:00'
+          type: 'social',
+          title: 'Tech Society Meetup',
+          time: '15:00',
+          duration: 2
         }
       ],
       4: [ // Thursday
         {
           type: 'meeting',
           title: 'Research Group',
-          time: '13:00'
+          time: '13:00',
+          duration: 1.5
+        },
+        {
+          type: 'lecture',
+          title: 'Machine Learning',
+          time: '10:00',
+          duration: 2
         }
       ],
       5: [ // Friday
         {
           type: 'lecture',
-          title: 'Software Engineering',
-          time: '10:30'
+          title: 'Advanced Algorithms',
+          time: '10:30',
+          duration: 2
         },
         {
-          type: 'social',
-          title: 'Tech Society Meetup',
-          time: '15:00'
+          type: 'meeting',
+          title: 'Career Workshop',
+          time: '14:00',
+          duration: 1.5
         }
       ]
     };
 
     // Return events for the current weekday
     return weekdayEvents[date.getDay() as keyof typeof weekdayEvents] || [];
+  };
+
+  // Render month view
+  const renderMonthView = () => {
+    return (
+      <div className="month-view">
+        <div className="calendar-days-header">
+          {DAYS.map(day => (
+            <div key={day} className="day-name">{day.substring(0, 3)}</div>
+          ))}
+        </div>
+        
+        <div className="calendar-days">
+          {generateCalendarDays().map((day, index) => (
+            <div 
+              key={index} 
+              className={`calendar-day ${!day ? 'empty' : ''} ${
+                day && selectedDate && 
+                day.getDate() === selectedDate.getDate() && 
+                day.getMonth() === selectedDate.getMonth() ? 'selected' : ''
+              } ${
+                day && 
+                day.getDate() === new Date().getDate() && 
+                day.getMonth() === new Date().getMonth() && 
+                day.getFullYear() === new Date().getFullYear() ? 'today' : ''
+              }`}
+              onClick={() => day && handleDateClick(day)}
+            >
+              {day && (
+                <>
+                  <span className="day-number">{day.getDate()}</span>
+                  {hasEvents(day) && (
+                    <div className="day-events">
+                      {getEventsForDate(day).slice(0, 2).map(event => (
+                        <div 
+                          key={event.id} 
+                          className={`day-event-indicator ${event.category}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEventClick(event);
+                          }}
+                        >
+                          {event.title}
+                        </div>
+                      ))}
+                      {getEventsForDate(day).length > 2 && (
+                        <div 
+                          className="more-events"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDateClick(day);
+                          }}
+                        >
+                          +{getEventsForDate(day).length - 2} more
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  // Render year view
+  const renderYearView = () => {
+    return (
+      <div className="year-view">
+        {Array.from({ length: 12 }, (_, monthIndex) => {
+          const monthDate = new Date(currentDate.getFullYear(), monthIndex, 1);
+          return (
+            <div key={monthIndex} className="year-month">
+              <h3>{MONTHS[monthIndex]}</h3>
+              <div className="mini-month">
+                <div className="mini-days-header">
+                  {DAYS.map(day => (
+                    <div key={day} className="mini-day-name">
+                      {day.charAt(0)}
+                    </div>
+                  ))}
+                </div>
+                <div className="mini-days">
+                  {generateMonthDays(monthDate).map((day, dayIndex) => (
+                    <div
+                      key={dayIndex}
+                      className={`mini-day ${!day ? 'empty' : ''} ${
+                        day && hasEvents(day) ? 'has-event' : ''
+                      } ${
+                        day &&
+                        day.getDate() === new Date().getDate() &&
+                        day.getMonth() === new Date().getMonth() &&
+                        day.getFullYear() === new Date().getFullYear()
+                          ? 'today'
+                          : ''
+                      }`}
+                      onClick={() => day && handleDateClick(day)}
+                    >
+                      {day && day.getDate()}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  // Helper function to generate days for a month
+  const generateMonthDays = (monthDate: Date) => {
+    const year = monthDate.getFullYear();
+    const month = monthDate.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startingDay = firstDay.getDay();
+    
+    const days: (Date | null)[] = [];
+    
+    // Add empty slots for days before the first day of the month
+    for (let i = 0; i < startingDay; i++) {
+      days.push(null);
+    }
+    
+    // Add the days of the month
+    for (let i = 1; i <= daysInMonth; i++) {
+      days.push(new Date(year, month, i));
+    }
+    
+    // Add empty slots to complete the grid
+    while (days.length % 7 !== 0) {
+      days.push(null);
+    }
+    
+    return days;
   };
 
   // Render calendar UI
@@ -1202,10 +1390,58 @@ const Calendar: React.FC = () => {
 
         {/* Calendar Dialog */}
         {isCalendarDialogOpen && (
-          <div className="calendar-dialog-overlay" onClick={() => setIsCalendarDialogOpen(false)}>
-            <div className="calendar-dialog yellow-dialog" onClick={(e) => e.stopPropagation()}>
+          <div 
+            className="calendar-dialog-overlay" 
+            onClick={() => setIsCalendarDialogOpen(false)}
+          >
+            <div 
+              className={`calendar-dialog yellow-dialog ${isCardExpanding ? 'expanding' : ''}`}
+              onClick={(e) => e.stopPropagation()}
+            >
               <div className="calendar-dialog-header">
-                <h2>Calendar</h2>
+                <div className="calendar-controls-group">
+                  <div className="calendar-view-selector">
+                    <button 
+                      onClick={() => handleViewChange('week')} 
+                      className={calendarView === 'week' ? 'active' : ''}
+                    >
+                      Weekly
+                    </button>
+                    <button 
+                      onClick={() => handleViewChange('month')} 
+                      className={calendarView === 'month' ? 'active' : ''}
+                    >
+                      Monthly
+                    </button>
+                    <button 
+                      onClick={() => handleViewChange('year')} 
+                      className={calendarView === 'year' ? 'active' : ''}
+                    >
+                      Yearly
+                    </button>
+                  </div>
+
+                  <div className="calendar-navigation">
+                    <button 
+                      className="nav-btn"
+                      onClick={calendarView === 'week' ? goToPreviousWeek : 
+                              calendarView === 'month' ? goToPreviousMonth : 
+                              goToPreviousYear}
+                    >
+                      ←
+                    </button>
+                    <h3>{formatDateRange()}</h3>
+                    <button 
+                      className="nav-btn"
+                      onClick={calendarView === 'week' ? goToNextWeek : 
+                              calendarView === 'month' ? goToNextMonth : 
+                              goToNextYear}
+                    >
+                      →
+                    </button>
+                  </div>
+                </div>
+
                 <button 
                   className="close-dialog-btn"
                   onClick={() => setIsCalendarDialogOpen(false)}
@@ -1215,87 +1451,10 @@ const Calendar: React.FC = () => {
               </div>
               
               <div className="calendar-dialog-content">
-                <div className="calendar-view-selector">
-                  <button 
-                    onClick={() => handleViewChange('week')} 
-                    className={calendarView === 'week' ? 'active' : ''}
-                  >
-                    Weekly
-                  </button>
-                  <button 
-                    onClick={() => handleViewChange('month')} 
-                    className={calendarView === 'month' ? 'active' : ''}
-                  >
-                    Monthly
-                  </button>
-                  <button 
-                    onClick={() => handleViewChange('year')} 
-                    className={calendarView === 'year' ? 'active' : ''}
-                  >
-                    Yearly
-                  </button>
-                </div>
-
-                <div className="calendar-navigation">
-                  <button onClick={
-                    calendarView === 'week' ? goToPreviousWeek : 
-                    calendarView === 'month' ? goToPreviousMonth : 
-                    goToPreviousYear
-                  } className="nav-btn">
-                    ←
-                  </button>
-                  <h3>{formatDateRange()}</h3>
-                  <button onClick={
-                    calendarView === 'week' ? goToNextWeek : 
-                    calendarView === 'month' ? goToNextMonth : 
-                    goToNextYear
-                  } className="nav-btn">
-                    →
-                  </button>
-                </div>
-
                 <div className="calendar-display">
-                  {calendarView === 'month' && (
-                    <div className="month-view">
-                      <div className="calendar-days-header">
-                        {DAYS.map(day => (
-                          <div key={day} className="day-name">{day.substring(0, 3)}</div>
-                        ))}
-                      </div>
-                      
-                      <div className="calendar-days">
-                        {generateCalendarDays().map((day, index) => (
-                          <div 
-                            key={index} 
-                            className={`calendar-day ${!day ? 'empty' : ''} ${day && selectedDate && day.getDate() === selectedDate.getDate() && day.getMonth() === selectedDate.getMonth() ? 'selected' : ''} ${day && day.getDate() === new Date().getDate() && day.getMonth() === new Date().getMonth() && day.getFullYear() === new Date().getFullYear() ? 'today' : ''}`}
-                            onClick={() => day && handleDateClick(day)}
-                          >
-                            {day && (
-                              <>
-                                <span className="day-number">{day.getDate()}</span>
-                                {hasEvents(day) && (
-                                  <div className="day-events">
-                                    {getEventsForDate(day).slice(0, 2).map(event => (
-                                      <div 
-                                        key={event.id} 
-                                        className={`day-event-indicator ${event.category}`}
-                                        onClick={(e) => {
-                                          e.stopPropagation();
-                                          handleEventClick(event);
-                                        }}
-                                      >
-                                        {event.title}
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
-                              </>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                  {calendarView === 'week' && renderWeekView()}
+                  {calendarView === 'month' && renderMonthView()}
+                  {calendarView === 'year' && renderYearView()}
                 </div>
               </div>
             </div>
