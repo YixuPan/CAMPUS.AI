@@ -959,23 +959,17 @@ const Calendar: React.FC = () => {
         },
         {
           type: 'meeting',
-          title: 'Project Team Meeting',
+          title: 'Research Meeting',
           time: '14:30',
-          duration: 1.5
+          duration: 1
         }
       ],
       2: [ // Tuesday
         {
-          type: 'lecture',
-          title: 'Data Structures',
-          time: '09:30',
-          duration: 2
-        },
-        {
-          type: 'task',
-          title: 'Assignment Due',
-          time: '16:00',
-          duration: 1
+          type: 'meeting',
+          title: 'Project Team Meeting',
+          time: '14:30',
+          duration: 1.5
         }
       ],
       3: [ // Wednesday
@@ -989,7 +983,7 @@ const Calendar: React.FC = () => {
           type: 'social',
           title: 'Tech Society Meetup',
           time: '15:00',
-          duration: 2
+          duration: 1
         }
       ],
       4: [ // Thursday
@@ -998,12 +992,6 @@ const Calendar: React.FC = () => {
           title: 'Research Group',
           time: '13:00',
           duration: 1.5
-        },
-        {
-          type: 'lecture',
-          title: 'Machine Learning',
-          time: '10:00',
-          duration: 2
         }
       ],
       5: [ // Friday
@@ -1014,10 +1002,10 @@ const Calendar: React.FC = () => {
           duration: 2
         },
         {
-          type: 'meeting',
-          title: 'Career Workshop',
-          time: '14:00',
-          duration: 1.5
+          type: 'task',
+          title: 'Assignment Due',
+          time: '16:00',
+          duration: 1
         }
       ]
     };
