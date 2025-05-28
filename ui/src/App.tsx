@@ -616,6 +616,56 @@ function App() {
     }
   };
 
+  // Check for chat initialization flags from localStorage
+  useEffect(() => {
+    const shouldStartChat = localStorage.getItem('startYuniChat');
+    const action = localStorage.getItem('yuniAction');
+    
+    if (shouldStartChat === 'true') {
+      // Clear the flags immediately to prevent re-triggering
+      localStorage.removeItem('startYuniChat');
+      localStorage.removeItem('yuniAction');
+      
+      // Start chat mode
+      setIsChatMode(true);
+      globalAnimationState.isExpanded = true;
+      document.body.classList.add('chat-mode-active');
+      hideFooter();
+
+      // If there's a specific action, send the appropriate message
+      if (action) {
+        let message = '';
+        switch (action) {
+          case 'calendar-schedule':
+            message = 'Help me manage my calendar schedule';
+            break;
+          case 'schedule-meeting':
+            message = 'Book me a meeting with my project team';
+            break;
+          case 'today-schedule':
+            message = "What's my schedule for today?";
+            break;
+          case 'next-location':
+            message = 'Take me to my next event location';
+            break;
+          case 'find-room':
+            message = 'Find me an available room for next hour';
+            break;
+          case 'next-deadline':
+            message = 'How much time do I have until my next deadline?';
+            break;
+          default:
+            message = 'Help me with my calendar';
+        }
+        
+        // Add a small delay to ensure the chat interface is ready
+        setTimeout(() => {
+          handleSendMessageWithText(message);
+        }, 500);
+      }
+    }
+  }, []); // Run only once on mount
+
   return (
     <div className="app">
       <header>

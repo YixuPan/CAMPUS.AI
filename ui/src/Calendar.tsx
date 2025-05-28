@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Calendar.css';
 import LogoButton from './components/LogoButton';
-import { ThreeDDaysCarousel } from './components/ui/three-d-carousel';
+import CampusMap from './components/CampusMap';
+
 
 // Calendar date utilities
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -22,8 +23,9 @@ interface CalendarEvent {
   date: Date;
   time: string;
   endTime?: string;
-  category: 'meeting' | 'reminder' | 'task' | 'social';
-  durationHours?: number; // Added duration in hours
+  category: 'meeting' | 'reminder' | 'task' | 'social' | 'lecture' | 'exam';
+  durationHours?: number;
+  location?: string;
 }
 
 // API Response Event interface
@@ -39,8 +41,22 @@ interface ApiEvent {
 // View type
 type CalendarViewType = 'week' | 'month' | 'year';
 
+// New interface for card events
+interface CardEvent {
+  id: string;
+  title: string;
+  description: string;
+  date: Date;
+  time: string;
+  duration: string;
+  category: 'meeting' | 'reminder' | 'task' | 'social';
+  attendees?: string[];
+  location?: string;
+}
+
 // Calendar component
 const Calendar: React.FC = () => {
+  const navigate = useNavigate();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [calendarView, setCalendarView] = useState<CalendarViewType>('week');
   const [events, setEvents] = useState<CalendarEvent[]>([]);
@@ -57,7 +73,108 @@ const Calendar: React.FC = () => {
     durationHours: 1
   });
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
-  const [connectionStatus, setConnectionStatus] = useState<string | null>(null);
+  const [selectedCard, setSelectedCard] = useState<number | null>(null);
+  const [isWalletExpanded, setIsWalletExpanded] = useState(false);
+  const [isCalendarDialogOpen, setIsCalendarDialogOpen] = useState(false);
+  const [isCardExpanding, setIsCardExpanding] = useState(false);
+  const [isWalletVisible, setIsWalletVisible] = useState(false);
+  const [upcomingEvents, setUpcomingEvents] = useState<CalendarEvent[]>([]);
+  const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
+  const [eventFilter, setEventFilter] = useState<string | null>(null);
+  const [isMapDialogOpen, setIsMapDialogOpen] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState<{
+    name: string;
+    coordinates: [number, number];
+    description: string;
+  } | undefined>();
+
+  // Sample card events data
+  const [cardEvents, setCardEvents] = useState<CardEvent[]>([
+    {
+      id: '1',
+      title: 'Morning Lecture: Computer Science',
+      description: 'Introduction to Algorithms and Data Structures',
+      date: new Date(),
+      time: '09:00',
+      duration: '2h',
+      category: 'meeting',
+      attendees: ['Prof. Smith', 'Class A Students'],
+      location: 'Lecture Hall A'
+    },
+    {
+      id: '2',
+      title: 'Group Project Meeting',
+      description: 'Final project discussion with team members',
+      date: new Date(Date.now() + 86400000), // Tomorrow
+      time: '14:00',
+      duration: '1h 30min',
+      category: 'meeting',
+      attendees: ['Sarah Johnson', 'Mike Chen', 'Lisa Brown'],
+      location: 'Study Room 302'
+    },
+    {
+      id: '3',
+      title: 'Assignment Deadline',
+      description: 'Submit Machine Learning Assignment',
+      date: new Date(Date.now() + 172800000), // Day after tomorrow
+      time: '23:59',
+      duration: 'All day',
+      category: 'task',
+      location: 'Online Submission'
+    },
+    {
+      id: '4',
+      title: 'Campus Society Meetup',
+      description: 'Tech Society Weekly Gathering',
+      date: new Date(Date.now() + 259200000), // 3 days from now
+      time: '18:00',
+      duration: '2h',
+      category: 'social',
+      attendees: ['All Society Members'],
+      location: 'Student Union Building'
+    },
+    {
+      id: '5',
+      title: 'Research Seminar',
+      description: 'Guest Speaker on AI Ethics',
+      date: new Date(Date.now() + 345600000), // 4 days from now
+      time: '15:00',
+      duration: '1h',
+      category: 'meeting',
+      location: 'Virtual Meeting Room'
+    },
+    {
+      id: '6',
+      title: 'Lab Session',
+      description: 'Practical work on Database Systems',
+      date: new Date(Date.now() + 432000000), // 5 days from now
+      time: '10:00',
+      duration: '3h',
+      category: 'meeting',
+      location: 'Computer Lab 2'
+    },
+    {
+      id: '7',
+      title: 'Study Group',
+      description: 'Exam preparation with classmates',
+      date: new Date(Date.now() + 518400000), // 6 days from now
+      time: '16:00',
+      duration: '2h',
+      category: 'social',
+      attendees: ['Study Group B'],
+      location: 'Library Room 401'
+    },
+    {
+      id: '8',
+      title: 'Career Workshop',
+      description: 'Resume Building and Interview Tips',
+      date: new Date(Date.now() + 604800000), // 7 days from now
+      time: '13:00',
+      duration: '1h 30min',
+      category: 'meeting',
+      location: 'Career Center'
+    }
+  ]);
 
   // Format date to UK London time
   const formatToUKTime = (date: Date): Date => {
@@ -105,8 +222,9 @@ const Calendar: React.FC = () => {
           date: startDate,
           time: formatTime(startDate),
           endTime: formatTime(endDate),
-          category: apiEvent.category as 'meeting' | 'reminder' | 'task' | 'social',
-          durationHours: durationHours
+          category: apiEvent.category as 'meeting' | 'reminder' | 'task' | 'social' | 'lecture' | 'exam',
+          durationHours: durationHours,
+          location: apiEvent.description
         };
       });
       
@@ -141,33 +259,89 @@ const Calendar: React.FC = () => {
     setEvents([
       {
         id: 1,
-        title: 'Team Meeting',
-        description: 'Discuss project progress',
-        date: new Date(baseDate.getTime() + (10 * 60 * 60 * 1000)), // 10:00 AM
-        time: '10:00 AM',
-        endTime: '11:30 AM',
+        title: 'Morning Lecture',
+        description: 'Introduction to Algorithms and Data Structures',
+        date: new Date(baseDate.getTime() + (9 * 60 * 60 * 1000)), // 9:00 AM
+        time: '09:00 AM',
+        endTime: '11:00 AM',
         category: 'meeting',
-        durationHours: 1.5
+        durationHours: 2,
+        location: 'Lecture Hall A'
       },
       {
         id: 2,
-        title: 'Lunch with Alex',
-        description: 'At Coastal Café',
-        date: new Date(baseDate.getTime() + ((currentDate.getDay() + 1) * 24 * 60 * 60 * 1000) + (12.5 * 60 * 60 * 1000)), // Next day 12:30 PM
-        time: '12:30 PM',
-        endTime: '1:30 PM',
+        title: 'Study Group Session',
+        description: 'Exam preparation with study group',
+        date: new Date(baseDate.getTime() + (11.5 * 60 * 60 * 1000)), // 11:30 AM
+        time: '11:30 AM',
+        endTime: '13:00 PM',
         category: 'social',
-        durationHours: 1
+        durationHours: 1.5,
+        location: 'Library Room 401'
       },
       {
         id: 3,
-        title: 'Project Workshop',
-        description: 'Planning and brainstorming session',
-        date: new Date(baseDate.getTime() + (13 * 60 * 60 * 1000)), // 1:00 PM today
-        time: '1:00 PM',
-        endTime: '4:00 PM',
+        title: 'Research Meeting',
+        description: 'Weekly research progress discussion',
+        date: new Date(baseDate.getTime() + (14 * 60 * 60 * 1000)), // 2:00 PM
+        time: '2:00 PM',
+        endTime: '3:00 PM',
         category: 'meeting',
-        durationHours: 3
+        durationHours: 1,
+        location: 'Virtual Meeting Room'
+      },
+      {
+        id: 4,
+        title: 'Lab Work',
+        description: 'Database Systems Practical',
+        date: new Date(baseDate.getTime() + (15.5 * 60 * 60 * 1000)), // 3:30 PM
+        time: '3:30 PM',
+        endTime: '5:30 PM',
+        category: 'task',
+        durationHours: 2,
+        location: 'Computer Lab 2'
+      },
+      {
+        id: 5,
+        title: 'Assignment Due',
+        description: 'Submit Machine Learning Assignment',
+        date: new Date(baseDate.getTime() + ((currentDate.getDay() + 1) * 24 * 60 * 60 * 1000) + (23.98 * 60 * 60 * 1000)), // Tomorrow 23:59
+        time: '23:59 PM',
+        category: 'reminder',
+        durationHours: 0.1,
+        location: 'Online Submission'
+      },
+      {
+        id: 6,
+        title: 'Tech Society Meeting',
+        description: 'Weekly club gathering and activities',
+        date: new Date(baseDate.getTime() + ((currentDate.getDay() + 2) * 24 * 60 * 60 * 1000) + (18 * 60 * 60 * 1000)), // Day after tomorrow 6 PM
+        time: '6:00 PM',
+        endTime: '8:00 PM',
+        category: 'social',
+        durationHours: 2,
+        location: 'Student Union Building'
+      },
+      {
+        id: 7,
+        title: 'Career Workshop',
+        description: 'Resume building and interview preparation',
+        date: new Date(baseDate.getTime() + ((currentDate.getDay() + 3) * 24 * 60 * 60 * 1000) + (13 * 60 * 60 * 1000)), // 3 days later 1 PM
+        time: '1:00 PM',
+        endTime: '2:30 PM',
+        category: 'meeting',
+        durationHours: 1.5,
+        location: 'Career Center'
+      },
+      {
+        id: 8,
+        title: 'Project Deadline',
+        description: 'Final submission for group project',
+        date: new Date(baseDate.getTime() + ((currentDate.getDay() + 4) * 24 * 60 * 60 * 1000) + (17 * 60 * 60 * 1000)), // 4 days later 5 PM
+        time: '5:00 PM',
+        category: 'reminder',
+        durationHours: 0.1,
+        location: 'Study Room 302'
       }
     ]);
   };
@@ -371,15 +545,7 @@ const Calendar: React.FC = () => {
     
     return (
       <div className="week-view">
-        {/* 3D Days Carousel */}
-        <div className="carousel-wrapper">
-          <ThreeDDaysCarousel 
-            currentWeek={weekDays} 
-            selectedDate={selectedDate}
-            onSelectDate={handleDateClick}
-            eventsMap={eventsMap}
-          />
-        </div>
+        {/* Week Days Header */}
       
         {/* Regular week header below the carousel */}
         <div className="week-header">
@@ -497,8 +663,9 @@ const Calendar: React.FC = () => {
         date: selectedDate,
         time: newEvent.time || '',
         endTime: newEvent.endTime || '',
-        category: newEvent.category as 'meeting' | 'reminder' | 'task' | 'social',
-        durationHours: newEvent.durationHours || 1
+        category: newEvent.category as 'meeting' | 'reminder' | 'task' | 'social' | 'lecture' | 'exam',
+        durationHours: newEvent.durationHours || 1,
+        location: newEvent.location || ''
       };
       
       setEvents([...events, eventToAdd]);
@@ -546,31 +713,268 @@ const Calendar: React.FC = () => {
     setSelectedEvent(null);
   };
 
-  // Test the connection to the calendar API
-  const testCalendarConnection = async () => {
-    setIsLoading(true);
-    setConnectionStatus(null);
-    
-    try {
-      const response = await fetch('http://localhost:9001/calendar/test');
-      
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status} ${response.statusText}`);
+  // Get upcoming events sorted by date
+  const getUpcomingEvents = (): CalendarEvent[] => {
+    const now = new Date();
+    return [
+      {
+        id: '1',
+        title: 'Advanced Algorithms Lecture',
+        description: 'Deep dive into graph algorithms and dynamic programming',
+        date: new Date(now.getTime() + 2 * 60 * 60 * 1000), // 2 hours from now
+        time: '10:00 AM',
+        endTime: '12:00 PM',
+        category: 'lecture',
+        location: 'CS Building Room 401'
+      },
+      {
+        id: '2',
+        title: 'Project Team Meeting',
+        description: 'Weekly sync-up with the mobile app development team',
+        date: new Date(now.getTime() + 5 * 60 * 60 * 1000), // 5 hours from now
+        time: '2:00 PM',
+        endTime: '3:30 PM',
+        category: 'meeting',
+        location: 'Virtual Meeting Room 3'
+      },
+      {
+        id: '3',
+        title: 'Data Structures Lecture',
+        description: 'Advanced topics in tree and graph structures',
+        date: new Date(now.getTime() + 24 * 60 * 60 * 1000), // Tomorrow
+        time: '11:00 AM',
+        endTime: '12:30 PM',
+        category: 'lecture',
+        location: 'Engineering Hall 201'
+      },
+      {
+        id: '4',
+        title: 'Tech Society Meetup',
+        description: 'Guest speaker from Google discussing AI/ML careers',
+        date: new Date(now.getTime() + 26 * 60 * 60 * 1000),
+        time: '4:00 PM',
+        endTime: '6:00 PM',
+        category: 'social',
+        location: 'Student Center Auditorium'
+      },
+      {
+        id: '5',
+        title: 'Research Paper Task',
+        description: 'Final submission for Machine Learning conference',
+        date: new Date(now.getTime() + 48 * 60 * 60 * 1000), // 2 days from now
+        time: '11:59 PM',
+        category: 'task',
+        location: 'Online Submission Portal'
+      },
+      {
+        id: '6',
+        title: 'Web Development Lecture',
+        description: 'Hands-on session on React and Next.js',
+        date: new Date(now.getTime() + 72 * 60 * 60 * 1000), // 3 days from now
+        time: '2:00 PM',
+        endTime: '5:00 PM',
+        category: 'lecture',
+        location: 'Tech Hub Lab 2'
+      },
+      {
+        id: '7',
+        title: 'Career Workshop Meeting',
+        description: 'Resume review and mock interviews',
+        date: new Date(now.getTime() + 96 * 60 * 60 * 1000), // 4 days from now
+        time: '1:00 PM',
+        endTime: '3:00 PM',
+        category: 'meeting',
+        location: 'Career Center'
+      },
+      {
+        id: '8',
+        title: 'Machine Learning Lecture',
+        description: 'Neural Networks and Deep Learning fundamentals',
+        date: new Date(now.getTime() + 120 * 60 * 60 * 1000), // 5 days from now
+        time: '10:00 AM',
+        endTime: '11:30 AM',
+        category: 'lecture',
+        location: 'Conference Room A'
+      },
+      {
+        id: '9',
+        title: 'Hackathon Social',
+        description: '24-hour coding challenge with amazing prizes',
+        date: new Date(now.getTime() + 144 * 60 * 60 * 1000), // 6 days from now
+        time: '9:00 AM',
+        endTime: '9:00 AM',
+        category: 'social',
+        location: 'Innovation Center'
+      },
+      {
+        id: '10',
+        title: 'Algorithms Study Group',
+        description: 'Final exam preparation with peers',
+        date: new Date(now.getTime() + 168 * 60 * 60 * 1000), // 7 days from now
+        time: '3:00 PM',
+        endTime: '6:00 PM',
+        category: 'meeting',
+        location: 'Library Study Room 401'
       }
-      
-      const data = await response.json();
-      
-      if (data.status === 'success') {
-        setConnectionStatus(`Connected as ${data.user.displayName} (${data.user.email}). Found ${data.calendars.count} calendars.`);
+    ];
+  };
+
+  // Handle card click
+  const handleCardClick = (index: number) => {
+    if (index === 0) {
+      // Yellow card - animate expansion to calendar dialog
+      setIsCardExpanding(true);
+      setTimeout(() => {
+        setIsCalendarDialogOpen(true);
+        setIsCardExpanding(false);
+      }, 400);
+    } else if (index === 1) {
+      // Upcoming events card - show all events
+      const upcoming = getUpcomingEvents();
+      setUpcomingEvents(upcoming);
+      setEventFilter(null); // Reset filter
+      setIsWalletVisible(true);
+    } else if (index === 2) {
+      // Yuni card - navigate to app page and trigger calendar scheduling
+      localStorage.setItem('startYuniChat', 'true');
+      localStorage.setItem('yuniAction', 'calendar-schedule');
+      navigate('/app');
+    } else if (index === 3) {
+      // Location card - show 3D map
+      // Get next event's location
+      const nextEvent = getUpcomingEvents()[0];
+      if (nextEvent && nextEvent.location) {
+        setSelectedLocation({
+          name: nextEvent.title,
+          coordinates: getLocationCoordinates(nextEvent.location),
+          description: `${nextEvent.description}\nLocation: ${nextEvent.location}`
+        });
+        setIsMapDialogOpen(true);
+      }
+    } else {
+      // Other cards - existing wallet behavior
+      if (selectedCard === index && isWalletExpanded) {
+        setIsWalletExpanded(false);
+        setTimeout(() => setSelectedCard(null), 300);
       } else {
-        setConnectionStatus(`Connection issue: ${data.message}`);
+        setSelectedCard(index);
+        setIsWalletExpanded(true);
       }
-    } catch (err) {
-      console.error('Error testing calendar connection:', err);
-      setConnectionStatus(`Failed to connect: ${err instanceof Error ? err.message : String(err)}`);
-    } finally {
-      setIsLoading(false);
     }
+  };
+
+  // Helper function to get coordinates for campus locations
+  const getLocationCoordinates = (location: string): [number, number] => {
+    const locationMap: { [key: string]: [number, number] } = {
+      'CS Building Room 401': [-0.1795, 51.4985],
+      'Engineering Hall 201': [-0.1776, 51.4977],
+      'Student Center Auditorium': [-0.1749, 51.4988],
+      'Library Study Room 401': [-0.1766, 51.4982],
+      'Virtual Meeting Room 3': [-0.1749, 51.4988], // Default to campus center
+      'Tech Hub Lab 2': [-0.1757, 51.4979],
+      'Career Center': [-0.1742, 51.4991],
+      'Conference Room A': [-0.1761, 51.4986],
+      'Innovation Center': [-0.1753, 51.4975],
+    };
+    
+    return locationMap[location] || [-0.1749, 51.4988]; // Default to campus center
+  };
+
+  // Add bubble click handler
+  const handleBubbleClick = (eventType: string) => {
+    const upcoming = getUpcomingEvents();
+    const filtered = upcoming.filter(event => event.category === eventType);
+    setUpcomingEvents(filtered);
+    setEventFilter(eventType);
+    setIsWalletVisible(true);
+  };
+
+  // Format date for wallet display
+  const formatWalletDate = (date: Date) => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    if (date.toDateString() === today.toDateString()) {
+      return 'Today';
+    } else if (date.toDateString() === tomorrow.toDateString()) {
+      return 'Tomorrow';
+    } else {
+      return date.toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        month: 'short', 
+        day: 'numeric' 
+      });
+    }
+  };
+
+  // Handle card expansion
+  const handleCardExpand = (eventId: string) => {
+    setExpandedCardId(expandedCardId === eventId ? null : eventId);
+  };
+
+  const generateDailyEvents = (date: Date) => {
+    // Skip weekends (Saturday = 6, Sunday = 0)
+    if (date.getDay() === 0 || date.getDay() === 6) {
+      return [];
+    }
+
+    // Fixed events for each weekday
+    const weekdayEvents = {
+      1: [ // Monday
+        {
+          type: 'lecture',
+          title: 'Computer Vision',
+          time: '10:00'
+        },
+        {
+          type: 'meeting',
+          title: 'Project Team Meeting',
+          time: '14:30'
+        }
+      ],
+      2: [ // Tuesday
+        {
+          type: 'exam',
+          title: 'Midterm Exam',
+          time: '09:30'
+        }
+      ],
+      3: [ // Wednesday
+        {
+          type: 'lecture',
+          title: 'Data Structures',
+          time: '11:00'
+        },
+        {
+          type: 'task',
+          title: 'Assignment Due',
+          time: '16:00'
+        }
+      ],
+      4: [ // Thursday
+        {
+          type: 'meeting',
+          title: 'Research Group',
+          time: '13:00'
+        }
+      ],
+      5: [ // Friday
+        {
+          type: 'lecture',
+          title: 'Software Engineering',
+          time: '10:30'
+        },
+        {
+          type: 'social',
+          title: 'Tech Society Meetup',
+          time: '15:00'
+        }
+      ]
+    };
+
+    // Return events for the current weekday
+    return weekdayEvents[date.getDay() as keyof typeof weekdayEvents] || [];
   };
 
   // Render calendar UI
@@ -589,231 +993,314 @@ const Calendar: React.FC = () => {
       </header>
 
       <main className="calendar-main">
-        <div className="calendar-container">
-          <div className="calendar-controls">
-            <div className="view-controls">
-              <div className="view-selector">
-                <button 
-                  onClick={() => handleViewChange('week')} 
-                  className={calendarView === 'week' ? 'active' : ''}
-                >
-                  Week
-                </button>
-                <button 
-                  onClick={() => handleViewChange('month')} 
-                  className={calendarView === 'month' ? 'active' : ''}
-                >
-                  Month
-                </button>
-                <button 
-                  onClick={() => handleViewChange('year')} 
-                  className={calendarView === 'year' ? 'active' : ''}
-                >
-                  Year
-                </button>
-              </div>
-              
-              <div className="time-navigation">
-                <button onClick={
-                  calendarView === 'week' ? goToPreviousWeek : 
-                  calendarView === 'month' ? goToPreviousMonth : 
-                  goToPreviousYear
-                } className="nav-button">
-                  &#8592;
-                </button>
-                <h2>{formatDateRange()}</h2>
-                <button onClick={
-                  calendarView === 'week' ? goToNextWeek : 
-                  calendarView === 'month' ? goToNextMonth : 
-                  goToNextYear
-                } className="nav-button">
-                  &#8594;
-                </button>
-              </div>
-              
-              <button className="today-button" onClick={() => setCurrentDate(new Date())}>
-                Today
-              </button>
-              
-              <button className="test-connection-button" onClick={testCalendarConnection}>
-                Test Connection
-              </button>
-            </div>
-
-            <div className="view-buttons">
-              <button 
-                className={calendarView === 'week' ? 'active' : ''} 
-                onClick={() => handleViewChange('week')}
-              >Week</button>
-              <button 
-                className={calendarView === 'month' ? 'active' : ''} 
-                onClick={() => handleViewChange('month')}
-              >Month</button>
-              <button 
-                className={calendarView === 'year' ? 'active' : ''} 
-                onClick={() => handleViewChange('year')}
-              >Year</button>
-              <button onClick={testCalendarConnection}>
-                Test Connection
-              </button>
-            </div>
-          </div>
-
-          {/* Loading Indicator and Error Message */}
-          {isLoading && (
-            <div className="calendar-loading">
-              <div className="loading-spinner"></div>
-              <p>Loading calendar events...</p>
-            </div>
-          )}
-          
-          {error && (
-            <div className="calendar-error">
-              <p>Error: {error}</p>
-              <p>Showing sample events as fallback.</p>
-            </div>
-          )}
-
-          {connectionStatus && (
-            <div className={`connection-status ${connectionStatus.includes('Connected') ? 'success' : 'error'}`}>
-              {connectionStatus}
-            </div>
-          )}
-
-          {calendarView === 'week' && renderWeekView()}
-
-          {calendarView === 'month' && (
-            <div className="month-view">
-              <div className="calendar-days-header">
-                {DAYS.map(day => (
-                  <div key={day} className="day-name">{day.substring(0, 3)}</div>
-                ))}
-              </div>
-              
-              <div className="calendar-days">
-                {generateCalendarDays().map((day, index) => (
-                  <div 
-                    key={index} 
-                    className={`calendar-day ${!day ? 'empty' : ''} ${day && selectedDate && day.getDate() === selectedDate.getDate() && day.getMonth() === selectedDate.getMonth() ? 'selected' : ''} ${day && day.getDate() === new Date().getDate() && day.getMonth() === new Date().getMonth() && day.getFullYear() === new Date().getFullYear() ? 'today' : ''}`}
-                    onClick={() => day && handleDateClick(day)}
-                  >
-                    {day && (
-                      <>
-                        <span className="day-number">{day.getDate()}</span>
-                        {hasEvents(day) && (
-                          <div className="day-events">
-                            {getEventsForDate(day).slice(0, 2).map(event => (
-                              <div 
-                                key={event.id} 
-                                className={`day-event-indicator ${event.category}`}
-                                onClick={(e) => {
-                                  e.stopPropagation(); // Prevent triggering date selection
-                                  handleEventClick(event);
-                                }}
-                              >
-                                {event.title}
-                              </div>
-                            ))}
-                            {getEventsForDate(day).length > 2 && (
-                              <div 
-                                className="more-events" 
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setSelectedDate(day);
-                                }}
-                              >
-                                +{getEventsForDate(day).length - 2} more
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {calendarView === 'year' && (
-            <div className="year-view">
-              {Array.from({ length: 12 }, (_, i) => i).map(month => (
-                <div key={month} className="year-month">
-                  <h3>{MONTHS[month]}</h3>
-                  <div className="mini-month">
-                    <div className="mini-days-header">
-                      {DAYS.map(day => (
-                        <div key={day} className="mini-day-name">{day.charAt(0)}</div>
+        {/* Dashboard Cards */}
+        <div className="dashboard-cards-container">
+          <div className="dashboard-card my-calendar" onClick={() => handleCardClick(0)}>
+            <div className="card-content">
+              <div className="mini-week-calendar">
+                <div className="mini-week-header">
+                  {generateWeekDays().map((day, index) => {
+                    const isToday = day.getDate() === new Date().getDate() && 
+                                  day.getMonth() === new Date().getMonth() && 
+                                  day.getFullYear() === new Date().getFullYear();
+                    return (
+                      <div key={index} className={`mini-day-column ${isToday ? 'today' : ''}`}>
+                        <div className="mini-day-name">{DAYS[day.getDay()].substring(0, 3)}</div>
+                        <div className="mini-day-number">{day.getDate()}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="mini-week-events">
+                  {generateWeekDays().map((day, index) => (
+                    <div key={index} className="mini-day-events">
+                      {generateDailyEvents(day).map((event, eventIndex) => (
+                        <div 
+                          key={eventIndex} 
+                          className={`mini-event ${event.type}`}
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevent event from bubbling up
+                          }}
+                        >
+                          <div className="mini-event-time">{event.time}</div>
+                          <div className="mini-event-title">{event.title}</div>
+                        </div>
                       ))}
                     </div>
-                    <div className="mini-days">
-                      {(() => {
-                        const firstDay = new Date(currentDate.getFullYear(), month, 1).getDay();
-                        const daysInMonth = new Date(currentDate.getFullYear(), month + 1, 0).getDate();
-                        
-                        const days = [];
-                        // Empty cells for days before start of month
-                        for (let i = 0; i < firstDay; i++) {
-                          days.push(<div key={`empty-${i}`} className="mini-day empty"></div>);
-                        }
-                        
-                        // Days of the month
-                        for (let i = 1; i <= daysInMonth; i++) {
-                          const date = new Date(currentDate.getFullYear(), month, i);
-                          const hasEvent = hasEvents(date);
-                          const isToday = date.getDate() === new Date().getDate() && 
-                                          date.getMonth() === new Date().getMonth() && 
-                                          date.getFullYear() === new Date().getFullYear();
-                          
-                          days.push(
-                            <div 
-                              key={i} 
-                              className={`mini-day ${hasEvent ? 'has-event' : ''} ${isToday ? 'today' : ''}`}
-                              onClick={() => {
-                                setCurrentDate(date);
-                                setCalendarView('month');
-                              }}
-                            >
-                              {i}
-                            </div>
-                          );
-                        }
-                        
-                        return days;
-                      })()}
-                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          
+                     <div className="dashboard-card upcoming-event" onClick={() => handleCardClick(1)}>
+            <div className="card-content">
+              <h3>Upcoming Events</h3>
+                             <div className="event-bubbles">
+                <div 
+                  className="event-bubble large lectures" 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleBubbleClick('lecture');
+                  }}
+                >
+                  <span className="event-type">Lectures</span>
+                  <div className="frequency-text">12 this week</div>
+                </div>
+                <div 
+                  className="event-bubble medium meetings" 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleBubbleClick('meeting');
+                  }}
+                >
+                  <span className="event-type">Meetings</span>
+                  <div className="frequency-text">6 this week</div>
+                </div>
+                <div 
+                  className="event-bubble small deadlines" 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleBubbleClick('task');
+                  }}
+                >
+                  <span className="event-type">DDL</span>
+                  <div className="frequency-text">3 this week</div>
+                </div>
+                <div 
+                  className="event-bubble extra-small social" 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleBubbleClick('social');
+                  }}
+                >
+                  <span className="event-type">Social</span>
+                  <div className="frequency-text">2 this week</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          
+          <div className="dashboard-card ai-schedule" onClick={() => handleCardClick(2)}>
+            <div className="card-content">
+              <h3>Calendar help with Yuni</h3>
+              <div className="help-suggestions">
+                <div className="help-suggestions-scroll">
+                  <div className="help-suggestion-item" style={{ background: 'rgba(74, 144, 226, 0.1)' }} onClick={(e) => {
+                    e.stopPropagation();
+                    localStorage.setItem('startYuniChat', 'true');
+                    localStorage.setItem('yuniAction', 'schedule-meeting');
+                    navigate('/app');
+                  }}>
+                    <div className="help-icon" style={{ background: '#4A90E2' }}>💬</div>
+                    <div className="help-text">Book me a meeting with my project team</div>
+                  </div>
+                  <div className="help-suggestion-item" style={{ background: 'rgba(126, 211, 33, 0.1)' }} onClick={() => {
+                    localStorage.setItem('startYuniChat', 'true');
+                    localStorage.setItem('yuniAction', 'today-schedule');
+                    navigate('/app');
+                  }}>
+                    <div className="help-icon" style={{ background: '#7ED321' }}>📅</div>
+                    <div className="help-text">What's my schedule for today?</div>
+                  </div>
+                  <div className="help-suggestion-item" style={{ background: 'rgba(245, 166, 35, 0.1)' }} onClick={() => {
+                    localStorage.setItem('startYuniChat', 'true');
+                    localStorage.setItem('yuniAction', 'next-location');
+                    navigate('/app');
+                  }}>
+                    <div className="help-icon" style={{ background: '#F5A623' }}>📍</div>
+                    <div className="help-text">Take me to my next event location</div>
+                  </div>
+                  <div className="help-suggestion-item" style={{ background: 'rgba(189, 16, 224, 0.1)' }} onClick={() => {
+                    localStorage.setItem('startYuniChat', 'true');
+                    localStorage.setItem('yuniAction', 'find-room');
+                    navigate('/app');
+                  }}>
+                    <div className="help-icon" style={{ background: '#BD10E0' }}>🔍</div>
+                    <div className="help-text">Find me an available room for next hour</div>
+                  </div>
+                  <div className="help-suggestion-item" style={{ background: 'rgba(255, 91, 91, 0.1)' }} onClick={() => {
+                    localStorage.setItem('startYuniChat', 'true');
+                    localStorage.setItem('yuniAction', 'next-deadline');
+                    navigate('/app');
+                  }}>
+                    <div className="help-icon" style={{ background: '#FF5B5B' }}>⏰</div>
+                    <div className="help-text">How much time do I have until my next deadline?</div>
+                  </div>
+                  {/* Duplicate items for smooth infinite scroll */}
+                  <div className="help-suggestion-item" style={{ background: 'rgba(74, 144, 226, 0.1)' }} onClick={(e) => {
+                    e.stopPropagation();
+                    localStorage.setItem('startYuniChat', 'true');
+                    localStorage.setItem('yuniAction', 'schedule-meeting');
+                    navigate('/app');
+                  }}>
+                    <div className="help-icon" style={{ background: '#4A90E2' }}>💬</div>
+                    <div className="help-text">Book me a meeting with my project team</div>
+                  </div>
+                  <div className="help-suggestion-item" style={{ background: 'rgba(126, 211, 33, 0.1)' }} onClick={() => {
+                    localStorage.setItem('startYuniChat', 'true');
+                    localStorage.setItem('yuniAction', 'today-schedule');
+                    navigate('/app');
+                  }}>
+                    <div className="help-icon" style={{ background: '#7ED321' }}>📅</div>
+                    <div className="help-text">What's my schedule for today?</div>
+                  </div>
+                  <div className="help-suggestion-item" style={{ background: 'rgba(245, 166, 35, 0.1)' }} onClick={() => {
+                    localStorage.setItem('startYuniChat', 'true');
+                    localStorage.setItem('yuniAction', 'next-location');
+                    navigate('/app');
+                  }}>
+                    <div className="help-icon" style={{ background: '#F5A623' }}>📍</div>
+                    <div className="help-text">Take me to my next event location</div>
+                  </div>
+                  <div className="help-suggestion-item" style={{ background: 'rgba(189, 16, 224, 0.1)' }} onClick={() => {
+                    localStorage.setItem('startYuniChat', 'true');
+                    localStorage.setItem('yuniAction', 'find-room');
+                    navigate('/app');
+                  }}>
+                    <div className="help-icon" style={{ background: '#BD10E0' }}>🔍</div>
+                    <div className="help-text">Find me an available room for next hour</div>
+                  </div>
+                  <div className="help-suggestion-item" style={{ background: 'rgba(255, 91, 91, 0.1)' }} onClick={() => {
+                    localStorage.setItem('startYuniChat', 'true');
+                    localStorage.setItem('yuniAction', 'next-deadline');
+                    navigate('/app');
+                  }}>
+                    <div className="help-icon" style={{ background: '#FF5B5B' }}>⏰</div>
+                    <div className="help-text">How much time do I have until my next deadline?</div>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
-          )}
+          </div>
+          
+          <div className="dashboard-card location-event" onClick={() => handleCardClick(3)}>
+            <div className="card-content">
+              <div className="location-header">
+                <h3>Next event at: <span>Imperial College London</span></h3>
+              </div>
+              <div className="map-preview">
+                {/* Static map preview with navigation dark style - less dark than full dark */}
+                <img 
+                  src="https://api.mapbox.com/styles/v1/mapbox/navigation-night-v1/static/-0.1743,51.4982,15,0,60/400x280@2x?access_token=pk.eyJ1IjoicGFueXgiLCJhIjoiY21iNzBmajd1MDVmaTJtcDlldDF1N3N3diJ9.1_MmzxAAUJx0uDG4IG9ARA"
+                  alt="Imperial College London Map Preview"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+                <div className="map-preview-marker"></div>
+              </div>
+              <div className="location-overlay">
+                <h3>South Kensington Campus</h3>
+                <div className="location-details">
+                  <span className="location-pin"></span>
+                  EEE Building Room 408
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          {selectedDate && calendarView === 'month' && (
-            <div className="events-panel">
-              <div className="events-header">
-                <h3>Events for {selectedDate.getDate()} {MONTHS[selectedDate.getMonth()]}, {selectedDate.getFullYear()}</h3>
-                <button className="add-event-button" onClick={() => setShowModal(true)}>+ Add Event</button>
+        {/* Calendar Dialog */}
+        {isCalendarDialogOpen && (
+          <div className="calendar-dialog-overlay" onClick={() => setIsCalendarDialogOpen(false)}>
+            <div className="calendar-dialog yellow-dialog" onClick={(e) => e.stopPropagation()}>
+              <div className="calendar-dialog-header">
+                <h2>Calendar</h2>
+                <button 
+                  className="close-dialog-btn"
+                  onClick={() => setIsCalendarDialogOpen(false)}
+                >
+                  ×
+                </button>
               </div>
               
-              <div className="events-list">
-                {getEventsForDate(selectedDate).length > 0 ? (
-                  getEventsForDate(selectedDate).map(event => (
-                    <div key={event.id} className={`event-card ${event.category}`}>
-                      <div className="event-time">{event.time}{event.endTime ? ` - ${event.endTime}` : ''}</div>
-                      <div className="event-details">
-                        <h4>{event.title}</h4>
-                        <p>{event.description}</p>
+              <div className="calendar-dialog-content">
+                <div className="calendar-view-selector">
+                  <button 
+                    onClick={() => handleViewChange('week')} 
+                    className={calendarView === 'week' ? 'active' : ''}
+                  >
+                    Weekly
+                  </button>
+                  <button 
+                    onClick={() => handleViewChange('month')} 
+                    className={calendarView === 'month' ? 'active' : ''}
+                  >
+                    Monthly
+                  </button>
+                  <button 
+                    onClick={() => handleViewChange('year')} 
+                    className={calendarView === 'year' ? 'active' : ''}
+                  >
+                    Yearly
+                  </button>
+                </div>
+
+                <div className="calendar-navigation">
+                  <button onClick={
+                    calendarView === 'week' ? goToPreviousWeek : 
+                    calendarView === 'month' ? goToPreviousMonth : 
+                    goToPreviousYear
+                  } className="nav-btn">
+                    ←
+                  </button>
+                  <h3>{formatDateRange()}</h3>
+                  <button onClick={
+                    calendarView === 'week' ? goToNextWeek : 
+                    calendarView === 'month' ? goToNextMonth : 
+                    goToNextYear
+                  } className="nav-btn">
+                    →
+                  </button>
+                </div>
+
+                <div className="calendar-display">
+                  {calendarView === 'month' && (
+                    <div className="month-view">
+                      <div className="calendar-days-header">
+                        {DAYS.map(day => (
+                          <div key={day} className="day-name">{day.substring(0, 3)}</div>
+                        ))}
                       </div>
-                      <div className="event-category">{event.category}</div>
+                      
+                      <div className="calendar-days">
+                        {generateCalendarDays().map((day, index) => (
+                          <div 
+                            key={index} 
+                            className={`calendar-day ${!day ? 'empty' : ''} ${day && selectedDate && day.getDate() === selectedDate.getDate() && day.getMonth() === selectedDate.getMonth() ? 'selected' : ''} ${day && day.getDate() === new Date().getDate() && day.getMonth() === new Date().getMonth() && day.getFullYear() === new Date().getFullYear() ? 'today' : ''}`}
+                            onClick={() => day && handleDateClick(day)}
+                          >
+                            {day && (
+                              <>
+                                <span className="day-number">{day.getDate()}</span>
+                                {hasEvents(day) && (
+                                  <div className="day-events">
+                                    {getEventsForDate(day).slice(0, 2).map(event => (
+                                      <div 
+                                        key={event.id} 
+                                        className={`day-event-indicator ${event.category}`}
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          handleEventClick(event);
+                                        }}
+                                      >
+                                        {event.title}
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                              </>
+                            )}
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  ))
-                ) : (
-                  <div className="no-events">No events scheduled for this day.</div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Modal for adding new events */}
         {showModal && (
@@ -870,6 +1357,16 @@ const Calendar: React.FC = () => {
               </div>
               
               <div className="form-group">
+                <label>Location</label>
+                <input 
+                  type="text" 
+                  value={newEvent.location} 
+                  onChange={(e) => setNewEvent({...newEvent, location: e.target.value})}
+                  placeholder="e.g. Room 302"
+                />
+              </div>
+              
+              <div className="form-group">
                 <label>Category</label>
                 <select 
                   value={newEvent.category} 
@@ -879,6 +1376,8 @@ const Calendar: React.FC = () => {
                   <option value="reminder">Reminder</option>
                   <option value="task">Task</option>
                   <option value="social">Social</option>
+                  <option value="lecture">Lecture</option>
+                  <option value="exam">Exam</option>
                 </select>
               </div>
               
@@ -930,6 +1429,79 @@ const Calendar: React.FC = () => {
             </div>
           </div>
         )}
+
+        {/* Wallet Overlay */}
+        <div className={`wallet-overlay ${isWalletVisible ? 'visible' : ''}`}>
+          <div className="wallet-container">
+            <div className="wallet-header">
+              <h2>
+                {eventFilter ? `${eventFilter.charAt(0).toUpperCase() + eventFilter.slice(1)} Events` : 'Upcoming Events'}
+                {eventFilter && (
+                  <button 
+                    className="clear-filter"
+                    onClick={() => {
+                      setEventFilter(null);
+                      setUpcomingEvents(getUpcomingEvents());
+                    }}
+                  >
+                    Show All
+                  </button>
+                )}
+              </h2>
+              <button className="wallet-close" onClick={() => setIsWalletVisible(false)}>×</button>
+            </div>
+            <div className="wallet-cards">
+              {upcomingEvents.map((event) => (
+                <div
+                  key={event.id}
+                  className={`wallet-card ${event.category} ${expandedCardId === event.id.toString() ? 'expanded' : ''}`}
+                  onClick={() => handleCardExpand(event.id.toString())}
+                >
+                  <div className="wallet-card-header">
+                    <h3 className="wallet-card-title">{event.title}</h3>
+                    <div className="wallet-card-time-container">
+                      <span className="wallet-card-time">{event.time}</span>
+                      <span className="wallet-card-day">
+                        {event.date.toLocaleDateString('en-US', { weekday: 'long' })}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="wallet-card-details">
+                    <div className="wallet-card-detail">
+                      <span className="wallet-card-detail-label">Date:</span>
+                      <span>{formatWalletDate(event.date)}</span>
+                    </div>
+                    {event.endTime && (
+                      <div className="wallet-card-detail">
+                        <span className="wallet-card-detail-label">Duration:</span>
+                        <span>{event.time} - {event.endTime}</span>
+                      </div>
+                    )}
+                    {event.description && (
+                      <div className="wallet-card-detail">
+                        <span className="wallet-card-detail-label">Details:</span>
+                        <span>{event.description}</span>
+                      </div>
+                    )}
+                    {event.location && (
+                      <div className="wallet-card-detail">
+                        <span className="wallet-card-detail-label">Location:</span>
+                        <span>{event.location}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Add CampusMap component */}
+        <CampusMap
+          isOpen={isMapDialogOpen}
+          onClose={() => setIsMapDialogOpen(false)}
+          location={selectedLocation}
+        />
       </main>
     </div>
   );
